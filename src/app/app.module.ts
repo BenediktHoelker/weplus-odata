@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { DeliveryService } from './shared/delivery.service';
 import { RegistrationComponent } from './registration/registration.component';
 import { DocumentProcessingComponent } from './document-processing/document-processing.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    DocumentProcessingComponent
+    DocumentProcessingComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,

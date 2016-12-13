@@ -21,8 +21,8 @@ export class RegistrationComponent implements OnInit {
     this.deliveryService.getDeliveries().then(deliveries => this.deliveries = deliveries);
   }
 
-  registerDelivery(delivery: Delivery): void{
-
+  registerDelivery(deliveryToBeRegistered: Delivery): void{
+    this.deliveryService.registerDelivery(deliveryToBeRegistered);
   }
 
   ngOnInit() {

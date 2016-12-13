@@ -16,7 +16,11 @@ export class DeliveryService {
                .toPromise()
                .then(response => response.json() as Delivery[])
                .catch(this.handleError);
-  };
+  }
+
+  registerDelivery(deliveryToBeRegistered: Delivery): void{
+
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
