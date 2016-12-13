@@ -1,0 +1,13 @@
+<md-list>
+  <md-list-item *ngFor='let delivery of deliveries'>
+		<h3 md-line> {{delivery.name}} </h3>
+    <p md-line>
+      <span>Liefermenge</span>
+      <span> -- {{delivery.quantity}} </span>
+    </p>
+		<md-checkbox class="md-secondary" [checked]="delivery.hasArrived">
+      Angemeldet
+    </md-checkbox>
+	</md-list-item>
+</md-list>
+
