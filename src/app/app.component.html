@@ -1,8 +1,6 @@
-<md-toolbar color="primary">
-  <button class="app-icon-button" (click)="sidenav.toggle()">
-      <i class="material-icons app-toolbar-menu">menu</i>
-    </button> {{title}}
-
-  <span class="app-toolbar-filler"></span>
+<md-toolbar fx-layout="row" fx-layout-align="start center" color="primary">
+  <button md-button>{{title}}</button>
+  <button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>
+  <button md-button routerLink="/document-processing" routerLinkActive="active">PROCESSING</button>
 </md-toolbar>
 <router-outlet></router-outlet>
