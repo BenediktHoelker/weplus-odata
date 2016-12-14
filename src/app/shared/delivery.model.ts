@@ -1,6 +1,7 @@
 export class Delivery {
   id: number;
-  name: string;
+  carrier: string;
+  supplier: string;
   quantity: number;
   isRegistered: boolean;
   isProcessed: boolean;
