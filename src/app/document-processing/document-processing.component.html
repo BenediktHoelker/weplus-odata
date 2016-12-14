@@ -1,13 +1,17 @@
 <div class="app-content">
   <md-card class="app-input-section" *ngFor="let delivery of deliveries">
-    <md-card-subtitle>{{delivery.quantity}} entities</md-card-subtitle>
+    <md-card-subtitle>{{delivery.quantity}} entities from {{delivery.supplier}}</md-card-subtitle>
     <md-card-title>{{delivery.carrier}}</md-card-title>
     <md-card-content>
       <md-tab-group>
         <md-tab label="Information">
-          <div class="flex-container" fx-layout="row" fx-layout-align="space-around">
-            <md-input placeholder="Supplier" value={{delivery.supplier}}></md-input>
-            <md-input type="number" value={{delivery.quantity}} placeholder="Quantity"></md-input>
+          <div class="flex-container" fx-layout="row" fx-layout-align="space-around center">
+            <md-input placeholder="Title" [(ngModel)]="delivery.title"></md-input>
+            <md-input placeholder="Carrier" [(ngModel)]="delivery.carrier"></md-input>
+            <md-input placeholder="Supplier" [(ngModel)]="delivery.supplier"></md-input>
+            <md-input type="number" [(ngModel)]="delivery.quantity" placeholder="Quantity"></md-input>
+            <md-checkbox [(ngModel)]="delivery.isRegistered">Registered</md-checkbox>
+            <md-checkbox [(ngModel)]="delivery.isProcessed">Processed</md-checkbox>
           </div>
         </md-tab>
         <md-tab label="Deviations">
