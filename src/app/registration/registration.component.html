@@ -1,14 +1,3 @@
-<div class="app-content">
-  <md-card class="app-input-section" *ngFor="let delivery of deliveries">
-    <md-card-subtitle>{{delivery.supplier}}</md-card-subtitle>
-    <md-card-title>{{delivery.carrier}}</md-card-title>
-    <md-card-content>
-          <div class="flex-container" fx-layout="row" fx-layout-align="space-around">
-            <md-input type="number" placeholder="Quantity"></md-input>
-          </div>
-    </md-card-content>
-    <md-card-actions>
-      <button md-button>Submit</button>
-    </md-card-actions>
-  </md-card>
+<div class="app-content" *ngFor="let delivery of deliveries">
+  <app-registration-form [delivery]="delivery"></app-registration-form>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
 
@@ -8,7 +8,9 @@ import { Delivery } from '../shared/delivery.model';
   styleUrls: ['./registration-form.component.css']
 })
 export class RegistrationFormComponent implements OnInit {
-	delivery = new Delivery();
+  @Input()
+  delivery: Delivery;
+
   constructor() { }
 
   ngOnInit() {

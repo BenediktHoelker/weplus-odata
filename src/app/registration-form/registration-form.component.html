@@ -1,10 +1,12 @@
-<div class="container">
-  <h1>{{title}}</h1>
-  <form class="form-inline" (ngSubmit)="onSubmit()" #registrationForm="ngForm">
-    <div class="form-group">
-        <label for="quantity">Quantity</label>
-        <input type="number" class="form-control" id="quantity" required [(ngModel)]="delivery.quantity" name="quantity" #name="ngModel">
-      </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-</div>
+<md-card class="app-input-section">
+  <md-card-subtitle>{{delivery.supplier}}</md-card-subtitle>
+  <md-card-title>{{delivery.carrier}}</md-card-title>
+  <md-card-content>
+    <div class="flex-container" fx-layout="row" fx-layout-align="space-around">
+      <md-input type="number" placeholder="Quantity"></md-input>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button>Submit</button>
+  </md-card-actions>
+</md-card>
