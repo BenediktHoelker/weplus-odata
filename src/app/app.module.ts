@@ -9,7 +9,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { DeliveryService } from './shared/delivery.service';
 import { RegistrationComponent } from './registration/registration.component';
-import { DocumentProcessingComponent } from './document-processing/document-processing.component';
+import { ProcessingComponent } from './processing/processing.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +19,7 @@ import { ProcessingFormComponent } from './processing-form/processing-form.compo
   declarations: [
     AppComponent,
     RegistrationComponent,
-    DocumentProcessingComponent,
+    ProcessingComponent,
     RegistrationFormComponent,
     ProcessingFormComponent
   ],

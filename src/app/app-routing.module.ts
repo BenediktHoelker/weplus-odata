@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { RegistrationComponent } from './registration/registration.component';
-import { DocumentProcessingComponent } from './document-processing/document-processing.component';
+import { ProcessingComponent } from './processing/processing.component';
 
 const routes: Routes = [
   {
@@ -15,8 +15,8 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: 'document-processing',
-    component: DocumentProcessingComponent
+    path: 'processing',
+    component: ProcessingComponent
   }
 ];
 
@@ -26,4 +26,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routedComponents = [RegistrationComponent, DocumentProcessingComponent];
+export const routedComponents = [RegistrationComponent, ProcessingComponent];

@@ -15,5 +15,4 @@ export class RegistrationFormComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
