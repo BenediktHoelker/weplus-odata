@@ -13,13 +13,15 @@ import { DocumentProcessingComponent } from './document-processing/document-proc
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ProcessingFormComponent } from './processing-form/processing-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     DocumentProcessingComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    ProcessingFormComponent
   ],
   imports: [
     AppRoutingModule,

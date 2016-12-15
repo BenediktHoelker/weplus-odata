@@ -12,7 +12,9 @@ md-sidenav-layout.m2app-dark {
 }
 
 md-input {
-  margin: 30px;
+  margin: 5px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .app-content {
