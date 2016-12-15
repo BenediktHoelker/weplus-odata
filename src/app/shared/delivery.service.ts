@@ -11,6 +11,10 @@ export class DeliveryService {
 
   constructor(private http: Http) { }
 
+  createDelivery(): Delivery {
+    return new Delivery();
+  }
+
   getDeliveries(): Promise<Delivery[]> {
     return this.http.get(this.deliveriesUrl)
       .toPromise()

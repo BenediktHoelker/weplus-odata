@@ -6,7 +6,7 @@
       <md-card-content>
         <md-tab-group>
           <md-tab label="Detail">
-            <div class="flex-container" fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="start center">
+            <div class="flex-container" fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="space-around center">
               <md-input class="form-control" required placeholder="Title" [(ngModel)]="delivery.title" name="title"></md-input>
               <md-input class="form-control" required placeholder="Carrier" [(ngModel)]="delivery.carrier" name="carrier"></md-input>
               <md-input class="form-control" required placeholder="Supplier" [(ngModel)]="delivery.supplier" name="supplier"></md-input>
@@ -29,3 +29,6 @@
     </form>
   </md-card>
 </div>
+<span class="app-action" (click)="addDelivery()" [class.m2app-dark]="isDarkTheme">
+  <button md-fab><md-icon>add circle</md-icon></button>
+</span>
