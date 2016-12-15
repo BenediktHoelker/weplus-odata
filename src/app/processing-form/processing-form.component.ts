@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
@@ -7,7 +7,7 @@ import { DeliveryService } from '../shared/delivery.service';
   selector: 'app-processing-form',
   templateUrl: './processing-form.component.html'
 })
-export class ProcessingFormComponent {
+export class ProcessingFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
   submitted = false;
@@ -20,6 +20,6 @@ export class ProcessingFormComponent {
     private deliveryService: DeliveryService
   ) { }
 
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.delivery); }
+  ngOnInit(
+  ) { }
 }
