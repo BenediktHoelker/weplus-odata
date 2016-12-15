@@ -1,4 +1,4 @@
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
@@ -7,24 +7,43 @@ import { Delivery } from './delivery.model';
 @Injectable()
 export class DeliveryService {
 
-	private deliveriesUrl = 'http://localhost:3000/api/deliveries';  // URL to web api
+  private deliveriesUrl = 'http://localhost:3000/api/deliveries';  // URL to web api
 
-  constructor(private http: Http) {  }
+  constructor(private http: Http) { }
 
-  getDeliveries(): Promise<Delivery[]>{
-    	return this.http.get(this.deliveriesUrl)
-               .toPromise()
-               .then(response => response.json() as Delivery[])
-               .catch(this.handleError);
+  getDeliveries(): Promise<Delivery[]> {
+    return this.http.get(this.deliveriesUrl)
+      .toPromise()
+      .then(response => response.json() as Delivery[])
+      .catch(this.handleError);
   }
 
-  registerDelivery(deliveryToBeRegistered: Delivery): void{
-
+  submitDelivery(deliveryToBeSubmitted): Promise<Delivery> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  private extractData(res: Response) {
+    let body = res.json();
+    return body.data || {};
+  }
+
+  private handleError(error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Promise.reject(errMsg);
   }
 }
 

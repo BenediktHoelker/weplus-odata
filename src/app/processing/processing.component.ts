@@ -22,7 +22,7 @@ export class ProcessingComponent implements OnInit {
   }
 
   registerDelivery(deliveryToBeRegistered: Delivery): void{
-    this.deliveryService.registerDelivery(deliveryToBeRegistered);
+    // this.deliveryService.registerDelivery(deliveryToBeRegistered);
   }
 
   ngOnInit() {
