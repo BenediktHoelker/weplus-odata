@@ -11,15 +11,11 @@ import { DeliveryService } from '../shared/delivery.service';
 export class ProcessingFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
-
-  deviations: Deviation[];
-  
-
   submitted = false;
-  
-  addDeviation(): void{
+
+  addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();
-    this.deviations.push(newDeviation);
+    this.delivery.deviations.push(newDeviation);
   }
 
   onSubmit() {
@@ -33,6 +29,9 @@ export class ProcessingFormComponent implements OnInit {
 
   ngOnInit(
   ) { 
-    this.deviations = [{type: "Mengenabweichung", gravity: 2}];
+    /*If not exist, instantiate*/
+    if (!this.delivery.deviations) {
+      this.delivery.deviations = [];
+    }
   }
 }

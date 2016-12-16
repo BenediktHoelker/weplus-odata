@@ -1,7 +1,10 @@
+import { Deviation } from './deviation.model';
+
 export class Delivery {
   carrier: string;
-  supplier: string;
-  quantity: number;
+  deviations: Deviation[];
   isRegistered: boolean;
   isProcessed: boolean;
+  quantity: number;
+  supplier: string;
 }

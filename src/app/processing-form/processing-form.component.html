@@ -14,7 +14,7 @@
             <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed" name="isProcessed">Processed</md-checkbox>
           </div>
         </md-tab>
-        <div *ngFor="let deviation of deviations">
+        <div *ngFor="let deviation of delivery.deviations">
           <md-tab label="Deviation">
             <app-deviation [deviation]="deviation"></app-deviation>
           </md-tab>
