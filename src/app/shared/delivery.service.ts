@@ -3,19 +3,32 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { Delivery } from './delivery.model';
+import { Deviation } from './deviation.model';
 
 @Injectable()
 export class DeliveryService {
 
   private deliveriesUrl = 'http://localhost:3000/api/deliveries';  // URL to web api
+  private registeredDeliveriesUrl = 'http://localhost:3000/api/registeredDeliveries';  // URL to web api
 
   constructor(private http: Http) { }
+
+  createDeviation(): Deviation {
+    return new Deviation();
+  }
 
   createDelivery(): Delivery {
     return new Delivery();
   }
 
   getDeliveries(): Promise<Delivery[]> {
+    return this.http.get(this.deliveriesUrl)
+      .toPromise()
+      .then(response => response.json() as Delivery[])
+      .catch(this.handleError);
+  }
+
+  getRegisteredDeliveries(): Promise<Delivery[]> {
     return this.http.get(this.deliveriesUrl)
       .toPromise()
       .then(response => response.json() as Delivery[])

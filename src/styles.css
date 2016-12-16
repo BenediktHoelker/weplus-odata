@@ -18,7 +18,8 @@ md-input {
 }
 
 .app-content {
-  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .app-content md-list {
@@ -26,7 +27,7 @@ md-input {
 }
 
 .app-content md-card {
-  margin: 0px;
+  margin: 15px;
 }
 
 .app-sidenav {

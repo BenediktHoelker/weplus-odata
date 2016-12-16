@@ -14,6 +14,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 
 import { AppRoutingModule } from './app-routing.module';
 import { ProcessingFormComponent } from './processing-form/processing-form.component';
+import { DeviationComponent } from './deviation/deviation.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProcessingFormComponent } from './processing-form/processing-form.compo
     RegistrationComponent,
     ProcessingComponent,
     RegistrationFormComponent,
-    ProcessingFormComponent
+    ProcessingFormComponent,
+    DeviationComponent
   ],
   imports: [
     AppRoutingModule,

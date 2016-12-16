@@ -12,6 +12,7 @@ export class RegistrationFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
   submitted = false;
+  
   onSubmit() {
     this.submitted = true;
     this.deliveryService.submitDelivery(this.delivery);

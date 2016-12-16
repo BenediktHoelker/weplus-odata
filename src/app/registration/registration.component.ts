@@ -21,8 +21,8 @@ export class RegistrationComponent implements OnInit {
     this.deliveryService.getDeliveries().then(deliveries => this.deliveries = deliveries);
   }
 
-  addDelivery(): void{
-    let newDelivery = new Delivery();
+  createDelivery(): void{
+    let newDelivery = this.deliveryService.createDelivery();
     this.deliveries.unshift(newDelivery);
   }
 
