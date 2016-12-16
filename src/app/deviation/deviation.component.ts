@@ -1,5 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
+import { DeliveryService } from '../shared/delivery.service';
 import { Deviation } from '../shared/deviation.model';
 
 @Component({
@@ -8,12 +9,17 @@ import { Deviation } from '../shared/deviation.model';
   styleUrls: ['./deviation.component.css']
 })
 export class DeviationComponent implements OnInit {
-  @Input()
-  deviation: Deviation;
+  @Input() selectedDeviation: Deviation;
+  @Input() deviations: Deviation[];
 
-  constructor() { }
+  constructor(
+    private deliveryService: DeliveryService
+  ) { }
 
   ngOnInit() {
   }
 
+  removeDeviation(): void {
+    this.deliveryService.removeDeviation(this.selectedDeviation, this.deviations);
+  }
 }

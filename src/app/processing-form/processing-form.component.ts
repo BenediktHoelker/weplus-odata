@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
-import { Deviation } from '../shared/deviation.model';
 import { DeliveryService } from '../shared/delivery.service';
+import { Deviation } from '../shared/deviation.model';
+import { DeviationComponent } from '../deviation/deviation.component';
 
 @Component({
   selector: 'app-processing-form',
@@ -11,7 +12,6 @@ import { DeliveryService } from '../shared/delivery.service';
 export class ProcessingFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
-  submitted = false;
 
   addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();
@@ -19,7 +19,7 @@ export class ProcessingFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.delivery.isProcessed = true;
     this.deliveryService.submitDelivery(this.delivery);
   }
 
@@ -28,7 +28,7 @@ export class ProcessingFormComponent implements OnInit {
   ) { }
 
   ngOnInit(
-  ) { 
+  ) {
     /*If not exist, instantiate*/
     if (!this.delivery.deviations) {
       this.delivery.deviations = [];

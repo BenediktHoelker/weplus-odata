@@ -21,10 +21,6 @@ export class ProcessingComponent implements OnInit {
     this.deliveryService.getDeliveries().then(deliveries => this.deliveries = deliveries);
   }
 
-  registerDelivery(deliveryToBeRegistered: Delivery): void{
-    // this.deliveryService.registerDelivery(deliveryToBeRegistered);
-  }
-
   ngOnInit() {
     this.getDeliveries();
   }
