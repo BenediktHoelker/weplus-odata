@@ -1,6 +1,7 @@
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { Delivery } from './delivery.model';
 import { Deviation } from './deviation.model';
@@ -13,21 +14,31 @@ export class DeliveryService {
 
     constructor(private http: Http) { }
 
-    createDeviation(): Deviation {
-        let newDeviation = new Deviation();
-        newDeviation.type = "New Deviation";
-        return newDeviation;
+    createHeaders(contentType: string): Headers {
+        return new Headers({ 'Content-Type': contentType });
     }
 
     createDelivery(): Delivery {
         return new Delivery();
     }
 
-    getDeliveries(): Promise<Delivery[]> {
+    createDeviation(defaultType: string): Deviation {
+        let newDeviation = new Deviation();
+        newDeviation.type = defaultType;
+        return newDeviation;
+    }
+
+    createRequestOptions(headers: Headers): RequestOptions {
+        return new RequestOptions({ headers: headers });
+    }
+
+    getDeliveries(): Observable<Delivery[]> {
         return this.http.get(this.deliveriesUrl)
-            .toPromise()
-            .then(response => response.json() as Delivery[])
-            .catch(this.handleError);
+            .map(res => res.json());
+        // return this.http.get(this.deliveriesUrl)
+        //     .toPromise()
+        //     .then(response => response.json() as Delivery[])
+        //     .catch(this.handleError);
     }
 
     getRegisteredDeliveries(): Promise<Delivery[]> {
@@ -37,16 +48,14 @@ export class DeliveryService {
             .catch(this.handleError);
     }
 
-    removeDeviation(deviationToBeRemoved, deviations): void {
+    removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): void {
         var index = deviations.indexOf(deviationToBeRemoved, 0);
         if (index > -1) {
             deviations.splice(index, 1);
         }
     }
 
-    submitDelivery(deliveryToBeSubmitted): Promise<Delivery> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+    submitDelivery(deliveryToBeSubmitted: Delivery, headers: Headers, options: RequestOptions): Promise<Delivery> {
         return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
             .toPromise()
             .then(this.extractData)

@@ -15,7 +15,7 @@
             </div>
           </md-tab>
           <div *ngFor="let selectedDeviation of delivery.deviations">
-            <md-tab label="{{selectedDeviation.type}} ">
+            <md-tab label={{selectedDeviation.type}}>
               <app-deviation [selectedDeviation]="selectedDeviation" [deviations]="delivery.deviations"></app-deviation>
             </md-tab>
           </div>

@@ -14,13 +14,15 @@ export class ProcessingFormComponent implements OnInit {
   delivery: Delivery;
 
   addDeviation(): void {
-    let newDeviation = this.deliveryService.createDeviation();
+    let newDeviation = this.deliveryService.createDeviation("New Deviation");
     this.delivery.deviations.push(newDeviation);
   }
 
   onSubmit() {
+    let headers = this.deliveryService.createHeaders('application/json');
+    let options = this.deliveryService.createRequestOptions(headers);
     this.delivery.isProcessed = true;
-    this.deliveryService.submitDelivery(this.delivery);
+    this.deliveryService.submitDelivery(this.delivery, headers, options);
   }
 
   constructor(

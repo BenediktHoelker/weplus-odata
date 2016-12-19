@@ -11,9 +11,9 @@ describe('DeviationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeviationComponent ]
+      declarations: [DeviationComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -26,3 +26,4 @@ describe('DeviationComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
