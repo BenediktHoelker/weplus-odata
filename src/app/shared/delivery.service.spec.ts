@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {
-  HttpModule, Http, BaseRequestOptions, Response,
+  Headers, HttpModule, Http, BaseRequestOptions, Response,
   ResponseOptions
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -25,30 +25,15 @@ describe('DeliveryService', () => {
         BaseRequestOptions
       ]
     });
-
-    it('should ...', inject([DeliveryService], (service: DeliveryService) => {
-      expect(service).toBeTruthy();
-    }));
   });
 
-  describe('DeliveryService without the TestBed', () => {
-    //beforeEach(() => { service = new DeliveryService(new Http()); });
+  describe('DeliveryService with mockBackend', () => {
 
-    // it('#createHeaders should return JSON Headers', () => {
-    //   expect(service.createHeaders('application/json')).toBeTruthy();
-    // });
-
-    // it('#createRequestOptions should create RequestOptions', () => {
-    //   let headers = service.createHeaders('application/json');
-    //   expect(service.createRequestOptions(headers)).toBeTruthy();
-    // });
-
-    it('#getDeliveries should return a Promise<Delivery[]>',
+    it('#getDeliveries should return an Observable<Array<Delivery>>',
       async(inject([DeliveryService, MockBackend], (service, mockBackend) => {
 
         service.getDeliveries().subscribe((deliveries) => {
-          console.info("Hallo");
-          expect(deliveries).toBeTruthy();
+          expect(deliveries).toBe(mockResponse);
         });
 
         const mockResponse = { 'carrier': 'Peter', 'supplier': 'Müller' };
@@ -58,6 +43,16 @@ describe('DeliveryService', () => {
             body: JSON.stringify(mockResponse)
           })));
         });
+      })));
+
+    it('#removeDeviation should remove deviationToBeRemoved from the deviations Array',
+      async(inject([DeliveryService, MockBackend], (service, mockBackend) => {
+
+        let deviationToBeRemoved = { type: 'Mengenabweichung', gravity: 5 };
+        let deviationsBefore = [deviationToBeRemoved, { type: 'Transportschaden', gravity: 3 }];
+        let deviationsAfterwards = [{ type: 'Transportschaden', gravity: 3 }];
+
+        expect(service.removeDeviation(deviationToBeRemoved, deviationsBefore)).toEqual(deviationsAfterwards);
       })));
   });
 });

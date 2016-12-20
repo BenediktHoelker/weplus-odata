@@ -14,7 +14,7 @@ export class RegistrationFormComponent implements OnInit {
   
   onSubmit() {
     this.delivery.isRegistered = true;
-    this.deliveryService.submitDelivery(this.delivery);
+    this.deliveryService.submitDelivery(this.delivery, this.deliveryService.createRequestOptions(this.deliveryService.createHeaders('application/json')));
   }
 
   constructor(

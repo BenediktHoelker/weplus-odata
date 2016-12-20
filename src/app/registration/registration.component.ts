@@ -17,11 +17,11 @@ export class RegistrationComponent implements OnInit {
     private deliveryService: DeliveryService
   ) { }
 
-  getDeliveries(): void{
-    this.deliveryService.getDeliveries().then(deliveries => this.deliveries = deliveries);
+  getDeliveries(): void {
+    this.deliveryService.getDeliveries().subscribe((deliveries) => { this.deliveries = deliveries });
   }
 
-  createDelivery(): void{
+  createDelivery(): void {
     let newDelivery = this.deliveryService.createDelivery();
     this.deliveries.unshift(newDelivery);
   }

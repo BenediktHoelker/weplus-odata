@@ -35,10 +35,6 @@ export class DeliveryService {
     getDeliveries(): Observable<Delivery[]> {
         return this.http.get(this.deliveriesUrl)
             .map(res => res.json());
-        // return this.http.get(this.deliveriesUrl)
-        //     .toPromise()
-        //     .then(response => response.json() as Delivery[])
-        //     .catch(this.handleError);
     }
 
     getRegisteredDeliveries(): Promise<Delivery[]> {
@@ -48,14 +44,15 @@ export class DeliveryService {
             .catch(this.handleError);
     }
 
-    removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): void {
+    removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): Deviation[] {
         var index = deviations.indexOf(deviationToBeRemoved, 0);
         if (index > -1) {
             deviations.splice(index, 1);
         }
+        return deviations;
     }
 
-    submitDelivery(deliveryToBeSubmitted: Delivery, headers: Headers, options: RequestOptions): Promise<Delivery> {
+    submitDelivery(deliveryToBeSubmitted: Delivery, options: RequestOptions): Promise<Delivery> {
         return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
             .toPromise()
             .then(this.extractData)

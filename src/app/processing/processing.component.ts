@@ -18,7 +18,7 @@ export class ProcessingComponent implements OnInit {
   ) { }
 
   getDeliveries(): void{
-    this.deliveryService.getDeliveries().then(deliveries => this.deliveries = deliveries);
+    this.deliveryService.getDeliveries().subscribe((deliveries) => {this.deliveries = deliveries});
   }
 
   ngOnInit() {

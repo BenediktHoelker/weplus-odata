@@ -1,5 +1,5 @@
 <div class="flex-container" fx-layout="row" fx-layout-align="space-between center">
-  <md-input class="form-control" placeholder="Type" [(ngModel)]="selectedDeviation.type" name="typeOfDeviation"></md-input>
-  <md-input class="form-control" type="number" placeholder="Gravity" [(ngModel)]="selectedDeviation.gravity" name="numberOfMissingEDIs"></md-input>
+  <md-input class="form-control" placeholder="Type" [(ngModel)]="selectedDeviation.type" name="type" ngDefaultControl></md-input>
+  <md-input class="form-control" type="number" placeholder="Gravity" [(ngModel)]="selectedDeviation.gravity" name="gravity" ngDefaultControl></md-input>
   <button type="button" (click)="removeDeviation()" md-button><md-icon>delete</md-icon></button>
 </div>
