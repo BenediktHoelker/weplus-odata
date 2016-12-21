@@ -14,7 +14,7 @@ export class ProcessingFormComponent implements OnInit {
   delivery: Delivery;
 
   addDeviation(): void {
-    let newDeviation = this.deliveryService.createDeviation("New Deviation");
+    let newDeviation = this.deliveryService.createDeviation();
     this.delivery.deviations.push(newDeviation);
   }
 

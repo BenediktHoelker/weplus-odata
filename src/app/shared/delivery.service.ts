@@ -35,10 +35,8 @@ export class DeliveryService {
         return newYard;
     }
 
-    createDeviation(defaultType: string): Deviation {
-        let newDeviation = new Deviation();
-        newDeviation.type = defaultType;
-        return newDeviation;
+    createDeviation(): Deviation {
+        return new Deviation();
     }
 
     createRequestOptions(headers: Headers): RequestOptions {

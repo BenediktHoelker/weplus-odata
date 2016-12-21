@@ -5,13 +5,15 @@
     <form (ngSubmit)="onSubmit()" #processingForm="ngForm">
       <md-card-content>
         <md-tab-group>
-          <md-tab label="Details" fx-layout="column" fx-layout-wrap="wrap" fx-layout-align="space-between center">
+          <md-tab label="Details" class="flex-container">
             <div fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="space-between center">
               <md-input class="form-control" required placeholder="Carrier" [(ngModel)]="delivery.carrier" name="carrier"></md-input>
               <md-input class="form-control" required placeholder="Supplier" [(ngModel)]="delivery.supplier" name="supplier"></md-input>
               <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered" name="isRegistered">Registered</md-checkbox>
               <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed" name="isProcessed">Processed</md-checkbox>
             </div>
+          </md-tab>
+          <md-tab label="Yards" class="flex-container">
             <div fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="space-between center">
               <div *ngFor="let yard of delivery.yards">
                 <md-input class="form-control" required type="number" [(ngModel)]="yard.quantity" placeholder="Quantity Yard {{yard.id}}"
@@ -19,16 +21,21 @@
               </div>
             </div>
           </md-tab>
-          <div *ngFor="let selectedDeviation of delivery.deviations">
-            <md-tab label={{selectedDeviation.type}}>
-              <app-deviation [selectedDeviation]="selectedDeviation" [deviations]="delivery.deviations"></app-deviation>
+          <div *ngIf="delivery.deviations.length">
+            <md-tab label="Deviations">
+              <md-list-item *ngFor="let selectedDeviation of delivery.deviations">
+                <app-deviation [selectedDeviation]="selectedDeviation" [deviations]="delivery.deviations"></app-deviation>
+              </md-list-item>
+              <div class="flex-container" fx-layout="row" fx-layout-align="end">
+                <button type="button" (click)="addDeviation()" md-button><md-icon>add</md-icon></button>
+              </div>
             </md-tab>
           </div>
         </md-tab-group>
       </md-card-content>
       <md-card-actions>
         <button type="submit" md-button [disabled]="!processingForm.form.valid">Submit</button>
-        <button type="button" (click)="addDeviation()" md-button>Add Deviation</button>
+        <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()" md-button>Add Deviation</button>
       </md-card-actions>
     </form>
   </md-card>
