@@ -1,6 +1,6 @@
 <div [hidden]="delivery.isRegistered">
   <md-card class="app-input-section">
-    <md-card-subtitle>{{delivery.supplier || "Supplier" }}</md-card-subtitle>
+    <md-card-subtitle>{{delivery.supplier || "Supplier" }} {{delivery.timeslotBegin | date:'shortTime' }} - {{delivery.timeslotEnd | date:'shortTime' }}</md-card-subtitle>
     <md-card-title placeholder="Carrier">{{delivery.carrier || "Carrier" }}</md-card-title>
     <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
       <md-card-content>

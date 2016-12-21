@@ -8,6 +8,8 @@ export class Delivery {
   isProcessed: boolean;
   supplier: string;
   yards: Yard[];
+  timeslotBegin: Date;
+  timeslotEnd: Date;
 
   constructor(){
     this.deviations = [];
