@@ -5,13 +5,18 @@
     <form (ngSubmit)="onSubmit()" #processingForm="ngForm">
       <md-card-content>
         <md-tab-group>
-          <md-tab label="Details">
-            <div class="flex-container" fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="space-between center">
+          <md-tab label="Details" fx-layout="column" fx-layout-wrap="wrap" fx-layout-align="space-between center">
+            <div fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="space-between center">
               <md-input class="form-control" required placeholder="Carrier" [(ngModel)]="delivery.carrier" name="carrier"></md-input>
               <md-input class="form-control" required placeholder="Supplier" [(ngModel)]="delivery.supplier" name="supplier"></md-input>
-              <md-input class="form-control" required type="number" [(ngModel)]="delivery.quantity" placeholder="Quantity" name="quantity"></md-input>
               <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered" name="isRegistered">Registered</md-checkbox>
               <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed" name="isProcessed">Processed</md-checkbox>
+            </div>
+            <div fx-layout="row" fx-layout-wrap="wrap" fx-layout-align="space-between center">
+              <div *ngFor="let yard of delivery.yards">
+                <md-input class="form-control" required type="number" [(ngModel)]="yard.quantity" placeholder="Quantity Yard {{yard.id}}"
+                  name="quantity"></md-input>
+              </div>
             </div>
           </md-tab>
           <div *ngFor="let selectedDeviation of delivery.deviations">

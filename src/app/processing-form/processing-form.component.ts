@@ -22,7 +22,7 @@ export class ProcessingFormComponent implements OnInit {
     let headers = this.deliveryService.createHeaders('application/json');
     let options = this.deliveryService.createRequestOptions(headers);
     this.delivery.isProcessed = true;
-    this.deliveryService.submitDelivery(this.delivery, headers, options);
+    this.deliveryService.submitDelivery(this.delivery, options);
   }
 
   constructor(
@@ -30,10 +30,5 @@ export class ProcessingFormComponent implements OnInit {
   ) { }
 
   ngOnInit(
-  ) {
-    /*If not exist, instantiate*/
-    if (!this.delivery.deviations) {
-      this.delivery.deviations = [];
-    }
-  }
+  ) { }
 }

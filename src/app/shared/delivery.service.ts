@@ -5,6 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { Delivery } from './delivery.model';
 import { Deviation } from './deviation.model';
+import { Yard } from './yard.model';
+
+const NUMBER_OF_YARDS = 3;
 
 @Injectable()
 export class DeliveryService {
@@ -19,7 +22,17 @@ export class DeliveryService {
     }
 
     createDelivery(): Delivery {
-        return new Delivery();
+        let newDelivery = new Delivery();
+        for (let i = 1; i <= NUMBER_OF_YARDS; i++) {
+            newDelivery.yards.push(this.createYard(i));
+        }
+        return newDelivery;
+    }
+
+    createYard(id: number): Yard {
+        let newYard = new Yard();
+        newYard.id = id;
+        return newYard;
     }
 
     createDeviation(defaultType: string): Deviation {
