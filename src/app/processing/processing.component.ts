@@ -12,6 +12,7 @@ import { ProcessingFormComponent } from '../processing-form/processing-form.comp
 export class ProcessingComponent implements OnInit {
   title = "Processing";
   deliveries: Delivery[];
+  showAll: boolean;
 
   constructor(
     private deliveryService: DeliveryService
@@ -23,5 +24,9 @@ export class ProcessingComponent implements OnInit {
 
   ngOnInit() {
     this.getDeliveries();
+  }
+
+  toggleShowAll(): void {
+    this.showAll = !this.showAll;
   }
 }

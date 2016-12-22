@@ -8,7 +8,7 @@
           <md-input class="form-control" required type="string" placeholder="Carrier" [(ngModel)]="delivery.carrier" name="carrier"></md-input>
           <md-input class="form-control" required type="string" placeholder="Supplier" [(ngModel)]="delivery.supplier" name="supplier"></md-input>
           <div *ngFor="let yard of delivery.yards">
-            <md-input class="form-control" type="number" [(ngModel)]="yard.quantity" placeholder="Quantity Yard {{yard.id}}" name="quantity"></md-input>
+            <md-input class="form-control" type="number" [(ngModel)]="yard.quantity" placeholder="Quantity Yard {{yard.id}}" name="quantity yard {{yard.id}}"></md-input>
           </div>
         </div>
       </md-card-content>

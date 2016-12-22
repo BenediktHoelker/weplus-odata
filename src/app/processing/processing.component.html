@@ -1,3 +1,10 @@
-<div class="app-content" *ngFor="let delivery of deliveries">
-  <app-processing-form [delivery]="delivery"></app-processing-form>
+<div class="app-content">
+  <div *ngFor="let delivery of deliveries">
+    <div [hidden]="delivery.isProcessed && !showAll">
+      <app-processing-form [delivery]="delivery"></app-processing-form>
+    </div>
+  </div>
 </div>
+<span class="app-action" (click)="toggleShowAll()">
+  <button md-fab><md-icon>visibility</md-icon></button>
+</span>
