@@ -6,12 +6,13 @@ export class Delivery {
   deviations: Deviation[];
   isRegistered: boolean;
   isProcessed: boolean;
+  quantity: number;
   supplier: string;
-  yards: Yard[];
   timeslotBegin: Date;
   timeslotEnd: Date;
+  yards: Yard[];
 
-  constructor(){
+  constructor() {
     this.deviations = [];
     this.yards = [];
   }

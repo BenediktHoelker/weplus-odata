@@ -13,11 +13,16 @@ import { DeviationType } from '../shared/deviation-type.model';
 export class ProcessingFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
-  deviationTypes: DeviationType[];
+  // deviationTypes: DeviationType[];
+  totalQuantity: number;
 
   addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();
     this.delivery.deviations.push(newDeviation);
+  }
+
+  getTotalQuantity(): number {
+    return this.delivery.yards.reduce((prev, current) => prev + current.quantity, 0)
   }
 
   onSubmit() {
@@ -32,5 +37,7 @@ export class ProcessingFormComponent implements OnInit {
   ) { }
 
   ngOnInit(
-  ) { }
+  ) { 
+    this.totalQuantity = this.getTotalQuantity();
+  }
 }

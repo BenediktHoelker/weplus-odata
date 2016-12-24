@@ -43,7 +43,7 @@ describe('DeviationComponent', () => {
     debugEl = fixture.debugElement.query(By.css('.flex-container')); // find element
 
     //pretend that it was wired to something that supplied a delivery
-    expectedDeviation = {type: "Mengenabweichung", gravity: 3};
+    expectedDeviation = {type: {name: "Quantity"}, gravity: 3};
     component.selectedDeviation = expectedDeviation;
     expectedDeviations = [expectedDeviation];
     component.deviations = expectedDeviations;

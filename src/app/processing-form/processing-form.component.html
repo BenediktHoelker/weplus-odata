@@ -1,5 +1,5 @@
 <md-card class="app-input-section">
-  <md-card-subtitle>{{delivery.quantity}} entities from {{delivery.supplier}}</md-card-subtitle>
+  <md-card-subtitle>{{getTotalQuantity()}} entities from {{delivery.supplier}}</md-card-subtitle>
   <md-card-title>{{delivery.carrier}}</md-card-title>
   <form (ngSubmit)="onSubmit()" #processingForm="ngForm">
     <md-card-content>

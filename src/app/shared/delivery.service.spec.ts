@@ -31,13 +31,23 @@ describe('DeliveryService', () => {
 
     it('#getDeliveries should return an Observable<Array<Delivery>>',
       async(inject([DeliveryService, MockBackend], (service, mockBackend) => {
-
+        const mockResponse = { 'carrier': 'Peter', 'supplier': 'Müller' };
         service.getDeliveries().subscribe((deliveries) => {
           expect(deliveries).toBe(mockResponse);
         });
+        mockBackend.connections.subscribe((connection) => {
+          connection.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(mockResponse)
+          })));
+        });
+      })));
 
-        const mockResponse = { 'carrier': 'Peter', 'supplier': 'Müller' };
-
+    it('#getDeviationTypes should return an Observable<Array<DeviationTypes>>',
+      async(inject([DeliveryService, MockBackend], (service, mockBackend) => {
+        const mockResponse = { 'name': 'Quality' };
+        service.getDeviationTypes().subscribe((deviationTypes) => {
+          expect(deviationTypes).toBe(mockResponse);
+        });
         mockBackend.connections.subscribe((connection) => {
           connection.mockRespond(new Response(new ResponseOptions({
             body: JSON.stringify(mockResponse)
@@ -47,11 +57,9 @@ describe('DeliveryService', () => {
 
     it('#removeDeviation should remove deviationToBeRemoved from the deviations Array',
       async(inject([DeliveryService, MockBackend], (service, mockBackend) => {
-
         let deviationToBeRemoved = { type: 'Mengenabweichung', gravity: 5 };
         let deviationsBefore = [deviationToBeRemoved, { type: 'Transportschaden', gravity: 3 }];
         let deviationsAfterwards = [{ type: 'Transportschaden', gravity: 3 }];
-
         expect(service.removeDeviation(deviationToBeRemoved, deviationsBefore)).toEqual(deviationsAfterwards);
       })));
   });

@@ -13,9 +13,9 @@ const NUMBER_OF_YARDS = 3;
 @Injectable()
 export class DeliveryService {
 
-    private deliveriesUrl = 'http://localhost:3000/api/deliveries';  // URL to web api
-    private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';  // URL to web api
-    private registeredDeliveriesUrl = 'http://localhost:3000/api/registeredDeliveries';  // URL to web api
+    private deliveriesUrl = 'http://localhost:3000/api/deliveries';
+    private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
+    private registeredDeliveriesUrl = 'http://localhost:3000/api/registeredDeliveries';
 
     constructor(private http: Http) { }
 
@@ -53,13 +53,6 @@ export class DeliveryService {
     getDeviationTypes(): Observable<DeviationType[]>{
         return this.http.get(this.deviationTypesUrl)
             .map(res => res.json());
-    }
-
-    getRegisteredDeliveries(): Promise<Delivery[]> {
-        return this.http.get(this.deliveriesUrl)
-            .toPromise()
-            .then(response => response.json() as Delivery[])
-            .catch(this.handleError);
     }
 
     removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): Deviation[] {
