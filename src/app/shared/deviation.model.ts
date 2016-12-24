@@ -1,4 +1,6 @@
+import { DeviationType } from './deviation-type.model';
+
 export class Deviation {
-    type: string;
+    type: DeviationType;
     gravity: number;
 }

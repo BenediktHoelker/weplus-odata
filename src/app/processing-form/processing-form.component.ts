@@ -4,6 +4,7 @@ import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
 import { Deviation } from '../shared/deviation.model';
 import { DeviationComponent } from '../deviation/deviation.component';
+import { DeviationType } from '../shared/deviation-type.model';
 
 @Component({
   selector: 'app-processing-form',
@@ -12,6 +13,7 @@ import { DeviationComponent } from '../deviation/deviation.component';
 export class ProcessingFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
+  deviationTypes: DeviationType[];
 
   addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();

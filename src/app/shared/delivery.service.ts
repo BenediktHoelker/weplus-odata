@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Delivery } from './delivery.model';
 import { Deviation } from './deviation.model';
+import { DeviationType } from './deviation-type.model';
 import { Yard } from './yard.model';
 
 const NUMBER_OF_YARDS = 3;
@@ -13,6 +14,7 @@ const NUMBER_OF_YARDS = 3;
 export class DeliveryService {
 
     private deliveriesUrl = 'http://localhost:3000/api/deliveries';  // URL to web api
+    private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';  // URL to web api
     private registeredDeliveriesUrl = 'http://localhost:3000/api/registeredDeliveries';  // URL to web api
 
     constructor(private http: Http) { }
@@ -45,6 +47,11 @@ export class DeliveryService {
 
     getDeliveries(): Observable<Delivery[]> {
         return this.http.get(this.deliveriesUrl)
+            .map(res => res.json());
+    }
+
+    getDeviationTypes(): Observable<DeviationType[]>{
+        return this.http.get(this.deviationTypesUrl)
             .map(res => res.json());
     }
 
