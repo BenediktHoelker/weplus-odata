@@ -50,13 +50,13 @@ export class DeliveryService {
             .map(res => res.json());
     }
 
-    getDeviationTypes(): Observable<DeviationType[]>{
+    getDeviationTypes(): Observable<DeviationType[]> {
         return this.http.get(this.deviationTypesUrl)
             .map(res => res.json());
     }
 
     removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): Deviation[] {
-        var index = deviations.indexOf(deviationToBeRemoved, 0);
+        let index = deviations.indexOf(deviationToBeRemoved, 0);
         if (index > -1) {
             deviations.splice(index, 1);
         }

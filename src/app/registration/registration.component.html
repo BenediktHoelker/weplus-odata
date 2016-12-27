@@ -1,4 +1,4 @@
-<div class="app-content" *ngFor="let delivery of deliveries">
+<div *ngFor="let delivery of deliveries">
   <app-registration-form [delivery]="delivery"></app-registration-form>
 </div>
 <span class="app-action" (click)="createDelivery()">

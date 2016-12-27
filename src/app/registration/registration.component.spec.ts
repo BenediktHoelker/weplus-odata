@@ -26,7 +26,7 @@ describe('RegistrationComponent', () => {
       providers: [DeliveryService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('RegistrationComponent', () => {
       .and.returnValue(Promise.resolve(testQuote));
 
     debugEl = fixture.debugElement.query(By.css('.app-content')); // find delivery element
-    //deliveryEl = debugEl.nativeElement;
+    // deliveryEl = debugEl.nativeElement;
 
     fixture.detectChanges();
   });

@@ -43,8 +43,8 @@ describe('RegistrationFormComponent', () => {
     debugEl = fixture.debugElement.query(By.css('md-card-title')); // find delivery element
     deliveryEl = debugEl.nativeElement;
 
-    //pretend that it was wired to something that supplied a delivery
-    expectedDelivery = new Delivery()
+    // pretend that it was wired to something that supplied a delivery
+    expectedDelivery = new Delivery();
     component.delivery = expectedDelivery;
     fixture.detectChanges();
   });

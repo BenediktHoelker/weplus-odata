@@ -9,7 +9,7 @@ import { DeliveryService } from '../shared/delivery.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  title = "Registration";
+  title = 'Registration';
   deliveries: Delivery[];
   selectedDelivery: Delivery;
 
@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   getDeliveries(): void {
-    this.deliveryService.getDeliveries().subscribe((deliveries) => { this.deliveries = deliveries });
+    this.deliveryService.getDeliveries().subscribe((deliveries) => { this.deliveries = deliveries; });
   }
 
   createDelivery(): void {

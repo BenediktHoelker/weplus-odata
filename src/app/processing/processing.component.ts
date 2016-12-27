@@ -10,7 +10,7 @@ import { ProcessingFormComponent } from '../processing-form/processing-form.comp
   styleUrls: ['./processing.component.css']
 })
 export class ProcessingComponent implements OnInit {
-  title = "Processing";
+  title = 'Processing';
   deliveries: Delivery[];
   showAll: boolean;
 
@@ -18,9 +18,9 @@ export class ProcessingComponent implements OnInit {
     private deliveryService: DeliveryService
   ) { }
 
-  getDeliveries(): void{
-    this.deliveryService.getDeliveries().subscribe((deliveries) => {this.deliveries = deliveries});
-  }
+  getDeliveries(): void {
+    this.deliveryService.getDeliveries().subscribe((deliveries) => { this.deliveries = deliveries; });
+  };
 
   ngOnInit() {
     this.getDeliveries();

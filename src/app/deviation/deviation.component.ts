@@ -19,7 +19,7 @@ export class DeviationComponent implements OnInit {
   ) { }
 
   getDeviationTypes(): void {
-    this.deliveryService.getDeviationTypes().subscribe((deviationTypes) => { this.deviationTypes = deviationTypes });
+    this.deliveryService.getDeviationTypes().subscribe((deviationTypes) => { this.deviationTypes = deviationTypes; });
   }
 
   ngOnInit() {

@@ -1,3 +1,32 @@
 .example-fill-remaining-space {
   flex: 1 1 auto;
 }
+
+html, body, md-sidenav-container {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*.my-container md-sidenav {
+  max-width: 250px;
+}*/
+
+.demo-2 {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.my-container .md-sidenav-content,
+.my-container md-sidenav {
+  display: flex;
+}
+
+.my-scrolling-content {
+  overflow: auto;
+}
+
+button.my-fab {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+}

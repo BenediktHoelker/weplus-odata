@@ -11,10 +11,10 @@ import { DeliveryService } from '../shared/delivery.service';
 export class RegistrationFormComponent implements OnInit {
   @Input()
   delivery: Delivery;
-  
   onSubmit() {
+    let requestOptions = this.deliveryService.createRequestOptions(this.deliveryService.createHeaders('application/json'));
     this.delivery.isRegistered = true;
-    this.deliveryService.submitDelivery(this.delivery, this.deliveryService.createRequestOptions(this.deliveryService.createHeaders('application/json')));
+    this.deliveryService.submitDelivery(this.delivery, requestOptions);
   }
 
   constructor(
