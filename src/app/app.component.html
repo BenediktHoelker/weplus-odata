@@ -1,8 +1,13 @@
 <md-toolbar color="primary">
   <span>
-    <button md-button routerLink="/registration" routerLinkActive="active">{{title}}</button>
-    <button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>
-    <button md-button routerLink="/processing" routerLinkActive="active">PROCESSING</button>
+    <button md-button>{{title}}</button>
+    <!--<button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>-->
+    <button md-button (click)="isOfficeView = true">PROCESSING</button>
+    <!--<button md-button [md-menu-trigger-for]="yardsMenu">YARDS</button>-->
+    <!--<md-menu #yardsMenu="mdMenu">
+      <button *ngFor="let yard of yards" md-menu-item (click)="isOfficeView = false">{{yard.name}} </button>
+    </md-menu>-->
+    <button md-button *ngFor="let yard of yards" (click)="isOfficeView = false">{{yard.name}}</button>
   </span>
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
@@ -20,7 +25,7 @@
 </md-toolbar>
 
 <md-sidenav-container class="my-container">
-  <md-sidenav mode="side" opened="true">
+  <md-sidenav mode="side" opened="true" *ngIf="isOfficeView">
     <md-nav-list fx-layout="column" fx-layout-align="start stretch">
       <a md-list-item *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
         <h3 md-line> {{delivery.carrier}} </h3>
@@ -31,11 +36,16 @@
       </a>
     </md-nav-list>
   </md-sidenav>
-  <div class="app-content" *ngIf="selectedDelivery">
+  <div class="app-content" *ngIf="isOfficeView">
     <app-processing-form [delivery]="selectedDelivery" [deliveries]="deliveries"></app-processing-form>
-    <!--<router-outlet></router-outlet>-->
+  </div>
+  <div *ngIf="deliveries">
+    <div class="app-content" *ngIf="!isOfficeView">
+      <app-processing-form *ngFor="let delivery of (deliveries | registeredDeliveries)" [delivery]="delivery" [deliveries]="deliveries"></app-processing-form>
+      <!--<router-outlet></router-outlet>-->
+    </div>
   </div>
 </md-sidenav-container>
-<span class="app-action" (click)="createDelivery()">
+<span *ngIf="isOfficeView" class="app-action" (click)="createDelivery()">
   <button md-fab><md-icon>add circle</md-icon></button>
 </span>

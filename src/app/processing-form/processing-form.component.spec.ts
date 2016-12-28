@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
 import { ProcessingFormComponent } from './processing-form.component';
+import { Yard } from '../shared/yard.model';
 
 describe('ProcessingFormComponent', () => {
   let component: ProcessingFormComponent;
@@ -53,7 +54,10 @@ describe('ProcessingFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show multiple quantity inputs, one for each yard', () => {
+  it('should accumulate the quantities for each yard', () => {
+    let mockYards: Yard[];
+    mockYards.push({id: 1, quantity: 23}, {id: 2, quantity: 542}, {id: 3, quantity: 93});
+    expect(component.getTotalQuantity(mockYards)).toEqual;
   });
 
   // it('should display hero name', () => {

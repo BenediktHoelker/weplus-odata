@@ -8,23 +8,13 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { DeliveryService } from './shared/delivery.service';
-import { RegistrationComponent } from './registration/registration.component';
-import { ProcessingComponent } from './processing/processing.component';
-import { RegistrationFormComponent } from './registration-form/registration-form.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ProcessingFormComponent } from './processing-form/processing-form.component';
 import { DeviationComponent } from './deviation/deviation.component';
+import { RegisteredDeliveriesPipe } from './registered-deliveries.pipe';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RegistrationComponent,
-    ProcessingComponent,
-    RegistrationFormComponent,
-    ProcessingFormComponent,
-    DeviationComponent
-  ],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -32,6 +22,12 @@ import { DeviationComponent } from './deviation/deviation.component';
     FormsModule,
     HttpModule,
     MaterialModule.forRoot()
+  ],
+  declarations: [
+    AppComponent,
+    ProcessingFormComponent,
+    DeviationComponent,
+    RegisteredDeliveriesPipe
   ],
   providers: [DeliveryService],
   bootstrap: [AppComponent]

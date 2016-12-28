@@ -16,6 +16,7 @@ export class DeliveryService {
     private deliveriesUrl = 'http://localhost:3000/api/deliveries';
     private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
     private registeredDeliveriesUrl = 'http://localhost:3000/api/registeredDeliveries';
+    private yardsUrl = 'http://localhost:3000/api/yards';
 
     constructor(private http: Http) { }
 
@@ -47,6 +48,11 @@ export class DeliveryService {
 
     getDeliveries(): Observable<Delivery[]> {
         return this.http.get(this.deliveriesUrl)
+            .map(res => res.json());
+    }
+
+    getYards(): Observable<Yard[]> {
+        return this.http.get(this.yardsUrl)
             .map(res => res.json());
     }
 
