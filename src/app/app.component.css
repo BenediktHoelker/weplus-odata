@@ -1,4 +1,4 @@
-.example-fill-remaining-space {
+.fill-remaining-space {
   flex: 1 1 auto;
 }
 
@@ -19,14 +19,14 @@ html, body, md-sidenav-container {
 .my-container .md-sidenav-content,
 .my-container md-sidenav {
   display: flex;
+  flex: 1;
 }
 
 .my-scrolling-content {
   overflow: auto;
 }
 
-button.my-fab {
-  position: absolute;
-  right: 20px;
-  bottom: 10px;
+flex-item {
+  display: flex; 
+  flex: 1;
 }

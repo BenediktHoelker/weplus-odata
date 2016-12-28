@@ -33,6 +33,7 @@
     <md-card-actions>
       <button type="submit" md-button [disabled]="!processingForm.form.valid">Submit</button>
       <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()" md-button>Add Deviation</button>
+      <button type="button" (click)="removeDelivery()" md-button><md-icon>delete</md-icon></button>
     </md-card-actions>
   </form>
 </md-card>

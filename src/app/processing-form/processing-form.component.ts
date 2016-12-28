@@ -11,9 +11,8 @@ import { DeviationType } from '../shared/deviation-type.model';
   templateUrl: './processing-form.component.html'
 })
 export class ProcessingFormComponent implements OnInit {
-  @Input()
-  delivery: Delivery;
-  totalQuantity: number;
+  @Input() delivery: Delivery;
+  @Input() deliveries: Delivery[];
 
   addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();
@@ -37,4 +36,9 @@ export class ProcessingFormComponent implements OnInit {
 
   ngOnInit(
   ) { }
+
+  removeDelivery(delivery: Delivery): void {
+    this.deliveryService.removeDelivery(this.delivery, this.deliveries);
+    this.delivery = this.deliveries[0];
+  }
 }

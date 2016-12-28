@@ -55,6 +55,14 @@ export class DeliveryService {
             .map(res => res.json());
     }
 
+    removeDelivery(deliveryToBeRemoved: Delivery, deliveries: Delivery[]): Delivery[] {
+        let index = deliveries.indexOf(deliveryToBeRemoved, 0);
+        if (index > -1) {
+            deliveries.splice(index, 1);
+        }
+        return deliveries;
+    }
+
     removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): Deviation[] {
         let index = deviations.indexOf(deviationToBeRemoved, 0);
         if (index > -1) {

@@ -5,7 +5,7 @@
     <button md-button routerLink="/processing" routerLinkActive="active">PROCESSING</button>
   </span>
   <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space"></span>
+  <span class="fill-remaining-space"></span>
   <span>
     <button md-icon-button [md-menu-trigger-for]="menu">
       <md-icon>more_vert</md-icon>
@@ -21,26 +21,21 @@
 
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
-    <md-nav-list>
-      <div *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
-        <md-list-item>
-          <a md-line></a>
-          <h3 md-line> {{delivery.carrier}} </h3>
-          <p md-line>
-            <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>
-            <span class="sidenav-supplier"> -- {{delivery.supplier}} </span>
-          </p>
-        </md-list-item>
-        <md-divider></md-divider>
-      </div>
+    <md-nav-list fx-layout="column" fx-layout-align="start stretch">
+      <a md-list-item *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
+        <h3 md-line> {{delivery.carrier}} </h3>
+        <p md-line>
+          <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>
+          <span class="sidenav-supplier"> -- {{delivery.supplier}} </span>
+        </p>
+      </a>
     </md-nav-list>
-    <span class="app-action" (click)="createDelivery()">
-      <button md-mini-fab><md-icon>add circle</md-icon></button>
-    </span>
   </md-sidenav>
   <div class="app-content" *ngIf="selectedDelivery">
-    <app-processing-form [delivery]="selectedDelivery"></app-processing-form>
-    
+    <app-processing-form [delivery]="selectedDelivery" [deliveries]="deliveries"></app-processing-form>
     <!--<router-outlet></router-outlet>-->
   </div>
 </md-sidenav-container>
+<span class="app-action" (click)="createDelivery()">
+  <button md-fab><md-icon>add circle</md-icon></button>
+</span>
