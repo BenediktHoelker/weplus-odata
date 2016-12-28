@@ -5,14 +5,14 @@
 html, body, md-sidenav-container {
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
 
 /*.my-container md-sidenav {
   max-width: 250px;
 }*/
 
-.demo-2 {
+.sidenav-supplier {
   color: rgba(0, 0, 0, 0.54);
 }
 

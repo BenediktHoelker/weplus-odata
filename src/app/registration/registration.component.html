@@ -1,6 +1,4 @@
-<div *ngFor="let delivery of deliveries">
-  <app-registration-form [delivery]="delivery"></app-registration-form>
-</div>
+<app-registration-form [delivery]="selectedDelivery"></app-registration-form>
 <span class="app-action" (click)="createDelivery()">
   <button md-fab><md-icon>add circle</md-icon></button>
 </span>

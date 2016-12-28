@@ -1,6 +1,6 @@
 <md-card class="app-input-section">
-  <md-card-subtitle>{{getTotalQuantity()}} entities from {{delivery.supplier}}</md-card-subtitle>
-  <md-card-title>{{delivery.carrier}}</md-card-title>
+  <md-card-subtitle *ngIf="getTotalQuantity()">{{getTotalQuantity()}} entities from {{delivery.supplier}}</md-card-subtitle>
+  <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
   <form (ngSubmit)="onSubmit()" #processingForm="ngForm">
     <md-card-content>
       <md-tab-group>

@@ -6,11 +6,6 @@ import { ProcessingComponent } from './processing/processing.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/registration',
-    pathMatch: 'full'
-  },
-  {
     path: 'registration',
     component: RegistrationComponent
   },

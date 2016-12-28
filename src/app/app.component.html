@@ -22,20 +22,25 @@
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
     <md-nav-list>
-      <div *ngFor="let delivery of deliveries">
+      <div *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
         <md-list-item>
-          <a md-line href="...">{{ link }}</a>
+          <a md-line></a>
           <h3 md-line> {{delivery.carrier}} </h3>
           <p md-line>
             <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>
-            <span class="demo-2"> -- {{delivery.supplier}} </span>
+            <span class="sidenav-supplier"> -- {{delivery.supplier}} </span>
           </p>
         </md-list-item>
         <md-divider></md-divider>
       </div>
     </md-nav-list>
+    <span class="app-action" (click)="createDelivery()">
+      <button md-mini-fab><md-icon>add circle</md-icon></button>
+    </span>
   </md-sidenav>
-  <div class="app-content">
-    <router-outlet></router-outlet>
+  <div class="app-content" *ngIf="selectedDelivery">
+    <app-processing-form [delivery]="selectedDelivery"></app-processing-form>
+    
+    <!--<router-outlet></router-outlet>-->
   </div>
 </md-sidenav-container>

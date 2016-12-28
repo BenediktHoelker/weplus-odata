@@ -11,10 +11,17 @@ import { DeliveryService } from './shared/delivery.service';
 export class AppComponent {
     title = 'WEplus';
     deliveries: Delivery[];
+    selectedDelivery: Delivery;
 
     constructor(
         private deliveryService: DeliveryService
     ) { }
+
+    createDelivery(): void {
+        let newDelivery = this.deliveryService.createDelivery();
+        this.selectedDelivery = newDelivery;
+        this.deliveries.unshift(newDelivery);
+    }
 
     getDeliveries(): void {
         this.deliveryService.getDeliveries().subscribe((deliveries) => { this.deliveries = deliveries; });
@@ -22,5 +29,9 @@ export class AppComponent {
 
     ngOnInit() {
         this.getDeliveries();
+    }
+
+    onSelect(delivery: Delivery): void {
+        this.selectedDelivery = delivery;
     }
 }
