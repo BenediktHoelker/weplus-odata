@@ -11,7 +11,7 @@ import { DeliveryService } from './shared/delivery.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ProcessingFormComponent } from './processing-form/processing-form.component';
 import { DeviationComponent } from './deviation/deviation.component';
-import { RegisteredDeliveriesPipe } from './registered-deliveries.pipe';
+import { YardDeliveriesPipe } from './yard-deliveries.pipe';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { RegisteredDeliveriesPipe } from './registered-deliveries.pipe';
     AppComponent,
     ProcessingFormComponent,
     DeviationComponent,
-    RegisteredDeliveriesPipe
+    YardDeliveriesPipe
   ],
   providers: [DeliveryService],
   bootstrap: [AppComponent]

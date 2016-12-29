@@ -12,10 +12,11 @@ import { Yard } from './shared/yard.model';
 export class AppComponent implements OnChanges {
     title = 'WEplus';
     deliveries: Delivery[];
+    isOfficeView: boolean;
     selectedDelivery: Delivery;
+    selectedYard: Yard;
     registeredDeliveries: Delivery[];
     yards: Yard[];
-    counter: number;
 
     constructor(
         private deliveryService: DeliveryService
@@ -31,6 +32,7 @@ export class AppComponent implements OnChanges {
         this.deliveryService.getDeliveries().subscribe((deliveries) => {
             this.deliveries = deliveries;
             this.selectedDelivery = deliveries[0]
+            this.isOfficeView = true;
         });
     }
 
@@ -53,6 +55,15 @@ export class AppComponent implements OnChanges {
 
     onSelect(delivery: Delivery): void {
         this.selectedDelivery = delivery;
+    }
+
+    setOfficeView() {
+        this.isOfficeView = true;
+    }
+
+    setYardView(selectedYard) {
+        this.isOfficeView = false;
+        this.selectedYard = selectedYard;
     }
 
     private isNotRegistered(delivery): boolean {

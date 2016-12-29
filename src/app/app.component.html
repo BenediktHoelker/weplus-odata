@@ -2,12 +2,12 @@
   <span>
     <button md-button>{{title}}</button>
     <!--<button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>-->
-    <button md-button (click)="isOfficeView = true">PROCESSING</button>
+    <button md-button (click)="setOfficeView()">PROCESSING</button>
     <!--<button md-button [md-menu-trigger-for]="yardsMenu">YARDS</button>-->
     <!--<md-menu #yardsMenu="mdMenu">
       <button *ngFor="let yard of yards" md-menu-item (click)="isOfficeView = false">{{yard.name}} </button>
     </md-menu>-->
-    <button md-button *ngFor="let yard of yards" (click)="isOfficeView = false">{{yard.name}}</button>
+    <button md-button *ngFor="let yard of yards" (click)="setYardView(yard)">{{yard.name}}</button>
   </span>
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
@@ -40,9 +40,11 @@
     <app-processing-form [delivery]="selectedDelivery" [deliveries]="deliveries"></app-processing-form>
   </div>
   <div *ngIf="deliveries">
-    <div class="app-content" *ngIf="!isOfficeView">
-      <app-processing-form *ngFor="let delivery of (deliveries | registeredDeliveries)" [delivery]="delivery" [deliveries]="deliveries"></app-processing-form>
-      <!--<router-outlet></router-outlet>-->
+    <div *ngIf="selectedYard">
+      <div class="app-content" *ngIf="!isOfficeView">
+        <app-processing-form *ngFor="let delivery of (deliveries | yardDeliveries:selectedYard)" [delivery]="delivery" [deliveries]="deliveries"></app-processing-form>
+        <!--<router-outlet></router-outlet>-->
+      </div>
     </div>
   </div>
 </md-sidenav-container>
