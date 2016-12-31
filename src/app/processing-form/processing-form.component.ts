@@ -5,7 +5,7 @@ import { DeliveryService } from '../shared/delivery.service';
 import { Deviation } from '../shared/deviation.model';
 import { DeviationComponent } from '../deviation/deviation.component';
 import { DeviationType } from '../shared/deviation-type.model';
-import { Yard } from '../shared/yard.model';
+import { YardDelivery } from '../shared/yard-delivery.model';
 
 @Component({
   selector: 'app-processing-form',
@@ -20,8 +20,8 @@ export class ProcessingFormComponent implements OnInit {
     this.delivery.deviations.push(newDeviation);
   }
 
-  getTotalQuantity(deliveryYards: Yard[]): number {
-    return deliveryYards.reduce((prev, current) => prev + current.quantity, 0);
+  getTotalQuantity(yardDeliveries: YardDelivery[]): number {
+    return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
   }
 
   onSubmit() {

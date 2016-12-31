@@ -7,15 +7,14 @@ import { Delivery } from './delivery.model';
 import { Deviation } from './deviation.model';
 import { DeviationType } from './deviation-type.model';
 import { Yard } from './yard.model';
+import { YardDelivery } from './yard-delivery.model';
 
-const NUMBER_OF_YARDS = 3;
 
 @Injectable()
 export class DeliveryService {
 
     private deliveriesUrl = 'http://localhost:3000/api/deliveries';
     private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
-    private registeredDeliveriesUrl = 'http://localhost:3000/api/registeredDeliveries';
     private yardsUrl = 'http://localhost:3000/api/yards';
 
     constructor(private http: Http) { }
@@ -26,16 +25,18 @@ export class DeliveryService {
 
     createDelivery(): Delivery {
         let newDelivery = new Delivery();
-        for (let i = 1; i <= NUMBER_OF_YARDS; i++) {
-            newDelivery.yards.push(this.createYard(i));
-        }
+        this.getYards().subscribe((yards) => {
+            yards.forEach(yard => {
+                newDelivery.yardDeliveries.push(this.createYardDelivery(yard));
+            });
+        });
         return newDelivery;
     }
 
-    createYard(id: number): Yard {
-        let newYard = new Yard();
-        newYard.id = id;
-        return newYard;
+    createYardDelivery(yard: Yard): YardDelivery {
+        let newYardDelivery = new YardDelivery();
+        newYardDelivery.yard = yard;
+        return newYardDelivery;
     }
 
     createDeviation(): Deviation {

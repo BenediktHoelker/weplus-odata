@@ -41,8 +41,8 @@ describe('ProcessingFormComponent', () => {
     spy = spyOn(deliveryService, 'submitDelivery')
       .and.returnValue(Promise.resolve(testQuote));
 
-    debugEl = fixture.debugElement.query(By.css('md-card-title')); // find delivery element
-    deliveryEl = debugEl.nativeElement;
+    // debugEl = fixture.debugElement.query(By.css('md-card')); // find delivery element
+    // deliveryEl = debugEl.nativeElement;
 
     // pretend that it was wired to something that supplied a delivery
     expectedDelivery = new Delivery();
@@ -54,10 +54,11 @@ describe('ProcessingFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should accumulate the quantities for each yard', () => {
-    let mockYards: Yard[];
-    mockYards.push({id: 1, quantity: 23}, {id: 2, quantity: 542}, {id: 3, quantity: 93});
-    expect(component.getTotalQuantity(mockYards)).toEqual;
+  it('should accumulate the quantities for each YardDelivery', () => {
+    let mockYards = [{ id: 1, name: "STE1" }, { id: 2, name: "STE2" }, { id: 3, name: "STE3" }];
+    let mockYardDeliveries = [{ yard: mockYards[0], quantity: 12 }, { yard: mockYards[1], quantity: 13 }, { yard: mockYards[2], quantity: 23 }];
+
+    expect(component.getTotalQuantity(mockYardDeliveries)).toEqual(48);
   });
 
   // it('should display hero name', () => {

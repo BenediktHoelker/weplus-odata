@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Delivery } from './shared/delivery.model';
 import { DeliveryService } from './shared/delivery.service';
@@ -9,7 +9,7 @@ import { Yard } from './shared/yard.model';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnChanges {
+export class AppComponent {
     title = 'WEplus';
     deliveries: Delivery[];
     isOfficeView: boolean;
@@ -31,13 +31,9 @@ export class AppComponent implements OnChanges {
     getDeliveries(): void {
         this.deliveryService.getDeliveries().subscribe((deliveries) => {
             this.deliveries = deliveries;
-            this.selectedDelivery = deliveries[0]
+            this.selectedDelivery = deliveries[0];
             this.isOfficeView = true;
         });
-    }
-
-    getRegisteredDeliveries(): void {
-        this.registeredDeliveries = this.deliveries.filter(this.isNotRegistered);
     }
 
     getYards(): void {
@@ -47,10 +43,6 @@ export class AppComponent implements OnChanges {
     ngOnInit() {
         this.getDeliveries();
         this.getYards();
-    }
-
-    ngOnChanges() {
-        this.getRegisteredDeliveries();
     }
 
     onSelect(delivery: Delivery): void {

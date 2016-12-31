@@ -1,5 +1,5 @@
 import { Deviation } from './deviation.model';
-import { Yard } from './yard.model';
+import { YardDelivery } from './yard-delivery.model';
 
 export class Delivery {
   carrier: string;
@@ -10,11 +10,11 @@ export class Delivery {
   supplier: string;
   timeslotBegin: Date;
   timeslotEnd: Date;
-  yards: Yard[];
+  yardDeliveries: YardDelivery[];
 
   constructor() {
     this.deviations = [];
-    this.yards = [];
+    this.yardDeliveries = [];
   }
 }
 
