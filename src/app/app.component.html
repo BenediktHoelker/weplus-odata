@@ -26,7 +26,7 @@
 
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true" *ngIf="isOfficeView">
-    <md-nav-list fx-layout="column" fx-layout-align="start stretch">
+    <md-nav-list fxLayout="column" fxLayoutAlign="start stretch">
       <a md-list-item *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
         <h3 md-line> {{delivery.carrier}} </h3>
         <p md-line>
