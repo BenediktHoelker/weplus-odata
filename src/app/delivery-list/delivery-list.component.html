@@ -1,0 +1,9 @@
+  <md-nav-list fxLayout="column" fxLayoutAlign="start stretch">
+    <a md-list-item *ngFor="let delivery of deliveries | visibleDeliveries:visibilityFilter" (click)="onSelect(delivery)">
+      <h3 md-line> {{delivery.carrier}} </h3>
+      <p md-line>
+        <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>
+        <span class="sidenav-supplier"> -- {{delivery.supplier}} </span>
+      </p>
+    </a>
+  </md-nav-list>
