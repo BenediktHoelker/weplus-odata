@@ -16,6 +16,7 @@ import { DeliveryService } from './shared/delivery.service';
 import { DeviationComponent } from './deviation/deviation.component';
 import { ProcessingFormComponent } from './processing-form/processing-form.component';
 import { visibilityReducer } from './visibility-reducer';
+import { deliveryReducer } from './delivery-reducer';
 import { VisibleDeliveriesPipe } from './visible-deliveries.pipe';
 import { YardDeliveriesPipe } from './yard-deliveries.pipe';
 
@@ -27,7 +28,10 @@ import { YardDeliveriesPipe } from './yard-deliveries.pipe';
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    StoreModule.provideStore({ visibilityFilter: visibilityReducer }),
+    StoreModule.provideStore({
+      visibilityFilter: visibilityReducer,
+      deliveries: deliveryReducer
+    }),
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
         visible: true,

@@ -12,19 +12,4 @@ export class VisibleDeliveriesPipe implements PipeTransform {
     };
     return deliveries.filter(filter);
   }
-
-  private getVisibleDeliveries(deliveries, filter) {
-    switch (filter) {
-      case 'SHOW_ACTIVE':
-        {
-          console.log("Hallo" + deliveries.filter(d => !d.isProcessed));
-          return deliveries.filter(d => !d.isProcessed);
-        }
-      case 'SHOW_COMPLETED':
-        return deliveries.filter(d => d.isProcessed);
-      case 'SHOW_ALL':
-      default:
-        return deliveries;
-    }
-  };
 }

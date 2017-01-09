@@ -49,6 +49,11 @@ export class DeliveryService {
 
     getDeliveries(): Observable<Delivery[]> {
         return this.http.get(this.deliveriesUrl)
+            .map(res => res.json())
+    }
+
+    loadDeliveries(){
+        return this.http.get(this.deliveriesUrl)
             .map(res => res.json());
     }
 

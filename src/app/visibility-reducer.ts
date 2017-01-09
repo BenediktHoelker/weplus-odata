@@ -1,20 +1,18 @@
-import { ActionReducer, Action } from '@ngrx/store';
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from './actions';
+import { Action } from '@ngrx/store';
+import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED } from './actions';
 
-export const visibilityReducer = (state = delivery => delivery, action) => {
-    switch (action.type) {
-        case SHOW_ALL:
-        {
-            return delivery => delivery;
-        }
+export const visibilityReducer = (state = delivery => delivery, action: Action) => {
+  switch (action.type) {
+    case SHOW_ALL:
+      return delivery => delivery;
 
-        case SHOW_COMPLETED:
-            return delivery => delivery.isProcessed;
+    case SHOW_PROCESSED:
+      return delivery => delivery.isProcessed;
 
-        case SHOW_ACTIVE:
-            return delivery => !delivery.isProcessed;
+    case SHOW_ACTIVE:
+      return delivery => !delivery.isProcessed;
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
