@@ -11,7 +11,7 @@ import { Yard } from './shared/yard.model';
 interface AppState {
   deliveries: Delivery[];
   selectedDelivery: Delivery;
-  visibilityFilter: String;
+  statusFilter: String;
   yards: Yard[];
 }
 
@@ -21,7 +21,7 @@ interface AppState {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private filters = [
+  private statusFilters = [
     { friendly: "All", action: SHOW_ALL },
     { friendly: "Processed", action: SHOW_PROCESSED },
     { friendly: "Active", action: SHOW_ACTIVE }
@@ -30,12 +30,11 @@ export class AppComponent {
   private registeredDeliveries: Delivery[];
   private selectedYard: Yard;
   private title = 'WEplus';
-  private visibility;
-
+  private status;
 
   private deliveries: Observable<Delivery[]>;
   private selectedDelivery: Observable<Delivery>;
-  private visibilityFilter: Observable<String>;
+  private statusFilter: Observable<String>;
   private yards: Observable<Yard[]>;
 
   constructor(
@@ -43,7 +42,7 @@ export class AppComponent {
     private store: Store<AppState>
   ) {
     this.deliveries = store.select(state => state.deliveries);
-    this.visibilityFilter = store.select(state => state.visibilityFilter);
+    this.statusFilter = store.select(state => state.statusFilter);
     this.selectedDelivery = store.select(state => state.selectedDelivery);
     this.yards = store.select(state => state.yards);
 
@@ -65,16 +64,6 @@ export class AppComponent {
     this.store.dispatch({ type: CREATE_DELIVERY, payload: { id: id(), yardDeliveries } });
   }
 
-  // .subscribe((deliveries) => {
-  //     // this.deliveries = deliveries;
-  //     this.selectedDelivery = deliveries[0];
-  //     this.isOfficeView = true;
-  // });
-
-  // getYards(): void {
-  //   this.deliveryService.getYards().subscribe((yards) => { this.yards = yards; });
-  // }
-
   selectDelivery(delivery: Delivery): void {
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
@@ -88,21 +77,8 @@ export class AppComponent {
     this.selectedYard = selectedYard;
   }
 
-  showAll() {
-    this.store.dispatch({ type: SHOW_ALL });
-  }
-
-  showActive() {
-    this.store.dispatch({ type: SHOW_ACTIVE });
-  }
-
-  showCompleted() {
-    this.store.dispatch({ type: SHOW_PROCESSED });
-  }
-
-  updateVisibilityFilter(filter){
-    console.log(filter);
-    this.store.dispatch({ type: filter});
+  updateStatusFilter(filter) {
+    this.store.dispatch({ type: filter });
   }
 
   private isNotRegistered(delivery): boolean {

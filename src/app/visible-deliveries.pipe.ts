@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'visibleDeliveries'
+  name: 'statusPipe'
 })
 export class VisibleDeliveriesPipe implements PipeTransform {
   transform(deliveries, filter) {

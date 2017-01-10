@@ -21,7 +21,7 @@ import { YardDeliveriesPipe } from './yard-deliveries.pipe';
 
 import { deliveriesReducer } from './reducer/delivery.reducer';
 import { selectedDeliveryReducer } from './reducer/selected-delivery.reducer';
-import { visibilityReducer } from './reducer/visibility.reducer';
+import { statusFilterReducer } from './reducer/status-filter.reducer';
 import { yardReducer } from './reducer/yard.reducer';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
@@ -36,7 +36,7 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
     StoreModule.provideStore({
       deliveries: deliveriesReducer,
       selectedDelivery: selectedDeliveryReducer,
-      visibilityFilter: visibilityReducer,
+      statusFilter: statusFilterReducer,
       yards: yardReducer
     }),
     StoreDevtoolsModule.instrumentStore({
