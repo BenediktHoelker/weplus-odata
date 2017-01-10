@@ -2,7 +2,7 @@
   <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}} entities from
     {{delivery.supplier}}</md-card-subtitle>
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
-  <form (ngSubmit)="onSubmit()" #processingForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #deliveryDetail="ngForm">
     <md-card-content>
       <md-tab-group>
         <md-tab label="Details" class="flex-container">
@@ -40,7 +40,7 @@
       </md-tab-group>
     </md-card-content>
     <md-card-actions>
-      <button type="submit" md-button [disabled]="!processingForm.form.valid">Submit</button>
+      <button type="submit" md-button [disabled]="!deliveryDetail.form.valid">Submit</button>
       <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()"
         md-button>Add Deviation</button>
       <button type="button" (click)="removeDelivery()" md-button><md-icon>delete</md-icon></button>

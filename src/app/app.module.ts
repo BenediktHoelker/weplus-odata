@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { DeliveryService } from './shared/delivery.service';
 import { DeviationComponent } from './deviation/deviation.component';
-import { ProcessingFormComponent } from './processing-form/processing-form.component';
+import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 
 import { VisibleDeliveriesPipe } from './visible-deliveries.pipe';
 import { YardDeliveriesPipe } from './yard-deliveries.pipe';
@@ -48,7 +48,7 @@ import { yardReducer } from './reducer/yard.reducer';
   ],
   declarations: [
     AppComponent,
-    ProcessingFormComponent,
+    DeliveryDetailComponent,
     DeviationComponent,
     YardDeliveriesPipe,
     VisibleDeliveriesPipe,

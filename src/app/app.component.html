@@ -29,12 +29,12 @@
     <app-delivery-list [deliveries]="deliveries | async" (selected)="selectDelivery($event)" [visibilityFilter]="visibilityFilter | async"></app-delivery-list>
   </md-sidenav>
   <div class="app-content" *ngIf="isOfficeView">
-    <app-processing-form [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-processing-form>
+    <app-delivery-detail [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-delivery-detail>
   </div>
   <div *ngIf="deliveries">
     <div *ngIf="selectedYard">
       <div class="app-content" *ngIf="!isOfficeView">
-        <app-processing-form *ngFor="let delivery of (deliveries | yardDeliveries:selectedYard)" [delivery]="delivery" [deliveries]="deliveries"></app-processing-form>
+        <app-delivery-detail *ngFor="let delivery of (deliveries | yardDeliveries:selectedYard)" [delivery]="delivery" [deliveries]="deliveries"></app-delivery-detail>
         <!--<router-outlet></router-outlet>-->
       </div>
     </div>

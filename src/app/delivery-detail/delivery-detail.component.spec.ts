@@ -7,12 +7,12 @@ import { HttpModule } from '@angular/http';
 
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
-import { ProcessingFormComponent } from './processing-form.component';
+import { DeliveryDetailComponent } from './delivery-detail.component';
 import { Yard } from '../shared/yard.model';
 
-describe('ProcessingFormComponent', () => {
-  let component: ProcessingFormComponent;
-  let fixture: ComponentFixture<ProcessingFormComponent>;
+describe('DeliveryDetailComponent', () => {
+  let component: DeliveryDetailComponent;
+  let fixture: ComponentFixture<DeliveryDetailComponent>;
   let expectedDelivery: Delivery;
   let debugEl: DebugElement;
   let deliveryEl: HTMLElement;
@@ -23,7 +23,7 @@ describe('ProcessingFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, HttpModule],
-      declarations: [ProcessingFormComponent],
+      declarations: [DeliveryDetailComponent],
       providers: [DeliveryService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -31,7 +31,7 @@ describe('ProcessingFormComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProcessingFormComponent);
+    fixture = TestBed.createComponent(DeliveryDetailComponent);
     component = fixture.componentInstance;
 
     // DeliveryService actually injected into the component
