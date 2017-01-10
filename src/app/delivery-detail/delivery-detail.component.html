@@ -7,7 +7,7 @@
       <md-tab-group>
         <md-tab label="Details" class="flex-container">
           <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
-            fxLayoutAlign="space-between center">
+            fxLayoutAlign="space-around center">
             <md-input class="form-control" required placeholder="Carrier"
               [(ngModel)]="delivery.carrier" name="carrier"></md-input>
             <md-input class="form-control" required placeholder="Supplier"
@@ -20,7 +20,7 @@
         </md-tab>
         <md-tab label="Yards">
           <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
-            fxLayoutAlign="space-between center">
+            fxLayoutAlign="space-around center">
             <md-input *ngFor="let yardDelivery of delivery.yardDeliveries"
               class="form-control" type="number" [(ngModel)]="yardDelivery.quantity"
               placeholder="Quantity {{yardDelivery.yard.name}}"

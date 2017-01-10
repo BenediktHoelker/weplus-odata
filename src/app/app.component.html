@@ -1,13 +1,7 @@
 <md-toolbar color="primary">
   <span>
     <button md-button>{{title}}</button>
-    <!--<button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>-->
-    <button md-button (click)="setOfficeView()">PROCESSING</button>
-    <!--<button md-button [md-menu-trigger-for]="yardsMenu">YARDS</button>-->
-    <!--<md-menu #yardsMenu="mdMenu">
-      <button *ngFor="let yard of yards" md-menu-item (click)="isOfficeView = false">{{yard.name}} </button>
-    </md-menu>-->
-    <button md-button *ngFor="let yard of (yards | async)" (click)="setYardView(yard)">{{yard.name}}</button>
+  <!--<button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>-->
   </span>
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
@@ -22,20 +16,31 @@
       <button md-menu-item disabled> Sign Out </button>
     </md-menu>
   </span>
-</md-toolbar>
 
+</md-toolbar>
 <md-sidenav-container class="my-container">
-  <md-sidenav mode="side" opened="true" *ngIf="isOfficeView">
-    <app-delivery-list [deliveries]="deliveries | async" (selected)="selectDelivery($event)" [visibilityFilter]="visibilityFilter | async"></app-delivery-list>
+  <md-sidenav mode="side" opened="true">
+    <app-delivery-list [deliveries]="deliveries | async" (selected)="selectDelivery($event)"
+      [visibilityFilter]="visibilityFilter | async">
+    </app-delivery-list>
   </md-sidenav>
-  <div class="app-content" *ngIf="isOfficeView">
+  <div class="app-content">
+    <md-card class="flex-container" fxLayout="row" fxLayoutAlign="space-around center">
+      <md-select #selectListYard class="form-control" id="yard" name="yard"
+        (change)="updateYardFilter(selectListYard.value)">
+        <md-option *ngFor="let yard of (yards | async)" [value]="yard">{{yard.name}}</md-option>
+      </md-select>
+      <md-select #selectListVisibility [(ngModel)]="visibility" (ngModelChange)="updateVisibilityFilter(visibility)">
+        <md-option *ngFor="let filter of filters" value="{{filter.action}}">{{filter.friendly}}</md-option>
+      </md-select>
+    </md-card>
     <app-delivery-detail [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-delivery-detail>
   </div>
-  <div *ngIf="deliveries">
+  <div class="app-content" *ngIf="deliveries">
     <div *ngIf="selectedYard">
-      <div class="app-content" *ngIf="!isOfficeView">
-        <app-delivery-detail *ngFor="let delivery of (deliveries | yardDeliveries:selectedYard)" [delivery]="delivery" [deliveries]="deliveries"></app-delivery-detail>
-        <!--<router-outlet></router-outlet>-->
+      <div *ngIf="!isOfficeView">
+        <app-delivery-detail *ngFor="let delivery of (deliveries | yardDeliveries:selectedYard)"
+          [delivery]="delivery" [deliveries]="deliveries"></app-delivery-detail>
       </div>
     </div>
   </div>

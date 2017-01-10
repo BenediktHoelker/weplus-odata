@@ -21,10 +21,17 @@ interface AppState {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private title = 'WEplus';
+  private filters = [
+    { friendly: "All", action: SHOW_ALL },
+    { friendly: "Processed", action: SHOW_PROCESSED },
+    { friendly: "Active", action: SHOW_ACTIVE }
+  ];
   private isOfficeView: boolean;
-  private selectedYard: Yard;
   private registeredDeliveries: Delivery[];
+  private selectedYard: Yard;
+  private title = 'WEplus';
+  private visibility;
+
 
   private deliveries: Observable<Delivery[]>;
   private selectedDelivery: Observable<Delivery>;
@@ -49,7 +56,6 @@ export class AppComponent {
   }
 
   createDelivery(): void {
-
     let yardDeliveries = [];
     this.deliveryService.getYards().subscribe((yards) => {
       yards.map(yard => {
@@ -92,6 +98,11 @@ export class AppComponent {
 
   showCompleted() {
     this.store.dispatch({ type: SHOW_PROCESSED });
+  }
+
+  updateVisibilityFilter(filter){
+    console.log(filter);
+    this.store.dispatch({ type: filter});
   }
 
   private isNotRegistered(delivery): boolean {

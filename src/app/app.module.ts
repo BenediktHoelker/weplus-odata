@@ -23,6 +23,7 @@ import { deliveriesReducer } from './reducer/delivery.reducer';
 import { selectedDeliveryReducer } from './reducer/selected-delivery.reducer';
 import { visibilityReducer } from './reducer/visibility.reducer';
 import { yardReducer } from './reducer/yard.reducer';
+import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { yardReducer } from './reducer/yard.reducer';
     DeviationComponent,
     YardDeliveriesPipe,
     VisibleDeliveriesPipe,
-    DeliveryListComponent
+    DeliveryListComponent,
+    FilterBarComponent
   ],
   providers: [DeliveryService],
   bootstrap: [AppComponent]
