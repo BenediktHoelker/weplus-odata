@@ -7,7 +7,7 @@
     <!--<md-menu #yardsMenu="mdMenu">
       <button *ngFor="let yard of yards" md-menu-item (click)="isOfficeView = false">{{yard.name}} </button>
     </md-menu>-->
-    <button md-button *ngFor="let yard of yards" (click)="setYardView(yard)">{{yard.name}}</button>
+    <button md-button *ngFor="let yard of (yards | async)" (click)="setYardView(yard)">{{yard.name}}</button>
   </span>
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
@@ -40,6 +40,6 @@
     </div>
   </div>
 </md-sidenav-container>
-<span *ngIf="isOfficeView" class="app-action" (click)="addDelivery()">
+<span *ngIf="isOfficeView" class="app-action" (click)="createDelivery()">
   <button md-fab><md-icon>add circle</md-icon></button>
 </span>

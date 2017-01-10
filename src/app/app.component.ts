@@ -5,14 +5,14 @@ import { Store } from '@ngrx/store';
 import { Delivery } from './shared/delivery.model';
 import { DeliveryService } from './shared/delivery.service';
 import { id } from './id';
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED, ADD_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY } from './actions';
-import { visibilityReducer } from './visibility-reducer';
+import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY } from './reducer/actions';
 import { Yard } from './shared/yard.model';
 
 interface AppState {
-  visibilityFilter: String;
   deliveries: Delivery[];
   selectedDelivery: Delivery;
+  visibilityFilter: String;
+  yards: Yard[];
 }
 
 @Component({
@@ -25,26 +25,38 @@ export class AppComponent {
   private isOfficeView: boolean;
   private selectedYard: Yard;
   private registeredDeliveries: Delivery[];
-  private yards: Yard[];
 
-  public deliveries: Observable<Delivery[]>;
-  public selectedDelivery: Observable<Delivery>;
-  public visibilityFilter: Observable<String>;
+  private deliveries: Observable<Delivery[]>;
+  private selectedDelivery: Observable<Delivery>;
+  private visibilityFilter: Observable<String>;
+  private yards: Observable<Yard[]>;
 
   constructor(
     private deliveryService: DeliveryService,
     private store: Store<AppState>
   ) {
     this.deliveries = store.select(state => state.deliveries);
-    this.deliveryService.getDeliveries()
-      .map(payload => ({ type: ADD_DELIVERY, payload }))
-      .subscribe(action => this.store.dispatch(action));
     this.visibilityFilter = store.select(state => state.visibilityFilter);
     this.selectedDelivery = store.select(state => state.selectedDelivery);
+    this.yards = store.select(state => state.yards);
+
+    this.deliveryService.getDeliveries()
+      .map(payload => ({ type: ADD_DELIVERIES, payload }))
+      .subscribe(action => this.store.dispatch(action));
+    this.deliveryService.getYards()
+      .map(payload => ({ type: ADD_YARDS, payload }))
+      .subscribe(action => this.store.dispatch(action));
   }
 
-  addDelivery(): void {
-    this.store.dispatch({ type: ADD_DELIVERY, payload: { id: id() } });
+  createDelivery(): void {
+
+    let yardDeliveries = [];
+    this.deliveryService.getYards().subscribe((yards) => {
+      yards.map(yard => {
+        yardDeliveries.push(this.deliveryService.createYardDelivery(yard));
+      });
+    });
+    this.store.dispatch({ type: CREATE_DELIVERY, payload: { id: id(), yardDeliveries } });
   }
 
   // .subscribe((deliveries) => {
@@ -53,9 +65,9 @@ export class AppComponent {
   //     this.isOfficeView = true;
   // });
 
-  getYards(): void {
-    this.deliveryService.getYards().subscribe((yards) => { this.yards = yards; });
-  }
+  // getYards(): void {
+  //   this.deliveryService.getYards().subscribe((yards) => { this.yards = yards; });
+  // }
 
   selectDelivery(delivery: Delivery): void {
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });

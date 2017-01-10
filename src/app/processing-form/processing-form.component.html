@@ -1,21 +1,30 @@
 <md-card class="app-input-section" *ngIf="delivery">
-  <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}} entities from {{delivery.supplier}}</md-card-subtitle>
+  <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}} entities from
+    {{delivery.supplier}}</md-card-subtitle>
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
   <form (ngSubmit)="onSubmit()" #processingForm="ngForm">
     <md-card-content>
       <md-tab-group>
         <md-tab label="Details" class="flex-container">
-          <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="space-between center">
-            <md-input class="form-control" required placeholder="Carrier" [(ngModel)]="delivery.carrier" name="carrier"></md-input>
-            <md-input class="form-control" required placeholder="Supplier" [(ngModel)]="delivery.supplier" name="supplier"></md-input>
-            <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered" name="isRegistered">Registered</md-checkbox>
-            <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed" name="isProcessed">Processed</md-checkbox>
+          <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
+            fxLayoutAlign="space-between center">
+            <md-input class="form-control" required placeholder="Carrier"
+              [(ngModel)]="delivery.carrier" name="carrier"></md-input>
+            <md-input class="form-control" required placeholder="Supplier"
+              [(ngModel)]="delivery.supplier" name="supplier"></md-input>
+            <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered"
+              name="isRegistered">Registered</md-checkbox>
+            <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed"
+              name="isProcessed">Processed</md-checkbox>
           </div>
         </md-tab>
         <md-tab label="Yards">
-          <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="space-between center">
-            <md-input *ngFor="let yardDelivery of delivery.yardDeliveries" class="form-control" type="number" [(ngModel)]="yardDelivery.quantity"
-              placeholder="Quantity {{yardDelivery.yard.name}}" name="quantity yard {{yardDelivery.yard.id}}"></md-input>
+          <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
+            fxLayoutAlign="space-between center">
+            <md-input *ngFor="let yardDelivery of delivery.yardDeliveries"
+              class="form-control" type="number" [(ngModel)]="yardDelivery.quantity"
+              placeholder="Quantity {{yardDelivery.yard.name}}"
+              name="quantity yard {{yardDelivery.yard.id}}"></md-input>
           </div>
         </md-tab>
         <div *ngIf="delivery.deviations.length">
@@ -32,7 +41,8 @@
     </md-card-content>
     <md-card-actions>
       <button type="submit" md-button [disabled]="!processingForm.form.valid">Submit</button>
-      <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()" md-button>Add Deviation</button>
+      <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()"
+        md-button>Add Deviation</button>
       <button type="button" (click)="removeDelivery()" md-button><md-icon>delete</md-icon></button>
     </md-card-actions>
   </form>

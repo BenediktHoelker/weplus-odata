@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
@@ -14,6 +14,7 @@ import { YardDelivery } from '../shared/yard-delivery.model';
 export class ProcessingFormComponent implements OnInit {
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
+  @Output() submitted = new EventEmitter();
 
   addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();
@@ -29,6 +30,7 @@ export class ProcessingFormComponent implements OnInit {
     let options = this.deliveryService.createRequestOptions(headers);
     this.delivery.isProcessed = true;
     this.deliveryService.submitDelivery(this.delivery, options);
+    this.submitted.emit();
   }
 
   constructor(

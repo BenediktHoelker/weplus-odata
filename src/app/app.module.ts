@@ -15,11 +15,14 @@ import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { DeliveryService } from './shared/delivery.service';
 import { DeviationComponent } from './deviation/deviation.component';
 import { ProcessingFormComponent } from './processing-form/processing-form.component';
-import { visibilityReducer } from './reducer/visibility.reducer';
-import { deliveriesReducer } from './reducer/delivery.reducer';
-import { selectedDeliveryReducer } from './reducer/delivery.reducer';
+
 import { VisibleDeliveriesPipe } from './visible-deliveries.pipe';
 import { YardDeliveriesPipe } from './yard-deliveries.pipe';
+
+import { deliveriesReducer } from './reducer/delivery.reducer';
+import { selectedDeliveryReducer } from './reducer/selected-delivery.reducer';
+import { visibilityReducer } from './reducer/visibility.reducer';
+import { yardReducer } from './reducer/yard.reducer';
 
 @NgModule({
   imports: [
@@ -30,9 +33,10 @@ import { YardDeliveriesPipe } from './yard-deliveries.pipe';
     HttpModule,
     MaterialModule.forRoot(),
     StoreModule.provideStore({
-      visibilityFilter: visibilityReducer,
       deliveries: deliveriesReducer,
-      selectedDelivery: selectedDeliveryReducer
+      selectedDelivery: selectedDeliveryReducer,
+      visibilityFilter: visibilityReducer,
+      yards: yardReducer
     }),
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
