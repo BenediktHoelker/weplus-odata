@@ -66,7 +66,7 @@ export class AppComponent {
   createDelivery(): void {
     let yardDeliveries = [];
     this.yards.subscribe((yards) => {
-      yards.map(yard => {
+      yards.filter(yard => yard.name !== 'All').map(yard => {
         yardDeliveries.push(this.deliveryService.createYardDelivery(yard));
       });
     });

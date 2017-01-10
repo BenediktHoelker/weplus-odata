@@ -1,9 +1,7 @@
 <md-toolbar color="primary">
   <span>
     <button md-button>{{title}}</button>
-  <!--<button md-button routerLink="/registration" routerLinkActive="active">REGISTRATION</button>-->
   </span>
-  <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
   <span>
     <button md-icon-button [md-menu-trigger-for]="menu">
@@ -16,12 +14,12 @@
       <button md-menu-item disabled> Sign Out </button>
     </md-menu>
   </span>
-
 </md-toolbar>
+
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
-    <app-delivery-list [selectedYard]="selectedYard" [deliveries]="deliveries | async" (selected)="selectDelivery($event)"
-      [statusFilter]="statusFilter | async">
+    <app-delivery-list [selectedYard]="selectedYard" [deliveries]="deliveries | async"
+      (selected)="selectDelivery($event)" [statusFilter]="statusFilter | async">
     </app-delivery-list>
   </md-sidenav>
   <div class="app-content">
@@ -35,7 +33,7 @@
     </md-card>
     <app-delivery-detail [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-delivery-detail>
   </div>
-  
+
 </md-sidenav-container>
 <span class="app-action" (click)="createDelivery()">
   <button md-fab><md-icon>add circle</md-icon></button>
