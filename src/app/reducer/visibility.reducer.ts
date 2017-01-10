@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED } from './actions';
 
+//return appropriate function depending on selected filter
 export const visibilityReducer = (state = delivery => delivery, action: Action) => {
   switch (action.type) {
     case SHOW_ALL:

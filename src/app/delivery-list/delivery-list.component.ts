@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-delivery-list',
@@ -8,6 +8,6 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class DeliveryListComponent {
   @Input() deliveries;
-  //for now, we will pass filter down and apply
   @Input() visibilityFilter;
+  @Output() selected = new EventEmitter();
 }

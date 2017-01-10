@@ -5,7 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class VisibleDeliveriesPipe implements PipeTransform {
   transform(deliveries, filter) {
-    console.log("DeliveriesPipe" + filter);
+    console.log(deliveries);
+    console.log("DeliveriesPipe " + deliveries + " " + filter);
     if (!deliveries) {
       console.log("No deliveries");
       return;

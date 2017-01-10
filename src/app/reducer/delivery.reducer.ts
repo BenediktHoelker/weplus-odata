@@ -2,10 +2,9 @@ import { Action } from '@ngrx/store';
 import { Delivery } from './shared/delivery.model';
 import { ADD_DELIVERY, REMOVE_DELIVERY } from './actions';
 
-export const deliveryReducer = (state = [], action) => {
+export const deliveriesReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_DELIVERY:
-      console.log("Added delivery");
       return [
         ...state,
         Object.assign({}, action.payload[0], {
@@ -18,8 +17,7 @@ export const deliveryReducer = (state = [], action) => {
       ];
 
     case REMOVE_DELIVERY:
-      return state
-        .filter(delivery => delivery.id !== action.payload);
+      return state.filter(delivery => delivery.id !== action.payload);
 
     default:
       return state;

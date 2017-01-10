@@ -26,10 +26,10 @@
 
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true" *ngIf="isOfficeView">
-    <app-delivery-list [deliveries]="deliveries | async" [visibilityFilter]="visibilityFilter | async"></app-delivery-list>
+    <app-delivery-list [deliveries]="deliveries | async" (selected)="selectDelivery($event)" [visibilityFilter]="visibilityFilter | async"></app-delivery-list>
   </md-sidenav>
   <div class="app-content" *ngIf="isOfficeView">
-    <app-processing-form [delivery]="selectedDelivery" [deliveries]="deliveries"></app-processing-form>
+    <app-processing-form [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-processing-form>
   </div>
   <div *ngIf="deliveries">
     <div *ngIf="selectedYard">
