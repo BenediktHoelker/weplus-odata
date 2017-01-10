@@ -12,6 +12,7 @@ interface AppState {
   deliveries: Delivery[];
   selectedDelivery: Delivery;
   statusFilter: String;
+  locationFilter: String;
   yards: Yard[];
 }
 
@@ -31,10 +32,12 @@ export class AppComponent {
   private selectedYard: Yard;
   private title = 'WEplus';
   private status;
+  private location;
 
   private deliveries: Observable<Delivery[]>;
   private selectedDelivery: Observable<Delivery>;
   private statusFilter: Observable<String>;
+  private locationFilter: Observable<String>;
   private yards: Observable<Yard[]>;
 
   constructor(
@@ -43,6 +46,7 @@ export class AppComponent {
   ) {
     this.deliveries = store.select(state => state.deliveries);
     this.statusFilter = store.select(state => state.statusFilter);
+    this.locationFilter = store.select(state => state.locationFilter);
     this.selectedDelivery = store.select(state => state.selectedDelivery);
     this.yards = store.select(state => state.yards);
 
@@ -52,11 +56,16 @@ export class AppComponent {
     this.deliveryService.getYards()
       .map(payload => ({ type: ADD_YARDS, payload }))
       .subscribe(action => this.store.dispatch(action));
+
+    this.yards.subscribe((yards) => {
+      this.selectedYard = yards[0];
+    });
+    this.status = SHOW_ALL;
   }
 
   createDelivery(): void {
     let yardDeliveries = [];
-    this.deliveryService.getYards().subscribe((yards) => {
+    this.yards.subscribe((yards) => {
       yards.map(yard => {
         yardDeliveries.push(this.deliveryService.createYardDelivery(yard));
       });
@@ -68,20 +77,7 @@ export class AppComponent {
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 
-  setOfficeView() {
-    this.isOfficeView = true;
-  }
-
-  setYardView(selectedYard) {
-    this.isOfficeView = false;
-    this.selectedYard = selectedYard;
-  }
-
   updateStatusFilter(filter) {
     this.store.dispatch({ type: filter });
-  }
-
-  private isNotRegistered(delivery): boolean {
-    return !delivery.isRegistered;
   }
 }

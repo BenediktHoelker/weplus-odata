@@ -10,9 +10,9 @@
       <md-icon>more_vert</md-icon>
     </button>
     <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="showAll()"> Show All </button>
-      <button md-menu-item (click)="showActive()"> Show Active </button>
-      <button md-menu-item (click)="showCompleted()"> Show Completed </button>
+      <button md-menu-item> Refresh </button>
+      <button md-menu-item> Preferences </button>
+      <button md-menu-item> About </button>
       <button md-menu-item disabled> Sign Out </button>
     </md-menu>
   </span>
@@ -20,31 +20,23 @@
 </md-toolbar>
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
-    <app-delivery-list [deliveries]="deliveries | async" (selected)="selectDelivery($event)"
+    <app-delivery-list [selectedYard]="selectedYard" [deliveries]="deliveries | async" (selected)="selectDelivery($event)"
       [statusFilter]="statusFilter | async">
     </app-delivery-list>
   </md-sidenav>
   <div class="app-content">
     <md-card class="flex-container" fxLayout="row" fxLayoutAlign="space-around center">
-      <md-select #selectListYard class="form-control" id="yard" name="yard"
-        (change)="updateYardFilter(selectListYard.value)">
+      <md-select [(ngModel)]="selectedYard" placeholder="Filter Location">
         <md-option *ngFor="let yard of (yards | async)" [value]="yard">{{yard.name}}</md-option>
       </md-select>
-      <md-select #selectListVisibility [(ngModel)]="status" (ngModelChange)="updateStatusFilter(status)">
+      <md-select [(ngModel)]="status" placeholder="Filter Status" (ngModelChange)="updateStatusFilter(status)">
         <md-option *ngFor="let filter of statusFilters" value="{{filter.action}}">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>
     <app-delivery-detail [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-delivery-detail>
   </div>
-  <div class="app-content" *ngIf="deliveries">
-    <div *ngIf="selectedYard">
-      <div *ngIf="!isOfficeView">
-        <app-delivery-detail *ngFor="let delivery of (deliveries | yardDeliveries:selectedYard)"
-          [delivery]="delivery" [deliveries]="deliveries"></app-delivery-detail>
-      </div>
-    </div>
-  </div>
+  
 </md-sidenav-container>
-<span *ngIf="isOfficeView" class="app-action" (click)="createDelivery()">
+<span class="app-action" (click)="createDelivery()">
   <button md-fab><md-icon>add circle</md-icon></button>
 </span>

@@ -8,6 +8,7 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from 
 })
 export class DeliveryListComponent {
   @Input() deliveries;
+  @Input() selectedYard;
   @Input() statusFilter;
   @Output() selected = new EventEmitter();
 }
