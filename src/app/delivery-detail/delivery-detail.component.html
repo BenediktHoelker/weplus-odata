@@ -1,6 +1,7 @@
-<md-card class="app-input-section" *ngIf="delivery">
+<md-card *ngIf="delivery" class="app-input-section">
   <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}} entities from
-    {{delivery.supplier}}</md-card-subtitle>
+    {{delivery.supplier}}
+  </md-card-subtitle>
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
   <form (ngSubmit)="onSubmit()" #deliveryDetail="ngForm">
     <md-card-content>
@@ -8,10 +9,13 @@
         <md-tab label="Details" class="flex-container">
           <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
             fxLayoutAlign="space-around center">
-            <md-input class="form-control" required placeholder="Carrier"
-              [(ngModel)]="delivery.carrier" name="carrier"></md-input>
-            <md-input class="form-control" required placeholder="Supplier"
-              [(ngModel)]="delivery.supplier" name="supplier"></md-input>
+            <md-input-container>
+              <input md-input class="form-control" #carrier [carrierFocus]="myFocusTriggeringEventEmitter"
+                placeholder="Carrier" [(ngModel)]="delivery.carrier"
+                name="carrier">
+            </md-input-container>
+            <md-input class="form-control" placeholder="Supplier" [(ngModel)]="delivery.supplier"
+              name="supplier"></md-input>
             <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered"
               name="isRegistered">Registered</md-checkbox>
             <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed"
@@ -40,7 +44,7 @@
       </md-tab-group>
     </md-card-content>
     <md-card-actions>
-      <button type="submit" md-button [disabled]="!deliveryDetail.form.valid">Submit</button>
+      <button type="submit" md-button>Submit</button>
       <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()"
         md-button>Add Deviation</button>
       <button type="button" (click)="removeDelivery()" md-button><md-icon>delete</md-icon></button>

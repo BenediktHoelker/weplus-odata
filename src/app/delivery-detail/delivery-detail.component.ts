@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, OnInit, ViewChildren } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
@@ -11,9 +11,11 @@ import { YardDelivery } from '../shared/yard-delivery.model';
   selector: 'app-delivery-detail',
   templateUrl: './delivery-detail.component.html'
 })
-export class DeliveryDetailComponent implements OnInit {
+export class DeliveryDetailComponent {
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
+
+  public myFocusTriggeringEventEmitter = new EventEmitter<boolean>();
 
   addDeviation(): void {
     let newDeviation = this.deliveryService.createDeviation();
@@ -33,9 +35,6 @@ export class DeliveryDetailComponent implements OnInit {
 
   constructor(
     private deliveryService: DeliveryService
-  ) { }
-
-  ngOnInit(
   ) { }
 
   removeDelivery(delivery: Delivery): void {

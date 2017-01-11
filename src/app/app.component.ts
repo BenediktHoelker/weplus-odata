@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, ViewChild} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { Delivery } from './shared/delivery.model';
+import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import { id } from './id';
 import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY } from './reducer/actions';
@@ -22,6 +23,9 @@ interface AppState {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild(DeliveryDetailComponent)
+  private child: DeliveryDetailComponent;
+
   private statusFilters = [
     { friendly: "All", action: SHOW_ALL },
     { friendly: "Processed", action: SHOW_PROCESSED },
@@ -60,6 +64,9 @@ export class AppComponent {
     this.yards.subscribe((yards) => {
       this.selectedYard = yards[0];
     });
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries[0]);
+    })
     this.status = SHOW_ALL;
   }
 
@@ -71,6 +78,7 @@ export class AppComponent {
       });
     });
     this.store.dispatch({ type: CREATE_DELIVERY, payload: { id: id(), yardDeliveries } });
+    this.child.myFocusTriggeringEventEmitter.emit(true);
   }
 
   selectDelivery(delivery: Delivery): void {
