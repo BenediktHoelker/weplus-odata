@@ -81,7 +81,11 @@ export class AppComponent {
     this.child.myFocusTriggeringEventEmitter.emit(true);
   }
 
-  selectDelivery(delivery: Delivery): void {
+  removeDelivery(delivery: Delivery) {
+    this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
+  }
+
+  selectDelivery(delivery: Delivery) {
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 

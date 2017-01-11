@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit, Output, ViewChildren } from '@angular/core';
+import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
@@ -15,6 +15,7 @@ export class DeliveryDetailComponent {
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
   @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
+  @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
 
   public myFocusTriggeringEventEmitter = new EventEmitter<boolean>();
 
@@ -27,20 +28,7 @@ export class DeliveryDetailComponent {
     return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
   }
 
-  // onSubmit() {
-  //   let headers = this.deliveryService.createHeaders('application/json');
-  //   let options = this.deliveryService.createRequestOptions(headers);
-  //   this.delivery.isProcessed = true;
-  //   this.deliveryService.submitDelivery(this.delivery, options)
-  //     .subscribe(action => this.store.dispatch({ type: 'UPDATE_ITEM', payload: item }));;
-  // }
-
   constructor(
     private deliveryService: DeliveryService
   ) { }
-
-  removeDelivery(delivery: Delivery): void {
-    this.deliveryService.removeDelivery(this.delivery, this.deliveries);
-    this.delivery = this.deliveries[0];
-  }
 }

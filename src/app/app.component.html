@@ -38,7 +38,8 @@
     </md-card>
     <app-delivery-detail [delivery]="selectedDelivery | async"
       [deliveries]="deliveries"
-      (updateDelivery)="updateDelivery($event)"></app-delivery-detail>
+      (updateDelivery)="updateDelivery($event)"
+      (removeDelivery)="removeDelivery($event)"></app-delivery-detail>
   </div>
 
 </md-sidenav-container>

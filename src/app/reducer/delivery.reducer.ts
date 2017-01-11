@@ -19,7 +19,7 @@ export const deliveriesReducer = (state = [], action) => {
       ];
 
     case REMOVE_DELIVERY:
-      return state.filter(delivery => delivery.id !== action.payload);
+      return state.filter(delivery => delivery._id !== action.payload._id);
 
     case UPDATE_DELIVERY:
       return state.map(delivery => {
