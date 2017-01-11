@@ -18,9 +18,12 @@
 
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
-    <app-delivery-list [selectedYard]="selectedYard"
-      [deliveries]="deliveries | async" (selected)="selectDelivery($event)"
-      [statusFilter]="statusFilter | async">
+    <app-delivery-list 
+      [selectedYard]="selectedYard"
+      [deliveries]="deliveries | async" 
+      [processingFilter]="processingFilter | async"
+      [registrationFilter]="registrationFilter | async"
+      (selected)="selectDelivery($event)">
     </app-delivery-list>
   </md-sidenav>
   <div class="app-content">
@@ -30,9 +33,14 @@
         <md-option *ngFor="let yard of (yards | async)"
           [value]="yard">{{yard.name}}</md-option>
       </md-select>
-      <md-select [(ngModel)]="status" placeholder="Filter Status"
-        (ngModelChange)="updateStatusFilter(status)">
-        <md-option *ngFor="let filter of statusFilters"
+      <md-select [(ngModel)]="processingStatus" placeholder="Filter Processed"
+        (ngModelChange)="updateProcessingFilter(status)">
+        <md-option *ngFor="let filter of processingFilters"
+          value="{{filter.action}}">{{filter.friendly}}</md-option>
+      </md-select>
+      <md-select [(ngModel)]="registrationStatus" placeholder="Filter Registered"
+        (ngModelChange)="updateRegistrationFilter(status)">
+        <md-option *ngFor="let filter of registrationFilters"
           value="{{filter.action}}">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>

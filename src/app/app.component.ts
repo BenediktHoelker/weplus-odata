@@ -6,13 +6,14 @@ import { Delivery } from './shared/delivery.model';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import { id } from './id';
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY } from './reducer/actions';
+import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED, SHOW_PROCESSED, SHOW_NOT_PROCESSED, SHOW_ALL_P, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY } from './reducer/actions';
 import { Yard } from './shared/yard.model';
 
 interface AppState {
   deliveries: Delivery[];
   selectedDelivery: Delivery;
-  statusFilter: String;
+  processingFilter: String;
+  registrationFilter: String;
   locationFilter: String;
   yards: Yard[];
 }
@@ -26,21 +27,24 @@ export class AppComponent {
   @ViewChild(DeliveryDetailComponent)
   private child: DeliveryDetailComponent;
 
-  private statusFilters = [
-    { friendly: "All", action: SHOW_ALL },
+  private processingFilters = [
+    { friendly: "All", action: SHOW_ALL_P },
     { friendly: "Processed", action: SHOW_PROCESSED },
-    { friendly: "Active", action: SHOW_ACTIVE }
+    { friendly: "Not Processed", action: SHOW_NOT_PROCESSED }
   ];
-  private isOfficeView: boolean;
-  private registeredDeliveries: Delivery[];
+  private registrationFilters = [
+    { friendly: "All", action: SHOW_ALL_R },
+    { friendly: "Registered", action: SHOW_REGISTERED },
+    { friendly: "Not Registered", action: SHOW_NOT_REGISTERED }
+  ];
+  private processingStatus;
+  private registrationStatus;
   private selectedYard: Yard;
-  private title = 'WEplus';
-  private status;
-  private location;
 
   private deliveries: Observable<Delivery[]>;
   private selectedDelivery: Observable<Delivery>;
-  private statusFilter: Observable<String>;
+  private processingFilter: Observable<String>;
+  private registrationFilter: Observable<String>;
   private locationFilter: Observable<String>;
   private yards: Observable<Yard[]>;
 
@@ -49,7 +53,8 @@ export class AppComponent {
     private store: Store<AppState>
   ) {
     this.deliveries = store.select(state => state.deliveries);
-    this.statusFilter = store.select(state => state.statusFilter);
+    this.processingFilter = store.select(state => state.processingFilter);
+    this.registrationFilter = store.select(state => state.registrationFilter);
     this.locationFilter = store.select(state => state.locationFilter);
     this.selectedDelivery = store.select(state => state.selectedDelivery);
     this.yards = store.select(state => state.yards);
@@ -64,10 +69,13 @@ export class AppComponent {
     this.yards.subscribe((yards) => {
       this.selectedYard = yards[0];
     });
+
     this.deliveries.subscribe((deliveries) => {
       this.selectDelivery(deliveries[0]);
-    })
-    this.status = SHOW_ALL;
+    });
+
+    this.processingStatus = SHOW_ALL_P;
+    this.registrationStatus = SHOW_ALL_R;
   }
 
   createDelivery(): void {
@@ -97,7 +105,11 @@ export class AppComponent {
       .subscribe(action => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }));
   }
 
-  updateStatusFilter(filter) {
+  updateProcessingFilter(filter) {
+    this.store.dispatch({ type: filter });
+  }
+
+  updateRegistrationFilter(filter) {
     this.store.dispatch({ type: filter });
   }
 }

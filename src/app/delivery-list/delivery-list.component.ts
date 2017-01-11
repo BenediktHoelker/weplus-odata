@@ -9,6 +9,14 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from 
 export class DeliveryListComponent {
   @Input() deliveries;
   @Input() selectedYard;
-  @Input() statusFilter;
+  @Input() registrationFilter;
+  @Input() processingFilter;
   @Output() selected = new EventEmitter();
+
+  constructor(){
+    console.log(this.deliveries);
+    console.log(this.selectedYard);
+    console.log(this.registrationFilter);
+    console.log(this.processingFilter);
+  }
 }

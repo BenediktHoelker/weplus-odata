@@ -5,10 +5,15 @@ export const REMOVE_DELIVERY = 'REMOVE_DELIVERY';
 export const SELECT_DELIVERY = 'SELECT_DELIVERY';
 export const UPDATE_DELIVERY = 'UPDATE_DELIVERY';
 
-//Visibility Filters
-export const SHOW_ACTIVE = 'SHOW_ACTIVE';
-export const SHOW_ALL = 'SHOW_ALL';
+//Processing Filters
 export const SHOW_PROCESSED = 'SHOW_PROCESSED';
+export const SHOW_NOT_PROCESSED = 'SHOW_NOT_PROCESSED';
+export const SHOW_ALL_P = 'SHOW_ALL_P';
+
+//Registration Filters
+export const SHOW_REGISTERED = 'SHOW_REGISTERED';
+export const SHOW_NOT_REGISTERED = 'SHOW_NOT_REGISTERED';
+export const SHOW_ALL_R = 'SHOW_ALL_R';
 
 //Yard Action Constants
 export const ADD_YARDS = 'ADD_YARDS';
