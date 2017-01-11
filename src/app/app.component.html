@@ -18,20 +18,27 @@
 
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
-    <app-delivery-list [selectedYard]="selectedYard" [deliveries]="deliveries | async"
-      (selected)="selectDelivery($event)" [statusFilter]="statusFilter | async">
+    <app-delivery-list [selectedYard]="selectedYard"
+      [deliveries]="deliveries | async" (selected)="selectDelivery($event)"
+      [statusFilter]="statusFilter | async">
     </app-delivery-list>
   </md-sidenav>
   <div class="app-content">
-    <md-card class="flex-container" fxLayout="row" fxLayoutAlign="space-around center">
+    <md-card class="flex-container" fxLayout="row"
+      fxLayoutAlign="space-around center">
       <md-select [(ngModel)]="selectedYard" placeholder="Filter Location">
-        <md-option *ngFor="let yard of (yards | async)" [value]="yard">{{yard.name}}</md-option>
+        <md-option *ngFor="let yard of (yards | async)"
+          [value]="yard">{{yard.name}}</md-option>
       </md-select>
-      <md-select [(ngModel)]="status" placeholder="Filter Status" (ngModelChange)="updateStatusFilter(status)">
-        <md-option *ngFor="let filter of statusFilters" value="{{filter.action}}">{{filter.friendly}}</md-option>
+      <md-select [(ngModel)]="status" placeholder="Filter Status"
+        (ngModelChange)="updateStatusFilter(status)">
+        <md-option *ngFor="let filter of statusFilters"
+          value="{{filter.action}}">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>
-    <app-delivery-detail [delivery]="selectedDelivery | async" [deliveries]="deliveries"></app-delivery-detail>
+    <app-delivery-detail [delivery]="selectedDelivery | async"
+      [deliveries]="deliveries"
+      (updateDelivery)="updateDelivery($event)"></app-delivery-detail>
   </div>
 
 </md-sidenav-container>

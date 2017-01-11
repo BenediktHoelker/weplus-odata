@@ -1,4 +1,4 @@
-import { Component, EventEmitter, ViewChild} from '@angular/core';
+import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -6,7 +6,7 @@ import { Delivery } from './shared/delivery.model';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import { id } from './id';
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY } from './reducer/actions';
+import { SHOW_ALL, SHOW_ACTIVE, SHOW_PROCESSED, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY } from './reducer/actions';
 import { Yard } from './shared/yard.model';
 
 interface AppState {
@@ -83,6 +83,14 @@ export class AppComponent {
 
   selectDelivery(delivery: Delivery): void {
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
+  }
+
+  updateDelivery(delivery: Delivery) {
+    let headers = this.deliveryService.createHeaders('application/json');
+    let options = this.deliveryService.createRequestOptions(headers);
+    delivery.isProcessed = true;
+    this.deliveryService.submitDelivery(delivery, options)
+      .subscribe(action => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }));
   }
 
   updateStatusFilter(filter) {

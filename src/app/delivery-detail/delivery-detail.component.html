@@ -3,7 +3,7 @@
     {{delivery.supplier}}
   </md-card-subtitle>
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
-  <form (ngSubmit)="onSubmit()" #deliveryDetail="ngForm">
+  <form (ngSubmit)="updateDelivery.emit(delivery)" #deliveryDetail="ngForm">
     <md-card-content>
       <md-tab-group>
         <md-tab label="Details" class="flex-container">

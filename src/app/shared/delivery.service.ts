@@ -83,11 +83,12 @@ export class DeliveryService {
         return deviations;
     }
 
-    submitDelivery(deliveryToBeSubmitted: Delivery, options: RequestOptions): Promise<Delivery> {
+    submitDelivery(deliveryToBeSubmitted: Delivery, options: RequestOptions): Observable<Delivery> {
         return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
+            .map(res => res.json());
+            // .toPromise()
+            // .then(this.extractData)
+            // .catch(this.handleError);
     }
 
     private extractData(res: Response) {

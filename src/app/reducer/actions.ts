@@ -3,6 +3,7 @@ export const ADD_DELIVERIES = 'ADD_DELIVERIES';
 export const CREATE_DELIVERY = 'CREATE_DELIVERY';
 export const REMOVE_DELIVERY = 'REMOVE_DELIVERY';
 export const SELECT_DELIVERY = 'SELECT_DELIVERY';
+export const UPDATE_DELIVERY = 'UPDATE_DELIVERY';
 
 //Visibility Filters
 export const SHOW_ACTIVE = 'SHOW_ACTIVE';
