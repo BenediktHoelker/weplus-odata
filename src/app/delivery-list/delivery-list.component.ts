@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-delivery-list',
@@ -6,14 +6,14 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from 
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./delivery-list.component.css']
 })
-export class DeliveryListComponent {
+export class DeliveryListComponent implements OnInit{
   @Input() deliveries;
   @Input() selectedYard;
   @Input() registrationFilter;
   @Input() processingFilter;
   @Output() selected = new EventEmitter();
 
-  constructor(){
+  ngOnInit(){
     console.log(this.deliveries);
     console.log(this.selectedYard);
     console.log(this.registrationFilter);

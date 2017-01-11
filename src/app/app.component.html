@@ -34,12 +34,12 @@
           [value]="yard">{{yard.name}}</md-option>
       </md-select>
       <md-select [(ngModel)]="processingStatus" placeholder="Filter Processed"
-        (ngModelChange)="updateProcessingFilter(status)">
+        (ngModelChange)="updateProcessingFilter(processingStatus)">
         <md-option *ngFor="let filter of processingFilters"
           value="{{filter.action}}">{{filter.friendly}}</md-option>
       </md-select>
       <md-select [(ngModel)]="registrationStatus" placeholder="Filter Registered"
-        (ngModelChange)="updateRegistrationFilter(status)">
+        (ngModelChange)="updateRegistrationFilter(registrationStatus)">
         <md-option *ngFor="let filter of registrationFilters"
           value="{{filter.action}}">{{filter.friendly}}</md-option>
       </md-select>

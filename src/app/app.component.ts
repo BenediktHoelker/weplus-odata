@@ -1,4 +1,4 @@
-import { Component, EventEmitter, ViewChild } from '@angular/core';
+import { Component, EventEmitter, ViewChild, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -23,7 +23,7 @@ interface AppState {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnChanges {
   @ViewChild(DeliveryDetailComponent)
   private child: DeliveryDetailComponent;
 
@@ -76,6 +76,13 @@ export class AppComponent {
 
     this.processingStatus = SHOW_ALL_P;
     this.registrationStatus = SHOW_ALL_R;
+  }
+
+  ngOnChanges() {
+    console.log("Change");
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries[0]);
+    });
   }
 
   createDelivery(): void {

@@ -39,7 +39,7 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
       deliveries: deliveriesReducer,
       selectedDelivery: selectedDeliveryReducer,
       registrationFilter: registrationFilterReducer,
-      processdingFilter: processingFilterReducer,
+      processingFilter: processingFilterReducer,
       yards: yardReducer
     }),
     StoreDevtoolsModule.instrumentStore({
