@@ -17,9 +17,9 @@ export class DeliveryService {
     // private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
     // private yardsUrl = 'http://localhost:3000/api/yards';
 
-    private deliveriesUrl = 'https://weplus-api.herokuapp.com:4609/api/deliveries';
-    private deviationTypesUrl = 'https://weplus-api.herokuapp.com:4609/api/deviationTypes';
-    private yardsUrl = 'https://weplus-api.herokuapp.com:4609/api/yards';
+    private deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
+    private deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
+    private yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
 
     constructor(private http: Http) { }
 
