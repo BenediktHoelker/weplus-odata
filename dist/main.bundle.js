@@ -41,9 +41,9 @@ var DeliveryService = (function () {
         // private deliveriesUrl = 'http://localhost:3000/api/deliveries';
         // private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
         // private yardsUrl = 'http://localhost:3000/api/yards';
-        this.deliveriesUrl = 'https://weplus-api.herokuapp.com:4609/api/deliveries';
-        this.deviationTypesUrl = 'https://weplus-api.herokuapp.com:4609/api/deviationTypes';
-        this.yardsUrl = 'https://weplus-api.herokuapp.com:4609/api/yards';
+        this.deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
+        this.deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
+        this.yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
     }
     DeliveryService.prototype.createHeaders = function (contentType) {
         return new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]({ 'Content-Type': contentType });
