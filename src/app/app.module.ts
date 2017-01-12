@@ -27,7 +27,6 @@ import { processingFilterReducer } from './reducer/processing-filter.reducer';
 import { registrationFilterReducer } from './reducer/registration-filter.reducer';
 import { yardFilterReducer } from './reducer/yard-filter.reducer';
 import { yardReducer } from './reducer/yard.reducer';
-import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
 @NgModule({
   imports: [
@@ -60,7 +59,6 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
     YardDeliveriesPipe,
     VisibleDeliveriesPipe,
     DeliveryListComponent,
-    FilterBarComponent,
     FocusInputDirective,
     DeviationFocusDirective
   ],

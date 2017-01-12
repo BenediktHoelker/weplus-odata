@@ -1,6 +1,6 @@
 webpackJsonp([0,3],{
 
-/***/ 1176:
+/***/ 1173:
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(554);
@@ -14,11 +14,11 @@ module.exports = __webpack_require__(554);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(926);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(923);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__delivery_model__ = __webpack_require__(480);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__deviation_model__ = __webpack_require__(481);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__yard_delivery_model__ = __webpack_require__(755);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__yard_delivery_model__ = __webpack_require__(754);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DeliveryService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -143,7 +143,7 @@ var DeliveryService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_store__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__delivery_detail_delivery_detail_component__ = __webpack_require__(479);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_delivery_service__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__id__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__id__ = __webpack_require__(746);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reducer_actions__ = __webpack_require__(82);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -281,8 +281,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(919),
-            styles: [__webpack_require__(915)]
+            template: __webpack_require__(917),
+            styles: [__webpack_require__(914)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["a" /* Store */]) === 'function' && _c) || Object])
     ], AppComponent);
@@ -351,7 +351,7 @@ var DeliveryDetailComponent = (function () {
     DeliveryDetailComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-delivery-detail',
-            template: __webpack_require__(920)
+            template: __webpack_require__(918)
         }), 
         __metadata('design:paramtypes', [(typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _d) || Object])
     ], DeliveryDetailComponent);
@@ -410,12 +410,12 @@ webpackEmptyContext.id = 553;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(759);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(758);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(690);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(758);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(748);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(757);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(747);
 
 
 
@@ -478,7 +478,7 @@ var AppRoutingModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngrx_store__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngrx_store_devtools__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ngrx_store_log_monitor__ = __webpack_require__(725);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_hammerjs__ = __webpack_require__(913);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_hammerjs__ = __webpack_require__(912);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_hammerjs__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_component__ = __webpack_require__(478);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__app_routing_module__ = __webpack_require__(740);
@@ -486,17 +486,16 @@ var AppRoutingModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__shared_delivery_service__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__deviation_deviation_component__ = __webpack_require__(744);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__delivery_detail_delivery_detail_component__ = __webpack_require__(479);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__focus_input_directive__ = __webpack_require__(746);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__focus_input_directive__ = __webpack_require__(745);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__deviation_focus_directive__ = __webpack_require__(743);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__visible_deliveries_pipe__ = __webpack_require__(756);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__yard_deliveries_pipe__ = __webpack_require__(757);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__reducer_delivery_reducer__ = __webpack_require__(749);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__reducer_selected_delivery_reducer__ = __webpack_require__(752);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__reducer_processing_filter_reducer__ = __webpack_require__(750);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__reducer_registration_filter_reducer__ = __webpack_require__(751);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__reducer_yard_filter_reducer__ = __webpack_require__(753);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__reducer_yard_reducer__ = __webpack_require__(754);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__filter_bar_filter_bar_component__ = __webpack_require__(745);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__visible_deliveries_pipe__ = __webpack_require__(755);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__yard_deliveries_pipe__ = __webpack_require__(756);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__reducer_delivery_reducer__ = __webpack_require__(748);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__reducer_selected_delivery_reducer__ = __webpack_require__(751);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__reducer_processing_filter_reducer__ = __webpack_require__(749);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__reducer_registration_filter_reducer__ = __webpack_require__(750);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__reducer_yard_filter_reducer__ = __webpack_require__(752);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__reducer_yard_reducer__ = __webpack_require__(753);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -507,7 +506,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -569,7 +567,6 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_19__yard_deliveries_pipe__["a" /* YardDeliveriesPipe */],
                 __WEBPACK_IMPORTED_MODULE_18__visible_deliveries_pipe__["a" /* VisibleDeliveriesPipe */],
                 __WEBPACK_IMPORTED_MODULE_12__delivery_list_delivery_list_component__["a" /* DeliveryListComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__filter_bar_filter_bar_component__["a" /* FilterBarComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__focus_input_directive__["a" /* FocusInputDirective */],
                 __WEBPACK_IMPORTED_MODULE_17__deviation_focus_directive__["a" /* DeviationFocusDirective */]
             ],
@@ -627,8 +624,8 @@ var DeliveryListComponent = (function () {
     DeliveryListComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-delivery-list',
-            template: __webpack_require__(921),
-            styles: [__webpack_require__(916)]
+            template: __webpack_require__(919),
+            styles: [__webpack_require__(915)]
         }), 
         __metadata('design:paramtypes', [])
     ], DeliveryListComponent);
@@ -725,8 +722,8 @@ var DeviationComponent = (function () {
     DeviationComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-deviation',
-            template: __webpack_require__(922),
-            styles: [__webpack_require__(917)]
+            template: __webpack_require__(920),
+            styles: [__webpack_require__(916)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _b) || Object])
     ], DeviationComponent);
@@ -738,41 +735,6 @@ var DeviationComponent = (function () {
 /***/ },
 
 /***/ 745:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return FilterBarComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var FilterBarComponent = (function () {
-    function FilterBarComponent() {
-    }
-    FilterBarComponent.prototype.ngOnInit = function () {
-    };
-    FilterBarComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
-            selector: 'app-filter-bar',
-            template: __webpack_require__(923),
-            styles: [__webpack_require__(918)]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], FilterBarComponent);
-    return FilterBarComponent;
-}());
-//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/filter-bar.component.js.map
-
-/***/ },
-
-/***/ 746:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -820,7 +782,7 @@ var FocusInputDirective = (function () {
 
 /***/ },
 
-/***/ 747:
+/***/ 746:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -834,7 +796,7 @@ var id = function () {
 
 /***/ },
 
-/***/ 748:
+/***/ 747:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -848,7 +810,7 @@ var id = function () {
 
 /***/ },
 
-/***/ 749:
+/***/ 748:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -884,7 +846,7 @@ var deliveriesReducer = function (state, action) {
 
 /***/ },
 
-/***/ 750:
+/***/ 749:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -909,7 +871,7 @@ var processingFilterReducer = function (state, action) {
 
 /***/ },
 
-/***/ 751:
+/***/ 750:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -934,7 +896,7 @@ var registrationFilterReducer = function (state, action) {
 
 /***/ },
 
-/***/ 752:
+/***/ 751:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -955,7 +917,7 @@ var selectedDeliveryReducer = function (state, _a) {
 
 /***/ },
 
-/***/ 753:
+/***/ 752:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -981,7 +943,7 @@ var yardFilterReducer = function (state, action) {
 
 /***/ },
 
-/***/ 754:
+/***/ 753:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1007,7 +969,7 @@ var yardReducer = function (state, action) {
 
 /***/ },
 
-/***/ 755:
+/***/ 754:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1021,7 +983,7 @@ var YardDelivery = (function () {
 
 /***/ },
 
-/***/ 756:
+/***/ 755:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1059,7 +1021,7 @@ var VisibleDeliveriesPipe = (function () {
 
 /***/ },
 
-/***/ 757:
+/***/ 756:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1061,7 @@ var YardDeliveriesPipe = (function () {
 
 /***/ },
 
-/***/ 758:
+/***/ 757:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1115,41 +1077,41 @@ var environment = {
 
 /***/ },
 
-/***/ 759:
+/***/ 758:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(773);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(772);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(766);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(765);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(762);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(761);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(768);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(767);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(767);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(766);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(765);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(764);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(764);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(763);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(772);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(771);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(761);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(760);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(760);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(759);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(770);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(769);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(763);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(762);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(771);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(770);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(769);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(768);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(774);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(773);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1172);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -1213,10 +1175,17 @@ var FILTER_YARD = 'FILTER_YARD';
 
 /***/ },
 
-/***/ 915:
+/***/ 914:
 /***/ function(module, exports) {
 
 module.exports = ".fill-remaining-space {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n}\n\nhtml, body, md-sidenav-container {\n  margin: 0;\n  width: 100%;\n  height: 90%;\n}\n\n/*.my-container md-sidenav {\n  max-width: 250px;\n}*/\n\n.sidenav-supplier {\n  color: rgba(0, 0, 0, 0.54);\n}\n\n.my-container .md-sidenav-content,\n.my-container md-sidenav {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n\n.my-scrolling-content {\n  overflow: auto;\n}\n\nflex-item {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; \n  -webkit-box-flex: 1; \n      -ms-flex: 1; \n          flex: 1;\n}\n"
+
+/***/ },
+
+/***/ 915:
+/***/ function(module, exports) {
+
+module.exports = ""
 
 /***/ },
 
@@ -1230,51 +1199,30 @@ module.exports = ""
 /***/ 917:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = "<md-toolbar color=\"primary\">\n  <span>\n    <button md-button>{{title}}</button>\n  </span>\n  <span class=\"fill-remaining-space\"></span>\n  <span>\n    <button md-icon-button [md-menu-trigger-for]=\"menu\">\n      <md-icon>more_vert</md-icon>\n    </button>\n    <md-menu #menu=\"mdMenu\">\n      <button md-menu-item> Refresh </button>\n      <button md-menu-item> Preferences </button>\n      <button md-menu-item> About </button>\n      <button md-menu-item disabled> Sign Out </button>\n    </md-menu>\n  </span>\n</md-toolbar>\n\n<md-sidenav-container class=\"my-container\">\n  <md-sidenav mode=\"side\" opened=\"true\">\n    <app-delivery-list \n      [deliveries]=\"deliveries | async\" \n      [processingFilter]=\"processingFilter | async\"\n      [registrationFilter]=\"registrationFilter | async\"\n      [yardFilter]=\"yardFilter | async\"\n      (selected)=\"selectDelivery($event)\">\n    </app-delivery-list>\n  </md-sidenav>\n  <div class=\"app-content\">\n    <md-card class=\"flex-container\" fxLayout=\"row\"\n      fxLayoutAlign=\"space-around center\">\n      <md-select [(ngModel)]=\"selectedYard\" placeholder=\"Filter Location\"\n        (ngModelChange)=\"updateYardFilter()\">\n        <md-option *ngFor=\"let yard of (yards | async)\"\n          [value]=\"yard\">{{yard.name}}</md-option>\n      </md-select>\n      <md-select [(ngModel)]=\"processingStatus\" placeholder=\"Filter Processed\"\n        (ngModelChange)=\"updateProcessingFilter(processingStatus)\">\n        <md-option *ngFor=\"let filter of processingFilters\"\n          [value]=\"filter.action\">{{filter.friendly}}</md-option>\n      </md-select>\n      <md-select [(ngModel)]=\"registrationStatus\" placeholder=\"Filter Registered\"\n        (ngModelChange)=\"updateRegistrationFilter(registrationStatus)\">\n        <md-option *ngFor=\"let filter of registrationFilters\"\n          value=\"{{filter.action}}\">{{filter.friendly}}</md-option>\n      </md-select>\n    </md-card>\n    <app-delivery-detail [delivery]=\"selectedDelivery | async \"\n      [deliveries]=\"deliveries | async\"\n      (updateDelivery)=\"updateDelivery($event)\"\n      (removeDelivery)=\"removeDelivery($event)\"></app-delivery-detail>\n  </div>\n\n</md-sidenav-container>\n<span class=\"app-action\" (click)=\"createDelivery()\">\n  <button md-fab><md-icon>add circle</md-icon></button>\n</span>"
 
 /***/ },
 
 /***/ 918:
 /***/ function(module, exports) {
 
-module.exports = ""
+module.exports = "<md-card *ngIf=\"delivery\" class=\"app-input-section\">\n  <md-card-subtitle *ngIf=\"getTotalQuantity(delivery.yardDeliveries)\">{{getTotalQuantity(delivery.yardDeliveries)}} entities from\n    {{delivery.supplier}}\n  </md-card-subtitle>\n  <md-card-title>{{delivery.carrier || \"New Delivery\"}}</md-card-title>\n  <form (ngSubmit)=\"updateDelivery.emit(delivery)\" #deliveryDetail=\"ngForm\">\n    <md-card-content>\n      <md-tab-group [selectedIndex]=\"selectedTabIndex\">\n        <md-tab label=\"Details\" class=\"flex-container\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input-container>\n              <input md-input class=\"form-control\" [newDeliveryFocus]=\"newDeliveryFocusEventEmitter\"\n                placeholder=\"Carrier\" [(ngModel)]=\"delivery.carrier\"\n                name=\"carrier\">\n            </md-input-container>\n            <md-input class=\"form-control\" placeholder=\"Supplier\" [(ngModel)]=\"delivery.supplier\"\n              name=\"supplier\"></md-input>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isRegistered\"\n              name=\"isRegistered\">Registered</md-checkbox>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isProcessed\"\n              name=\"isProcessed\">Processed</md-checkbox>\n          </div>\n        </md-tab>\n        <md-tab label=\"Yards\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input *ngFor=\"let yardDelivery of delivery.yardDeliveries\"\n              class=\"form-control\" type=\"number\" [(ngModel)]=\"yardDelivery.quantity\"\n              placeholder=\"Quantity {{yardDelivery.yard.name}}\"\n              name=\"quantity yard {{yardDelivery.yard.id}}\"></md-input>\n          </div>\n        </md-tab>\n        <div *ngIf=\"delivery.deviations.length\">\n          <md-tab label=\"Deviations\">\n            <md-list-item *ngFor=\"let selectedDeviation of delivery.deviations\">\n              <app-deviation [selectedDeviation]=\"selectedDeviation\" [deviations]=\"delivery.deviations\"></app-deviation>\n            </md-list-item>\n            <div class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"end\">\n              <button type=\"button\" (click)=\"addDeviation()\" md-button><md-icon>add</md-icon></button>\n            </div>\n          </md-tab>\n        </div>\n      </md-tab-group>\n    </md-card-content>\n    <md-card-actions>\n      <button type=\"submit\" md-button>Submit</button>\n      <button *ngIf=\"!delivery.deviations.length\" type=\"button\" (click)=\"addDeviation()\"\n        md-button>Add Deviation</button>\n      <button type=\"button\" (click)=\"removeDelivery.emit(delivery)\" md-button><md-icon>delete</md-icon></button>\n    </md-card-actions>\n  </form>\n</md-card>"
 
 /***/ },
 
 /***/ 919:
 /***/ function(module, exports) {
 
-module.exports = "<md-toolbar color=\"primary\">\n  <span>\n    <button md-button>{{title}}</button>\n  </span>\n  <span class=\"fill-remaining-space\"></span>\n  <span>\n    <button md-icon-button [md-menu-trigger-for]=\"menu\">\n      <md-icon>more_vert</md-icon>\n    </button>\n    <md-menu #menu=\"mdMenu\">\n      <button md-menu-item> Refresh </button>\n      <button md-menu-item> Preferences </button>\n      <button md-menu-item> About </button>\n      <button md-menu-item disabled> Sign Out </button>\n    </md-menu>\n  </span>\n</md-toolbar>\n\n<md-sidenav-container class=\"my-container\">\n  <md-sidenav mode=\"side\" opened=\"true\">\n    <app-delivery-list \n      [deliveries]=\"deliveries | async\" \n      [processingFilter]=\"processingFilter | async\"\n      [registrationFilter]=\"registrationFilter | async\"\n      [yardFilter]=\"yardFilter | async\"\n      (selected)=\"selectDelivery($event)\">\n    </app-delivery-list>\n  </md-sidenav>\n  <div class=\"app-content\">\n    <md-card class=\"flex-container\" fxLayout=\"row\"\n      fxLayoutAlign=\"space-around center\">\n      <md-select [(ngModel)]=\"selectedYard\" placeholder=\"Filter Location\"\n        (ngModelChange)=\"updateYardFilter()\">\n        <md-option *ngFor=\"let yard of (yards | async)\"\n          [value]=\"yard\">{{yard.name}}</md-option>\n      </md-select>\n      <md-select [(ngModel)]=\"processingStatus\" placeholder=\"Filter Processed\"\n        (ngModelChange)=\"updateProcessingFilter(processingStatus)\">\n        <md-option *ngFor=\"let filter of processingFilters\"\n          [value]=\"filter.action\">{{filter.friendly}}</md-option>\n      </md-select>\n      <md-select [(ngModel)]=\"registrationStatus\" placeholder=\"Filter Registered\"\n        (ngModelChange)=\"updateRegistrationFilter(registrationStatus)\">\n        <md-option *ngFor=\"let filter of registrationFilters\"\n          value=\"{{filter.action}}\">{{filter.friendly}}</md-option>\n      </md-select>\n    </md-card>\n    <app-delivery-detail [delivery]=\"selectedDelivery | async \"\n      [deliveries]=\"deliveries | async\"\n      (updateDelivery)=\"updateDelivery($event)\"\n      (removeDelivery)=\"removeDelivery($event)\"></app-delivery-detail>\n  </div>\n\n</md-sidenav-container>\n<span class=\"app-action\" (click)=\"createDelivery()\">\n  <button md-fab><md-icon>add circle</md-icon></button>\n</span>"
+module.exports = "<md-nav-list fxLayout=\"column\" fxLayoutAlign=\"start stretch\">\n  <a md-list-item *ngFor=\"let delivery of deliveries | visibleDeliveries:registrationFilter| visibleDeliveries:processingFilter | visibleDeliveries:yardFilter\"\n    (click)=\"selected.emit(delivery); $event.stopPropagation()\">\n    <h3 md-line> {{delivery.carrier}} </h3>\n    <p md-line>\n      <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>\n      <span class=\"sidenav-supplier\"> -- {{delivery.supplier}} </span>\n    </p>\n  </a>\n</md-nav-list>"
 
 /***/ },
 
 /***/ 920:
 /***/ function(module, exports) {
 
-module.exports = "<md-card *ngIf=\"delivery\" class=\"app-input-section\">\n  <md-card-subtitle *ngIf=\"getTotalQuantity(delivery.yardDeliveries)\">{{getTotalQuantity(delivery.yardDeliveries)}} entities from\n    {{delivery.supplier}}\n  </md-card-subtitle>\n  <md-card-title>{{delivery.carrier || \"New Delivery\"}}</md-card-title>\n  <form (ngSubmit)=\"updateDelivery.emit(delivery)\" #deliveryDetail=\"ngForm\">\n    <md-card-content>\n      <md-tab-group [selectedIndex]=\"selectedTabIndex\">\n        <md-tab label=\"Details\" class=\"flex-container\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input-container>\n              <input md-input class=\"form-control\" [newDeliveryFocus]=\"newDeliveryFocusEventEmitter\"\n                placeholder=\"Carrier\" [(ngModel)]=\"delivery.carrier\"\n                name=\"carrier\">\n            </md-input-container>\n            <md-input class=\"form-control\" placeholder=\"Supplier\" [(ngModel)]=\"delivery.supplier\"\n              name=\"supplier\"></md-input>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isRegistered\"\n              name=\"isRegistered\">Registered</md-checkbox>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isProcessed\"\n              name=\"isProcessed\">Processed</md-checkbox>\n          </div>\n        </md-tab>\n        <md-tab label=\"Yards\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input *ngFor=\"let yardDelivery of delivery.yardDeliveries\"\n              class=\"form-control\" type=\"number\" [(ngModel)]=\"yardDelivery.quantity\"\n              placeholder=\"Quantity {{yardDelivery.yard.name}}\"\n              name=\"quantity yard {{yardDelivery.yard.id}}\"></md-input>\n          </div>\n        </md-tab>\n        <div *ngIf=\"delivery.deviations.length\">\n          <md-tab label=\"Deviations\">\n            <md-list-item *ngFor=\"let selectedDeviation of delivery.deviations\">\n              <app-deviation [selectedDeviation]=\"selectedDeviation\" [deviations]=\"delivery.deviations\"></app-deviation>\n            </md-list-item>\n            <div class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"end\">\n              <button type=\"button\" (click)=\"addDeviation()\" md-button><md-icon>add</md-icon></button>\n            </div>\n          </md-tab>\n        </div>\n      </md-tab-group>\n    </md-card-content>\n    <md-card-actions>\n      <button type=\"submit\" md-button>Submit</button>\n      <button *ngIf=\"!delivery.deviations.length\" type=\"button\" (click)=\"addDeviation()\"\n        md-button>Add Deviation</button>\n      <button type=\"button\" (click)=\"removeDelivery.emit(delivery)\" md-button><md-icon>delete</md-icon></button>\n    </md-card-actions>\n  </form>\n</md-card>"
-
-/***/ },
-
-/***/ 921:
-/***/ function(module, exports) {
-
-module.exports = "<md-nav-list fxLayout=\"column\" fxLayoutAlign=\"start stretch\">\n  <a md-list-item *ngFor=\"let delivery of deliveries | visibleDeliveries:registrationFilter| visibleDeliveries:processingFilter | visibleDeliveries:yardFilter\"\n    (click)=\"selected.emit(delivery); $event.stopPropagation()\">\n    <h3 md-line> {{delivery.carrier}} </h3>\n    <p md-line>\n      <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>\n      <span class=\"sidenav-supplier\"> -- {{delivery.supplier}} </span>\n    </p>\n  </a>\n</md-nav-list>"
-
-/***/ },
-
-/***/ 922:
-/***/ function(module, exports) {
-
 module.exports = "<div class=\"flex-container\" fxLayout=\"row\"\n  fxLayoutAlign=\"space-around center\">\n  <md-input-container class=\"form-control\" >\n    <input md-input class=\"deviation-gravity\" \n      type=\"number\" placeholder=\"Gravity\"\n      [(ngModel)]=\"selectedDeviation.gravity\"\n      name=\"gravity\" ngDefaultControl>\n  </md-input-container>\n  <md-select class=\"form-control\" id=\"deviationType\"\n    name=\"type\" placeholder=\"Type\" required\n    [(ngModel)]=\"selectedDeviation.type\">\n    <md-option *ngFor=\"let deviationType of deviationTypes\"\n      [value]=\"deviationType\">{{deviationType.name}}</md-option>\n  </md-select>\n  <button type=\"button\" (click)=\"removeDeviation()\"\n    md-button><md-icon>delete</md-icon></button>\n</div>"
-
-/***/ },
-
-/***/ 923:
-/***/ function(module, exports) {
-
-module.exports = "<!--<md-toolbar color=\"primary\">\n  <span>\n    <button md-button>{{title}}</button>\n    <md-select class=\"form-control\" id=\"yard\" name=\"yard\" placeholder=\"Yard\" required\n      [(ngModel)]=\"selectedYard\">\n      <md-option *ngFor=\"yard of (yards | async)\" [value]=\"yard\">{{yard.name}}</md-option>\n    </md-select>\n    <button md-icon-button [md-menu-trigger-for]=\"menu\">\n      <md-icon>more_vert</md-icon>\n    </button>\n    <md-menu #menu=\"mdMenu\">\n      <button md-menu-item (click)=\"showAll()\"> Show All </button>\n      <button md-menu-item (click)=\"showActive()\"> Show Active </button>\n      <button md-menu-item (click)=\"showCompleted()\"> Show Completed </button>\n      <button md-menu-item disabled> Sign Out </button>\n    </md-menu>\n  </span>\n</md-toolbar>-->"
 
 /***/ }
 
-},[1176]);
+},[1173]);
 //# sourceMappingURL=main.bundle.map

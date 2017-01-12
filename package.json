@@ -29,7 +29,10 @@
     "@ngrx/store-log-monitor": "^3.0.2",
     "@types/hammerjs": "^2.0.33",
     "@types/jasmine": "^2.5.38",
-    "@types/node": "^6.0.58"    
+    "@types/node": "^6.0.58",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
   },
   "devDependencies": {
     "angular-cli": "1.0.0-beta.22-1",

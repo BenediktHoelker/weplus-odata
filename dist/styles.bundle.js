@@ -1,6 +1,6 @@
 webpackJsonp([1,3],{
 
-/***/ 1177:
+/***/ 1174:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(556);
@@ -325,7 +325,7 @@ function updateLink(linkElement, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(911);
+var content = __webpack_require__(910);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(552)(content, {});
@@ -352,7 +352,7 @@ if(false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(912);
+var content = __webpack_require__(911);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(552)(content, {});
@@ -373,7 +373,7 @@ if(false) {
 
 /***/ },
 
-/***/ 910:
+/***/ 909:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(303)();
@@ -388,7 +388,7 @@ exports.push([module.i, ".md-ripple-background,.md-ripple-foreground{background-
 
 /***/ },
 
-/***/ 911:
+/***/ 910:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(303)();
@@ -403,12 +403,12 @@ exports.push([module.i, "/**\n * Applies styles for users in high contrast mode.
 
 /***/ },
 
-/***/ 912:
+/***/ 911:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(303)();
 // imports
-exports.i(__webpack_require__(910), "");
+exports.i(__webpack_require__(909), "");
 
 // module
 exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody {\n  margin: 0;\n}\n\nhtml, body, main {\n height: 100%; }\n\nmd-sidenav-layout.m2app-dark {\n  background: black;\n}\n\nmd-input {\n  margin: 5px;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n\nmd-input-container {\n  margin: 5px;\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\n\n.app-content {\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.app-content md-list {\n  margin: 40px;\n}\n\n.app-content md-card {\n  margin: 15px;\n}\n\n.app-sidenav {\n  padding: 10px;\n  min-width: 100px;\n}\n\n.app-content md-checkbox {\n  margin: 10px;\n}\n\n.app-toolbar-filler {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n}\n\n.app-toolbar-menu {\n  padding: 0 14px 0 14px;\n  color: white;\n}\n\n.app-icon-button {\n  box-shadow: none;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  background: none;\n  border: none;\n  cursor: pointer;\n  -webkit-filter: none;\n          filter: none;\n  font-weight: normal;\n  height: auto;\n  line-height: inherit;\n  margin: 0;\n  min-width: 0;\n  padding: 0;\n  text-align: left;\n  text-decoration: none;\n}\n\n.app-action {\n  display: inline-block;\n  position: fixed;\n  bottom: 20px;\n  right: 20px;\n}\n\n.app-spinner {\n  height: 30px;\n  width: 30px;\n  display: inline-block;\n}\n\n.app-input-icon {\n  font-size: 16px;\n}\n\n.app-list {\n  border: 1px solid rgba(0,0,0,0.12);\n  width: 350px;\n  margin: 20px;\n}\n\n.app-progress {\n  margin: 20px;\n}\n", ""]);
@@ -418,5 +418,5 @@ exports.push([module.i, "/* You can add global styles to this file, and also imp
 
 /***/ }
 
-},[1177]);
+},[1174]);
 //# sourceMappingURL=styles.bundle.map
