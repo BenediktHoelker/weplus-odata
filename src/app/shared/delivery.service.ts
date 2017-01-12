@@ -13,9 +13,13 @@ import { YardDelivery } from './yard-delivery.model';
 @Injectable()
 export class DeliveryService {
 
-    private deliveriesUrl = 'mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm/api/deliveries';
-    private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
-    private yardsUrl = 'http://localhost:3000/api/yards';
+    // private deliveriesUrl = 'http://localhost:3000/api/deliveries';
+    // private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
+    // private yardsUrl = 'http://localhost:3000/api/yards';
+
+    private deliveriesUrl = 'https://weplus-api.herokuapp.com:4609/api/deliveries';
+    private deviationTypesUrl = 'https://weplus-api.herokuapp.com:4609/api/deviationTypes';
+    private yardsUrl = 'https://weplus-api.herokuapp.com:4609/api/yards';
 
     constructor(private http: Http) { }
 
