@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ADD_YARDS, CREATE_YARD } from './actions';
+import { ADD_YARDS, CREATE_YARD, FILTER_YARD } from './actions';
 
 export const yardReducer = (state = [], action: Action) => {
   switch (action.type) {
@@ -16,6 +16,7 @@ export const yardReducer = (state = [], action: Action) => {
           // guests: 0,
           // attending: false
         })];
+
 
     default:
       return state;

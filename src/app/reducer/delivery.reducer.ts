@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Delivery } from '../shared/delivery.model';
-import { ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY } from './actions';
+import { ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY, FILTER_DELIVERIES } from './actions';
 import { YardDelivery } from '../shared/yard-delivery.model';
 
 export const deliveriesReducer = (state = [], action) => {
@@ -23,8 +23,11 @@ export const deliveriesReducer = (state = [], action) => {
 
     case UPDATE_DELIVERY:
       return state.map(delivery => {
-        return delivery.id === action.payload.id ? Object.assign({}, delivery, action.payload) : delivery;
+        return delivery._id === action.payload._id ? Object.assign({}, delivery, action.payload) : delivery;
       });
+
+    case FILTER_DELIVERIES:
+      return state.filter(action.payload.filter);
 
     default:
       return state;

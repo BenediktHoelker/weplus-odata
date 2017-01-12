@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED } from './actions';
+import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED, FILTER_YARD } from './actions';
 
 //return appropriate function depending on selected filter
 export const registrationFilterReducer = (state = delivery => delivery, action: Action) => {
@@ -12,7 +12,7 @@ export const registrationFilterReducer = (state = delivery => delivery, action: 
 
     case SHOW_NOT_REGISTERED:
       return delivery => !delivery.isRegistered;
-
+      
     default:
       return state;
   }

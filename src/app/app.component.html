@@ -19,24 +19,25 @@
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
     <app-delivery-list 
-      [selectedYard]="selectedYard"
       [deliveries]="deliveries | async" 
       [processingFilter]="processingFilter | async"
       [registrationFilter]="registrationFilter | async"
+      [yardFilter]="yardFilter | async"
       (selected)="selectDelivery($event)">
     </app-delivery-list>
   </md-sidenav>
   <div class="app-content">
     <md-card class="flex-container" fxLayout="row"
       fxLayoutAlign="space-around center">
-      <md-select [(ngModel)]="selectedYard" placeholder="Filter Location">
+      <md-select [(ngModel)]="selectedYard" placeholder="Filter Location"
+        (ngModelChange)="updateYardFilter()">
         <md-option *ngFor="let yard of (yards | async)"
           [value]="yard">{{yard.name}}</md-option>
       </md-select>
       <md-select [(ngModel)]="processingStatus" placeholder="Filter Processed"
         (ngModelChange)="updateProcessingFilter(processingStatus)">
         <md-option *ngFor="let filter of processingFilters"
-          value="{{filter.action}}">{{filter.friendly}}</md-option>
+          [value]="filter.action">{{filter.friendly}}</md-option>
       </md-select>
       <md-select [(ngModel)]="registrationStatus" placeholder="Filter Registered"
         (ngModelChange)="updateRegistrationFilter(registrationStatus)">
@@ -44,8 +45,8 @@
           value="{{filter.action}}">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>
-    <app-delivery-detail [delivery]="selectedDelivery | async"
-      [deliveries]="deliveries"
+    <app-delivery-detail [delivery]="selectedDelivery | async "
+      [deliveries]="deliveries | async"
       (updateDelivery)="updateDelivery($event)"
       (removeDelivery)="removeDelivery($event)"></app-delivery-detail>
   </div>

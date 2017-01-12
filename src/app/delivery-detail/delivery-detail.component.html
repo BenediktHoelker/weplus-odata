@@ -5,12 +5,12 @@
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
   <form (ngSubmit)="updateDelivery.emit(delivery)" #deliveryDetail="ngForm">
     <md-card-content>
-      <md-tab-group>
+      <md-tab-group [selectedIndex]="selectedTabIndex">
         <md-tab label="Details" class="flex-container">
           <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
             fxLayoutAlign="space-around center">
             <md-input-container>
-              <input md-input class="form-control" #carrier [carrierFocus]="myFocusTriggeringEventEmitter"
+              <input md-input class="form-control" [newDeliveryFocus]="newDeliveryFocusEventEmitter"
                 placeholder="Carrier" [(ngModel)]="delivery.carrier"
                 name="carrier">
             </md-input-container>

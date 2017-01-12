@@ -2,10 +2,10 @@ import { Directive, ElementRef, EventEmitter, Inject, Input, Renderer } from '@a
 import { MdInput } from '@angular/material';
 
 @Directive({
-  selector: '[carrierFocus]'
+  selector: '[newDeliveryFocus]'
 })
 export class FocusInputDirective {
-  @Input('carrierFocus') focusEvent: EventEmitter<boolean>;
+  @Input('newDeliveryFocus') newDeliveryFocusEvent: EventEmitter<boolean>;
 
   constructor(
     @Inject(ElementRef) private element: ElementRef,
@@ -13,7 +13,7 @@ export class FocusInputDirective {
   ) { }
 
   ngAfterViewInit() {
-    this.focusEvent.subscribe(event => {
+    this.newDeliveryFocusEvent.subscribe(event => {
       this.renderer.invokeElementMethod(this.element.nativeElement, 'focus', []);
     });
   }

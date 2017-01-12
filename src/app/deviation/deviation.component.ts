@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 
 import { DeliveryService } from '../shared/delivery.service';
 import { Deviation } from '../shared/deviation.model';
@@ -12,7 +12,9 @@ import { DeviationType } from '../shared/deviation-type.model';
 export class DeviationComponent implements OnInit {
   @Input() selectedDeviation: Deviation;
   @Input() deviations: Deviation[];
-  deviationTypes: DeviationType[];
+  // @Output() onCreatedFirstDeviation = new EventEmitter<boolean>();
+
+  private deviationTypes: DeviationType[];
 
   constructor(
     private deliveryService: DeliveryService
@@ -24,6 +26,7 @@ export class DeviationComponent implements OnInit {
 
   ngOnInit() {
     this.getDeviationTypes();
+    // this.onCreatedFirstDeviation.emit(true);
   }
 
   removeDeviation(): void {

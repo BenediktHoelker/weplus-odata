@@ -17,6 +17,12 @@ md-input {
   margin-bottom: 30px;
 }
 
+md-input-container {
+  margin: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .app-content {
   padding-left: 20px;
   padding-right: 20px;

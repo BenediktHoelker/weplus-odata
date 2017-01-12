@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 import { Delivery } from '../shared/delivery.model';
 import { DeliveryService } from '../shared/delivery.service';
@@ -17,14 +17,19 @@ export class DeliveryDetailComponent {
   @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
   @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
 
-  public myFocusTriggeringEventEmitter = new EventEmitter<boolean>();
+  public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
+  private selectedTabIndex = 0;
 
   addDeviation(): void {
+    if(!this.delivery.deviations.length)
+    {
+      this.selectedTabIndex = 2;
+    }
     let newDeviation = this.deliveryService.createDeviation();
     this.delivery.deviations.push(newDeviation);
   }
 
-  getTotalQuantity(yardDeliveries: YardDelivery[]): number {
+  getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
     return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
   }
 

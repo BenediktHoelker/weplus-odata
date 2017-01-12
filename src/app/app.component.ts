@@ -1,12 +1,13 @@
-import { Component, EventEmitter, ViewChild, OnChanges } from '@angular/core';
+import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { Delivery } from './shared/delivery.model';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
+import { DeviationComponent } from './deviation/deviation.component';
 import { DeliveryService } from './shared/delivery.service';
 import { id } from './id';
-import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED, SHOW_PROCESSED, SHOW_NOT_PROCESSED, SHOW_ALL_P, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY } from './reducer/actions';
+import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED, SHOW_PROCESSED, SHOW_NOT_PROCESSED, SHOW_ALL_P, ADD_DELIVERIES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_DELIVERIES, FILTER_YARD } from './reducer/actions';
 import { Yard } from './shared/yard.model';
 
 interface AppState {
@@ -14,7 +15,7 @@ interface AppState {
   selectedDelivery: Delivery;
   processingFilter: String;
   registrationFilter: String;
-  locationFilter: String;
+  yardFilter: String;
   yards: Yard[];
 }
 
@@ -23,7 +24,7 @@ interface AppState {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnChanges {
+export class AppComponent {
   @ViewChild(DeliveryDetailComponent)
   private child: DeliveryDetailComponent;
 
@@ -38,26 +39,33 @@ export class AppComponent implements OnChanges {
     { friendly: "Not Registered", action: SHOW_NOT_REGISTERED }
   ];
   private processingStatus;
+  private processingStatusSubscription;
   private registrationStatus;
-  private selectedYard: Yard;
+  private registrationStatusSubscription;
+  private yardStatus;
+  private yardStatusSubscription;
+  private subscription;
 
   private deliveries: Observable<Delivery[]>;
   private selectedDelivery: Observable<Delivery>;
+  private yards: Observable<Yard[]>;
+  private selectedYard: Yard;
+
   private processingFilter: Observable<String>;
   private registrationFilter: Observable<String>;
-  private locationFilter: Observable<String>;
-  private yards: Observable<Yard[]>;
+  private yardFilter: Observable<String>;
 
   constructor(
     private deliveryService: DeliveryService,
     private store: Store<AppState>
   ) {
     this.deliveries = store.select(state => state.deliveries);
-    this.processingFilter = store.select(state => state.processingFilter);
-    this.registrationFilter = store.select(state => state.registrationFilter);
-    this.locationFilter = store.select(state => state.locationFilter);
     this.selectedDelivery = store.select(state => state.selectedDelivery);
     this.yards = store.select(state => state.yards);
+
+    this.processingFilter = store.select(state => state.processingFilter);
+    this.registrationFilter = store.select(state => state.registrationFilter);
+    this.yardFilter = store.select(state => state.yardFilter);
 
     this.deliveryService.getDeliveries()
       .map(payload => ({ type: ADD_DELIVERIES, payload }))
@@ -70,19 +78,18 @@ export class AppComponent implements OnChanges {
       this.selectedYard = yards[0];
     });
 
-    this.deliveries.subscribe((deliveries) => {
-      this.selectDelivery(deliveries[0]);
-    });
-
     this.processingStatus = SHOW_ALL_P;
     this.registrationStatus = SHOW_ALL_R;
-  }
 
-  ngOnChanges() {
-    console.log("Change");
-    this.deliveries.subscribe((deliveries) => {
-      this.selectDelivery(deliveries[0]);
-    });
+    this.subscription = this.store
+      .select('processingFilter')
+      .subscribe(processingFilter => this.processingStatusSubscription = processingFilter);
+    this.subscription = this.store
+      .select('registrationFilter')
+      .subscribe(registrationFilter => this.registrationStatusSubscription = registrationFilter);
+    this.subscription = this.store
+      .select('yardFilter')
+      .subscribe(yardFilter => this.yardStatusSubscription = yardFilter);
   }
 
   createDelivery(): void {
@@ -93,7 +100,11 @@ export class AppComponent implements OnChanges {
       });
     });
     this.store.dispatch({ type: CREATE_DELIVERY, payload: { id: id(), yardDeliveries } });
-    this.child.myFocusTriggeringEventEmitter.emit(true);
+
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries[0]);
+    });
+    this.child.newDeliveryFocusEventEmitter.emit(true);
   }
 
   removeDelivery(delivery: Delivery) {
@@ -107,16 +118,53 @@ export class AppComponent implements OnChanges {
   updateDelivery(delivery: Delivery) {
     let headers = this.deliveryService.createHeaders('application/json');
     let options = this.deliveryService.createRequestOptions(headers);
-    delivery.isProcessed = true;
     this.deliveryService.submitDelivery(delivery, options)
       .subscribe(action => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }));
+    this.selectDelivery(delivery);
   }
 
   updateProcessingFilter(filter) {
     this.store.dispatch({ type: filter });
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries
+        .filter(this.registrationStatusSubscription)
+        .filter(this.processingStatusSubscription)
+        .filter(this.yardStatusSubscription)[0]);
+    });
   }
 
   updateRegistrationFilter(filter) {
     this.store.dispatch({ type: filter });
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries
+        .filter(this.registrationStatusSubscription)
+        .filter(this.processingStatusSubscription)
+        .filter(this.yardStatusSubscription)[0]);
+    });
+  }
+
+  updateYardFilter() {
+    this.store.dispatch({ type: FILTER_YARD, payload: this.selectedYard });
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries
+        .filter(this.registrationStatusSubscription)
+        .filter(this.processingStatusSubscription)
+        .filter(this.yardStatusSubscription)[0]);
+    });
+  }
+
+  filterDeliveries() {
+    this.store.dispatch({ type: FILTER_DELIVERIES, payload: this.processingFilter });
+    this.store.dispatch({ type: FILTER_DELIVERIES, payload: this.registrationFilter });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(){
+    this.deliveries.subscribe((deliveries) => {
+      this.selectDelivery(deliveries[0]);
+    });
   }
 }

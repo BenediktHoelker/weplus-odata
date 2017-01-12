@@ -1,9 +1,17 @@
-<div class="flex-container" fxLayout="row" fxLayoutAlign="space-around center">
-  <md-input class="form-control" type="number" placeholder="Gravity" [(ngModel)]="selectedDeviation.gravity" name="gravity"
-    ngDefaultControl></md-input>
-  <md-select class="form-control" id="deviationType" name="type" placeholder="Type" required
+<div class="flex-container" fxLayout="row"
+  fxLayoutAlign="space-around center">
+  <md-input-container class="form-control" >
+    <input md-input class="deviation-gravity" 
+      type="number" placeholder="Gravity"
+      [(ngModel)]="selectedDeviation.gravity"
+      name="gravity" ngDefaultControl>
+  </md-input-container>
+  <md-select class="form-control" id="deviationType"
+    name="type" placeholder="Type" required
     [(ngModel)]="selectedDeviation.type">
-    <md-option *ngFor="let deviationType of deviationTypes" [value]="deviationType">{{deviationType.name}}</md-option>
+    <md-option *ngFor="let deviationType of deviationTypes"
+      [value]="deviationType">{{deviationType.name}}</md-option>
   </md-select>
-  <button type="button" (click)="removeDeviation()" md-button><md-icon>delete</md-icon></button>
+  <button type="button" (click)="removeDeviation()"
+    md-button><md-icon>delete</md-icon></button>
 </div>

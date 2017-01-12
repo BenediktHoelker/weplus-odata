@@ -16,6 +16,7 @@ import { DeliveryService } from './shared/delivery.service';
 import { DeviationComponent } from './deviation/deviation.component';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { FocusInputDirective } from './focus-input.directive';
+import { DeviationFocusDirective } from './deviation-focus.directive';
 
 import { VisibleDeliveriesPipe } from './visible-deliveries.pipe';
 import { YardDeliveriesPipe } from './yard-deliveries.pipe';
@@ -24,6 +25,7 @@ import { deliveriesReducer } from './reducer/delivery.reducer';
 import { selectedDeliveryReducer } from './reducer/selected-delivery.reducer';
 import { processingFilterReducer } from './reducer/processing-filter.reducer';
 import { registrationFilterReducer } from './reducer/registration-filter.reducer';
+import { yardFilterReducer } from './reducer/yard-filter.reducer';
 import { yardReducer } from './reducer/yard.reducer';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
@@ -40,6 +42,7 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
       selectedDelivery: selectedDeliveryReducer,
       registrationFilter: registrationFilterReducer,
       processingFilter: processingFilterReducer,
+      yardFilter: yardFilterReducer,
       yards: yardReducer
     }),
     StoreDevtoolsModule.instrumentStore({
@@ -58,7 +61,8 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
     VisibleDeliveriesPipe,
     DeliveryListComponent,
     FilterBarComponent,
-    FocusInputDirective
+    FocusInputDirective,
+    DeviationFocusDirective
   ],
   providers: [DeliveryService],
   bootstrap: [AppComponent]

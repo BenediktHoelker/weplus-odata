@@ -1,16 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Delivery } from './shared/delivery.model';
 
 @Pipe({
-  name: 'visibleDeliveries'
+    name: 'visibleDeliveries'
 })
 export class VisibleDeliveriesPipe implements PipeTransform {
-  transform(deliveries, filter) {
-    console.log(deliveries);
-    console.log("DeliveriesPipe " + deliveries + " " + filter);
-    if (!deliveries) {
-      console.log("No deliveries");
-      return;
-    };
-    return deliveries.filter(filter);
-  }
+    transform(deliveries, filter) {
+        if (!deliveries) {
+            return;
+        };
+
+        return deliveries.filter(filter);
+    }
 }
