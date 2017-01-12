@@ -17,6 +17,10 @@ md-input {
   margin-bottom: 30px;
 }
 
+md-select {
+  margin: 20px;
+}
+
 md-input-container {
   margin: 5px;
   margin-top: 15px;
