@@ -29,7 +29,7 @@
     "@ngrx/store": "^2.2.1",
     "@ngrx/store-devtools": "^3.2.2",
     "@ngrx/store-log-monitor": "^3.0.2",
-    "@ngtools/webpack": "^1.1.9",
+    "@ngtools/webpack": "1.1.9",
     "@types/hammerjs": "^2.0.33",
     "@types/jasmine": "^2.5.38",
     "@types/node": "^6.0.58",
