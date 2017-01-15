@@ -22,12 +22,10 @@ export const deliveriesReducer = (state = [], action) => {
       return state.filter(delivery => delivery._id !== action.payload._id);
 
     case UPDATE_DELIVERY:
+      console.log(action.payload);
       return state.map(delivery => {
-        return delivery._id === action.payload._id ? Object.assign({}, delivery, action.payload) : delivery;
+        return delivery.id === action.payload.id ? Object.assign({}, delivery, action.payload) : delivery;
       });
-
-    case FILTER_DELIVERIES:
-      return state.filter(action.payload.filter);
 
     default:
       return state;

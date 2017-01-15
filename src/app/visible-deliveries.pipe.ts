@@ -9,6 +9,7 @@ export class VisibleDeliveriesPipe implements PipeTransform {
         if (!deliveries) {
             return;
         };
+        deliveries = [].concat(deliveries);
 
         return deliveries.filter(filter);
     }

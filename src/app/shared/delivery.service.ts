@@ -13,13 +13,13 @@ import { YardDelivery } from './yard-delivery.model';
 @Injectable()
 export class DeliveryService {
 
-    // private deliveriesUrl = 'http://localhost:3000/api/deliveries';
-    // private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
-    // private yardsUrl = 'http://localhost:3000/api/yards';
+    private deliveriesUrl = 'http://localhost:3000/api/deliveries';
+    private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
+    private yardsUrl = 'http://localhost:3000/api/yards';
 
-    private deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
-    private deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
-    private yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
+    // private deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
+    // private deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
+    // private yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
 
     constructor(private http: Http) { }
 
@@ -88,6 +88,7 @@ export class DeliveryService {
     }
 
     submitDelivery(deliveryToBeSubmitted: Delivery, options: RequestOptions): Observable<Delivery> {
+        console.log(deliveryToBeSubmitted);
         return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
             .map(res => res.json());
             // .toPromise()

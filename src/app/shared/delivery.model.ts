@@ -2,6 +2,7 @@ import { Deviation } from './deviation.model';
 import { YardDelivery } from './yard-delivery.model';
 
 export class Delivery {
+  id: Number;
   carrier: string;
   deviations: Deviation[];
   isRegistered: boolean;

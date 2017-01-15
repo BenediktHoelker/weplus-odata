@@ -22,6 +22,7 @@ import { VisibleDeliveriesPipe } from './visible-deliveries.pipe';
 import { YardDeliveriesPipe } from './yard-deliveries.pipe';
 
 import { deliveriesReducer } from './reducer/delivery.reducer';
+import { filteredDeliveriesReducer } from './reducer/filtered-deliveries.reducer';
 import { selectedDeliveryReducer } from './reducer/selected-delivery.reducer';
 import { processingFilterReducer } from './reducer/processing-filter.reducer';
 import { registrationFilterReducer } from './reducer/registration-filter.reducer';
@@ -38,6 +39,7 @@ import { yardReducer } from './reducer/yard.reducer';
     MaterialModule.forRoot(),
     StoreModule.provideStore({
       deliveries: deliveriesReducer,
+      filteredDeliveries: filteredDeliveriesReducer,
       selectedDelivery: selectedDeliveryReducer,
       registrationFilter: registrationFilterReducer,
       processingFilter: processingFilterReducer,
