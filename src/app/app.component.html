@@ -19,36 +19,23 @@
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
     <app-delivery-list 
-      [deliveries]="deliveries | async"
-      [processingFilter]="processingFilter | async"
-      [registrationFilter]="registrationFilter | async"
-      [yardFilter]="yardFilter | async" 
-      (selected)="selectDelivery($event)">
-    </app-delivery-list>
+      [deliveries]="(model | async)?.deliveries"
+      [processingFilter]="(model | async)?.processingFilter"
+      [registrationFilter]="(model | async)?.registrationFilter"
+      [yardFilter]="(model | async)?.yardFilter" 
+      (selected)="selectDelivery($event)"></app-delivery-list>
   </md-sidenav>
   <div class="app-content">
     <md-card>
-      <div class="flex-container" fxLayout="row"
-        fxLayoutWrap="wrap" fxLayoutAlign="space-around center">
-        <md-select [(ngModel)]="selectedYard" placeholder="Filter Location"
-          (ngModelChange)="updateYardFilter()">
-          <md-option *ngFor="let yard of (yards | async)"
-            [value]="yard">{{yard.name}}</md-option>
-        </md-select>
-        <md-select [(ngModel)]="processingStatus"
-          placeholder="Filter Processed" (ngModelChange)="updateFilter(processingStatus)">
-          <md-option *ngFor="let filter of processingFilters"
-            [value]="filter.action">{{filter.friendly}}</md-option>
-        </md-select>
-        <md-select [(ngModel)]="registrationStatus"
-          placeholder="Filter Registered" (ngModelChange)="updateFilter(registrationStatus)">
-          <md-option *ngFor="let filter of registrationFilters"
-            value="{{filter.action}}">{{filter.friendly}}</md-option>
-        </md-select>
-      </div>
+      <app-filter-bar
+        [selectedYard]="(model | async)?.selectedYard"
+        [yards]="(model | async)?.yards"
+        (updateFilter)="updateFilter($event)"
+        (updateYardFilter)="updateYardFilter($event)"></app-filter-bar>
     </md-card>
-    <app-delivery-detail [delivery]="selectedDelivery | async"
-      [deliveries]="deliveries | async" 
+    <app-delivery-detail 
+      [delivery]="(model | async)?.selectedDelivery"
+      [deliveries]="(model | async)?.deliveries" 
       (updateDelivery)="updateDelivery($event)"
       (removeDelivery)="removeDelivery($event)"></app-delivery-detail>
   </div>

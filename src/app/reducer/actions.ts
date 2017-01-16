@@ -21,3 +21,6 @@ export const SHOW_ALL_R = 'SHOW_ALL_R';
 export const ADD_YARDS = 'ADD_YARDS';
 export const CREATE_YARD = 'CREATE_YARD';
 export const FILTER_YARD = 'FILTER_YARD';
+export const SELECT_YARD = 'SELECT_YARD';
+
+

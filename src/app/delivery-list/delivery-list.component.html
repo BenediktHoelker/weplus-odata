@@ -1,5 +1,5 @@
 <md-nav-list fxLayout="column" fxLayoutAlign="start stretch">
-  <a md-list-item *ngFor="let delivery of deliveries | visibleDeliveries:registrationFilter| visibleDeliveries:processingFilter | visibleDeliveries:yardFilter"
+  <a md-list-item *ngFor="let delivery of deliveries"
     (click)="selected.emit(delivery); $event.stopPropagation()">
     <h3 md-line> {{delivery.carrier}} </h3>
     <p md-line>

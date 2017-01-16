@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED, FILTER_YARD } from './actions';
+import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED } from './actions';
 
 //return appropriate function depending on selected filter
 export const registrationFilterReducer = (state = delivery => delivery, action: Action) => {

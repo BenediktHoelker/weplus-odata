@@ -17,7 +17,6 @@ export const yardReducer = (state = [], action: Action) => {
           // attending: false
         })];
 
-
     default:
       return state;
   }
