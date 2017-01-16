@@ -1,6 +1,6 @@
 webpackJsonp([0,3],{
 
-/***/ 1173:
+/***/ 1175:
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(554);
@@ -14,11 +14,11 @@ module.exports = __webpack_require__(554);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(923);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(925);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__delivery_model__ = __webpack_require__(480);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__deviation_model__ = __webpack_require__(481);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__yard_delivery_model__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__yard_delivery_model__ = __webpack_require__(756);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return DeliveryService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,6 +41,8 @@ var DeliveryService = (function () {
         // private deliveriesUrl = 'http://localhost:3000/api/deliveries';
         // private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
         // private yardsUrl = 'http://localhost:3000/api/yards';
+        this.headers = this.createHeaders('application/json');
+        this.options = this.createRequestOptions(this.headers);
         this.deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
         this.deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
         this.yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
@@ -66,8 +68,8 @@ var DeliveryService = (function () {
     DeliveryService.prototype.createDeviation = function () {
         return new __WEBPACK_IMPORTED_MODULE_4__deviation_model__["a" /* Deviation */]();
     };
-    DeliveryService.prototype.createRequestOptions = function (headers) {
-        return new __WEBPACK_IMPORTED_MODULE_0__angular_http__["b" /* RequestOptions */]({ headers: headers });
+    DeliveryService.prototype.createRequestOptions = function (headers, search) {
+        return new __WEBPACK_IMPORTED_MODULE_0__angular_http__["b" /* RequestOptions */]({ headers: headers, search: search });
     };
     DeliveryService.prototype.getDeliveries = function () {
         return this.http.get(this.deliveriesUrl)
@@ -85,12 +87,15 @@ var DeliveryService = (function () {
         return this.http.get(this.deviationTypesUrl)
             .map(function (res) { return res.json(); });
     };
-    DeliveryService.prototype.removeDelivery = function (deliveryToBeRemoved, deliveries) {
-        var index = deliveries.indexOf(deliveryToBeRemoved, 0);
-        if (index > -1) {
-            deliveries.splice(index, 1);
-        }
-        return deliveries;
+    DeliveryService.prototype.removeDelivery = function (deliveryToBeRemoved) {
+        var params = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* URLSearchParams */]();
+        var headers = new __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Headers */]();
+        params.set('_id', deliveryToBeRemoved._id.toString());
+        headers.append('Content-Type', 'x-www-form-encoded');
+        var options = this.createRequestOptions(headers, params);
+        return this.http.delete(this.deliveriesUrl, options)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
     };
     DeliveryService.prototype.removeDeviation = function (deviationToBeRemoved, deviations) {
         var index = deviations.indexOf(deviationToBeRemoved, 0);
@@ -99,12 +104,10 @@ var DeliveryService = (function () {
         }
         return deviations;
     };
-    DeliveryService.prototype.submitDelivery = function (deliveryToBeSubmitted, options) {
-        return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
-            .map(function (res) { return res.json(); });
-        // .toPromise()
-        // .then(this.extractData)
-        // .catch(this.handleError);
+    DeliveryService.prototype.submitDelivery = function (deliveryToBeSubmitted) {
+        return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, this.options)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
     };
     DeliveryService.prototype.extractData = function (res) {
         var body = res.json();
@@ -113,7 +116,7 @@ var DeliveryService = (function () {
     DeliveryService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
         var errMsg;
-        if (error instanceof __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* Response */]) {
+        if (error instanceof __WEBPACK_IMPORTED_MODULE_0__angular_http__["d" /* Response */]) {
             var body = error.json() || '';
             var err = body.error || JSON.stringify(body);
             errMsg = error.status + " - " + (error.statusText || '') + " " + err;
@@ -126,7 +129,7 @@ var DeliveryService = (function () {
     };
     DeliveryService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_http__["d" /* Http */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_http__["e" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_http__["e" /* Http */]) === 'function' && _a) || Object])
     ], DeliveryService);
     return DeliveryService;
     var _a;
@@ -140,11 +143,13 @@ var DeliveryService = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_store__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__delivery_detail_delivery_detail_component__ = __webpack_require__(479);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_delivery_service__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__id__ = __webpack_require__(746);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reducer_actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__delivery_detail_delivery_detail_component__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_delivery_service__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__id__ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__reducer_actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -161,130 +166,87 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppComponent = (function () {
     function AppComponent(deliveryService, store) {
         var _this = this;
         this.deliveryService = deliveryService;
         this.store = store;
-        this.processingFilters = [
-            { friendly: "All", action: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["a" /* SHOW_ALL_P */] },
-            { friendly: "Processed", action: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["b" /* SHOW_PROCESSED */] },
-            { friendly: "Not Processed", action: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["c" /* SHOW_NOT_PROCESSED */] }
-        ];
-        this.registrationFilters = [
-            { friendly: "All", action: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["d" /* SHOW_ALL_R */] },
-            { friendly: "Registered", action: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["e" /* SHOW_REGISTERED */] },
-            { friendly: "Not Registered", action: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["f" /* SHOW_NOT_REGISTERED */] }
-        ];
-        this.deliveries = store.select(function (state) { return state.deliveries; });
-        this.selectedDelivery = store.select(function (state) { return state.selectedDelivery; });
-        this.yards = store.select(function (state) { return state.yards; });
-        this.processingFilter = store.select(function (state) { return state.processingFilter; });
-        this.registrationFilter = store.select(function (state) { return state.registrationFilter; });
-        this.yardFilter = store.select(function (state) { return state.yardFilter; });
+        this.title = "WEPLUS";
+        this.yardDeliveries = [];
         this.deliveryService.getDeliveries()
-            .map(function (payload) { return ({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["g" /* ADD_DELIVERIES */], payload: payload }); })
+            .map(function (payload) { return ({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["a" /* RESET_DELIVERIES */], payload: payload }); })
+            .subscribe(function (action) { return _this.store.dispatch(action); });
+        this.deliveryService.getDeliveries()
+            .map(function (payload) { return ({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["b" /* ADD_DELIVERIES */], payload: payload }); })
             .subscribe(function (action) { return _this.store.dispatch(action); });
         this.deliveryService.getYards()
-            .map(function (payload) { return ({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["h" /* ADD_YARDS */], payload: payload }); })
+            .map(function (payload) { return ({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["c" /* ADD_YARDS */], payload: payload }); })
             .subscribe(function (action) { return _this.store.dispatch(action); });
-        this.yards.subscribe(function (yards) {
-            _this.selectedYard = yards[0];
-        });
-        this.processingStatus = __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["a" /* SHOW_ALL_P */];
-        this.registrationStatus = __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["d" /* SHOW_ALL_R */];
         this.subscription = this.store
-            .select('processingFilter')
-            .subscribe(function (processingFilter) { return _this.processingStatusSubscription = processingFilter; });
-        this.subscription = this.store
-            .select('registrationFilter')
-            .subscribe(function (registrationFilter) { return _this.registrationStatusSubscription = registrationFilter; });
-        this.subscription = this.store
-            .select('yardFilter')
-            .subscribe(function (yardFilter) { return _this.yardStatusSubscription = yardFilter; });
-    }
-    AppComponent.prototype.createDelivery = function () {
-        var _this = this;
-        var yardDeliveries = [];
-        this.yards.subscribe(function (yards) {
-            yards.filter(function (yard) { return yard.name !== 'All'; }).map(function (yard) {
-                yardDeliveries.push(_this.deliveryService.createYardDelivery(yard));
+            .select('yards')
+            .subscribe(function (yards) {
+            yards.filter(function (yard) { return yard.name !== 'All'; })
+                .map(function (yard) {
+                _this.yardDeliveries.push(_this.deliveryService.createYardDelivery(yard));
             });
         });
-        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["i" /* CREATE_DELIVERY */], payload: { id: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__id__["a" /* id */])(), yardDeliveries: yardDeliveries } });
-        this.deliveries.subscribe(function (deliveries) {
-            _this.selectDelivery(deliveries[0]);
+        this.model = __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].combineLatest(store.select('deliveries'), store.select('filteredDeliveries'), store.select('processingFilter'), store.select('registrationFilter'), store.select('selectedDelivery'), store.select('selectedYard'), store.select('yardFilter'), store.select('yards'), function (deliveries, filteredDeliveries, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) {
+            return {
+                deliveries: deliveries
+                    .filter(processingFilter)
+                    .filter(registrationFilter)
+                    .filter(yardFilter),
+                filteredDeliveries: filteredDeliveries,
+                processingFilter: processingFilter,
+                registrationFilter: registrationFilter,
+                selectedDelivery: selectedDelivery || deliveries
+                    .filter(processingFilter)
+                    .filter(registrationFilter)
+                    .filter(yardFilter)[0],
+                selectedYard: selectedYard || yards[0],
+                yardFilter: yardFilter,
+                yards: yards
+            };
         });
+    }
+    AppComponent.prototype.createDelivery = function () {
+        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["d" /* SELECT_DELIVERY */], payload: null });
+        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["e" /* CREATE_DELIVERY */], payload: { id: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__id__["a" /* id */])(), yardDeliveries: this.yardDeliveries } });
         this.child.newDeliveryFocusEventEmitter.emit(true);
     };
     AppComponent.prototype.removeDelivery = function (delivery) {
-        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["j" /* REMOVE_DELIVERY */], payload: delivery });
+        var _this = this;
+        this.deliveryService.removeDelivery(delivery)
+            .subscribe(function (response) { _this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["f" /* REMOVE_DELIVERY */], payload: delivery }); });
     };
     AppComponent.prototype.selectDelivery = function (delivery) {
-        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["k" /* SELECT_DELIVERY */], payload: delivery });
+        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["d" /* SELECT_DELIVERY */], payload: delivery });
     };
     AppComponent.prototype.updateDelivery = function (delivery) {
         var _this = this;
-        var headers = this.deliveryService.createHeaders('application/json');
-        var options = this.deliveryService.createRequestOptions(headers);
-        this.deliveryService.submitDelivery(delivery, options)
-            .subscribe(function (action) { return _this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["l" /* UPDATE_DELIVERY */], payload: delivery }); });
-        this.selectDelivery(delivery);
+        this.deliveryService.submitDelivery(delivery)
+            .subscribe(function (delivery) { return _this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["g" /* UPDATE_DELIVERY */], payload: delivery }); });
     };
-    AppComponent.prototype.updateProcessingFilter = function (filter) {
-        var _this = this;
+    AppComponent.prototype.updateFilter = function (filter) {
         this.store.dispatch({ type: filter });
-        this.deliveries.subscribe(function (deliveries) {
-            _this.selectDelivery(deliveries
-                .filter(_this.registrationStatusSubscription)
-                .filter(_this.processingStatusSubscription)
-                .filter(_this.yardStatusSubscription)[0]);
-        });
+        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["d" /* SELECT_DELIVERY */], payload: null });
     };
-    AppComponent.prototype.updateRegistrationFilter = function (filter) {
-        var _this = this;
-        this.store.dispatch({ type: filter });
-        this.deliveries.subscribe(function (deliveries) {
-            _this.selectDelivery(deliveries
-                .filter(_this.registrationStatusSubscription)
-                .filter(_this.processingStatusSubscription)
-                .filter(_this.yardStatusSubscription)[0]);
-        });
-    };
-    AppComponent.prototype.updateYardFilter = function () {
-        var _this = this;
-        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["m" /* FILTER_YARD */], payload: this.selectedYard });
-        this.deliveries.subscribe(function (deliveries) {
-            _this.selectDelivery(deliveries
-                .filter(_this.registrationStatusSubscription)
-                .filter(_this.processingStatusSubscription)
-                .filter(_this.yardStatusSubscription)[0]);
-        });
-    };
-    AppComponent.prototype.filterDeliveries = function () {
-        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["n" /* FILTER_DELIVERIES */], payload: this.processingFilter });
-        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_5__reducer_actions__["n" /* FILTER_DELIVERIES */], payload: this.registrationFilter });
-    };
-    AppComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
-    };
-    AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.deliveries.subscribe(function (deliveries) {
-            _this.selectDelivery(deliveries[0]);
-        });
+    AppComponent.prototype.updateYardFilter = function (yard) {
+        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["h" /* FILTER_YARD */], payload: yard });
+        this.store.dispatch({ type: __WEBPACK_IMPORTED_MODULE_6__reducer_actions__["d" /* SELECT_DELIVERY */], payload: null });
     };
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_22" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */]), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */]) === 'function' && _a) || Object)
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_22" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */]), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */]) === 'function' && _a) || Object)
     ], AppComponent.prototype, "child", void 0);
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(917),
+            template: __webpack_require__(918),
             styles: [__webpack_require__(914)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__ngrx_store__["a" /* Store */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["a" /* Store */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["a" /* Store */]) === 'function' && _c) || Object])
     ], AppComponent);
     return AppComponent;
     var _a, _b, _c;
@@ -351,7 +313,7 @@ var DeliveryDetailComponent = (function () {
     DeliveryDetailComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-delivery-detail',
-            template: __webpack_require__(918)
+            template: __webpack_require__(919)
         }), 
         __metadata('design:paramtypes', [(typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _d) || Object])
     ], DeliveryDetailComponent);
@@ -415,7 +377,7 @@ webpackEmptyContext.id = 553;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(690);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(757);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(747);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app___ = __webpack_require__(748);
 
 
 
@@ -426,6 +388,52 @@ if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment *
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_4__app___["a" /* AppModule */]);
 //# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/main.js.map
+
+/***/ },
+
+/***/ 60:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return ADD_DELIVERIES; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return CREATE_DELIVERY; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "f", function() { return REMOVE_DELIVERY; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return SELECT_DELIVERY; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "g", function() { return UPDATE_DELIVERY; });
+/* unused harmony export FILTER_DELIVERIES */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return RESET_DELIVERIES; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "j", function() { return SHOW_PROCESSED; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "k", function() { return SHOW_NOT_PROCESSED; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "i", function() { return SHOW_ALL_P; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "m", function() { return SHOW_REGISTERED; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "n", function() { return SHOW_NOT_REGISTERED; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "l", function() { return SHOW_ALL_R; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return ADD_YARDS; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "p", function() { return CREATE_YARD; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "h", function() { return FILTER_YARD; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "o", function() { return SELECT_YARD; });
+//Delivery Action Constants
+var ADD_DELIVERIES = 'ADD_DELIVERIES';
+var CREATE_DELIVERY = 'CREATE_DELIVERY';
+var REMOVE_DELIVERY = 'REMOVE_DELIVERY';
+var SELECT_DELIVERY = 'SELECT_DELIVERY';
+var UPDATE_DELIVERY = 'UPDATE_DELIVERY';
+var FILTER_DELIVERIES = 'FILTER_DELIVERIES';
+var RESET_DELIVERIES = 'RESET_DELIVERIES';
+//Processing Filters
+var SHOW_PROCESSED = 'SHOW_PROCESSED';
+var SHOW_NOT_PROCESSED = 'SHOW_NOT_PROCESSED';
+var SHOW_ALL_P = 'SHOW_ALL_P';
+//Registration Filters
+var SHOW_REGISTERED = 'SHOW_REGISTERED';
+var SHOW_NOT_REGISTERED = 'SHOW_NOT_REGISTERED';
+var SHOW_ALL_R = 'SHOW_ALL_R';
+//Yard Action Constants
+var ADD_YARDS = 'ADD_YARDS';
+var CREATE_YARD = 'CREATE_YARD';
+var FILTER_YARD = 'FILTER_YARD';
+var SELECT_YARD = 'SELECT_YARD';
+//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/actions.js.map
 
 /***/ },
 
@@ -469,7 +477,7 @@ var AppRoutingModule = (function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_flex_layout__ = __webpack_require__(637);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(169);
@@ -486,16 +494,16 @@ var AppRoutingModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__shared_delivery_service__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__deviation_deviation_component__ = __webpack_require__(744);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__delivery_detail_delivery_detail_component__ = __webpack_require__(479);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__focus_input_directive__ = __webpack_require__(745);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__deviation_focus_directive__ = __webpack_require__(743);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__visible_deliveries_pipe__ = __webpack_require__(755);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__yard_deliveries_pipe__ = __webpack_require__(756);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__reducer_delivery_reducer__ = __webpack_require__(748);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__reducer_selected_delivery_reducer__ = __webpack_require__(751);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__reducer_processing_filter_reducer__ = __webpack_require__(749);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__reducer_registration_filter_reducer__ = __webpack_require__(750);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__reducer_yard_filter_reducer__ = __webpack_require__(752);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__reducer_yard_reducer__ = __webpack_require__(753);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__focus_input_directive__ = __webpack_require__(746);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__filter_bar_filter_bar_component__ = __webpack_require__(745);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__deviation_focus_directive__ = __webpack_require__(743);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__reducer_delivery_reducer__ = __webpack_require__(749);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__reducer_selected_delivery_reducer__ = __webpack_require__(752);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__reducer_selected_yard_reducer__ = __webpack_require__(753);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__reducer_processing_filter_reducer__ = __webpack_require__(750);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__reducer_registration_filter_reducer__ = __webpack_require__(751);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__reducer_yard_filter_reducer__ = __webpack_require__(754);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__reducer_yard_reducer__ = __webpack_require__(755);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -542,13 +550,14 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["e" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_flex_layout__["a" /* FlexLayoutModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_http__["e" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_http__["f" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_material__["MaterialModule"].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_6__ngrx_store__["g" /* StoreModule */].provideStore({
-                    deliveries: __WEBPACK_IMPORTED_MODULE_20__reducer_delivery_reducer__["a" /* deliveriesReducer */],
-                    selectedDelivery: __WEBPACK_IMPORTED_MODULE_21__reducer_selected_delivery_reducer__["a" /* selectedDeliveryReducer */],
-                    registrationFilter: __WEBPACK_IMPORTED_MODULE_23__reducer_registration_filter_reducer__["a" /* registrationFilterReducer */],
+                    deliveries: __WEBPACK_IMPORTED_MODULE_19__reducer_delivery_reducer__["a" /* deliveriesReducer */],
                     processingFilter: __WEBPACK_IMPORTED_MODULE_22__reducer_processing_filter_reducer__["a" /* processingFilterReducer */],
+                    registrationFilter: __WEBPACK_IMPORTED_MODULE_23__reducer_registration_filter_reducer__["a" /* registrationFilterReducer */],
+                    selectedDelivery: __WEBPACK_IMPORTED_MODULE_20__reducer_selected_delivery_reducer__["a" /* selectedDeliveryReducer */],
+                    selectedYard: __WEBPACK_IMPORTED_MODULE_21__reducer_selected_yard_reducer__["a" /* selectedYardReducer */],
                     yardFilter: __WEBPACK_IMPORTED_MODULE_24__reducer_yard_filter_reducer__["a" /* yardFilterReducer */],
                     yards: __WEBPACK_IMPORTED_MODULE_25__reducer_yard_reducer__["a" /* yardReducer */]
                 }),
@@ -564,11 +573,10 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_15__delivery_detail_delivery_detail_component__["a" /* DeliveryDetailComponent */],
                 __WEBPACK_IMPORTED_MODULE_14__deviation_deviation_component__["a" /* DeviationComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__yard_deliveries_pipe__["a" /* YardDeliveriesPipe */],
-                __WEBPACK_IMPORTED_MODULE_18__visible_deliveries_pipe__["a" /* VisibleDeliveriesPipe */],
                 __WEBPACK_IMPORTED_MODULE_12__delivery_list_delivery_list_component__["a" /* DeliveryListComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__deviation_focus_directive__["a" /* DeviationFocusDirective */],
+                __WEBPACK_IMPORTED_MODULE_17__filter_bar_filter_bar_component__["a" /* FilterBarComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__focus_input_directive__["a" /* FocusInputDirective */],
-                __WEBPACK_IMPORTED_MODULE_17__deviation_focus_directive__["a" /* DeviationFocusDirective */]
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_13__shared_delivery_service__["a" /* DeliveryService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_10__app_component__["a" /* AppComponent */]]
@@ -624,7 +632,7 @@ var DeliveryListComponent = (function () {
     DeliveryListComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-delivery-list',
-            template: __webpack_require__(919),
+            template: __webpack_require__(920),
             styles: [__webpack_require__(915)]
         }), 
         __metadata('design:paramtypes', [])
@@ -722,7 +730,7 @@ var DeviationComponent = (function () {
     DeviationComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'app-deviation',
-            template: __webpack_require__(920),
+            template: __webpack_require__(921),
             styles: [__webpack_require__(916)]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__shared_delivery_service__["a" /* DeliveryService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__shared_delivery_service__["a" /* DeliveryService */]) === 'function' && _b) || Object])
@@ -735,6 +743,82 @@ var DeviationComponent = (function () {
 /***/ },
 
 /***/ 745:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducer_actions__ = __webpack_require__(60);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return FilterBarComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var FilterBarComponent = (function () {
+    function FilterBarComponent() {
+        this.processingFilters = [
+            { friendly: "All", action: __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["i" /* SHOW_ALL_P */] },
+            { friendly: "Processed", action: __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["j" /* SHOW_PROCESSED */] },
+            { friendly: "Not Processed", action: __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["k" /* SHOW_NOT_PROCESSED */] }
+        ];
+        this.registrationFilters = [
+            { friendly: "All", action: __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["l" /* SHOW_ALL_R */] },
+            { friendly: "Registered", action: __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["m" /* SHOW_REGISTERED */] },
+            { friendly: "Not Registered", action: __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["n" /* SHOW_NOT_REGISTERED */] }
+        ];
+        this.updateFilter = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* EventEmitter */]();
+        this.updateYardFilter = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* EventEmitter */]();
+        this.processingStatus = __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["i" /* SHOW_ALL_P */];
+        this.registrationStatus = __WEBPACK_IMPORTED_MODULE_1__reducer_actions__["l" /* SHOW_ALL_R */];
+    }
+    FilterBarComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        __metadata('design:type', Object)
+    ], FilterBarComponent.prototype, "processingStatus", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        __metadata('design:type', Object)
+    ], FilterBarComponent.prototype, "registrationStatus", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        __metadata('design:type', Object)
+    ], FilterBarComponent.prototype, "selectedYard", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        __metadata('design:type', Object)
+    ], FilterBarComponent.prototype, "yards", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Output */])(), 
+        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* EventEmitter */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* EventEmitter */]) === 'function' && _a) || Object)
+    ], FilterBarComponent.prototype, "updateFilter", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Output */])(), 
+        __metadata('design:type', (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* EventEmitter */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* EventEmitter */]) === 'function' && _b) || Object)
+    ], FilterBarComponent.prototype, "updateYardFilter", void 0);
+    FilterBarComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
+            selector: 'app-filter-bar',
+            template: __webpack_require__(922),
+            styles: [__webpack_require__(917)]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], FilterBarComponent);
+    return FilterBarComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/filter-bar.component.js.map
+
+/***/ },
+
+/***/ 746:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -782,7 +866,7 @@ var FocusInputDirective = (function () {
 
 /***/ },
 
-/***/ 746:
+/***/ 747:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -796,7 +880,7 @@ var id = function () {
 
 /***/ },
 
-/***/ 747:
+/***/ 748:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,34 +894,32 @@ var id = function () {
 
 /***/ },
 
-/***/ 748:
+/***/ 749:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return deliveriesReducer; });
 
 var deliveriesReducer = function (state, action) {
     if (state === void 0) { state = []; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["g" /* ADD_DELIVERIES */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["b" /* ADD_DELIVERIES */]:
             return action.payload;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["i" /* CREATE_DELIVERY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["e" /* CREATE_DELIVERY */]:
             return [
                 Object.assign({}, {
-                    id: action.payload.id,
                     yardDeliveries: action.payload.yardDeliveries,
                     deviations: []
                 })
             ].concat(state);
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["j" /* REMOVE_DELIVERY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["f" /* REMOVE_DELIVERY */]:
             return state.filter(function (delivery) { return delivery._id !== action.payload._id; });
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["l" /* UPDATE_DELIVERY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["g" /* UPDATE_DELIVERY */]:
+            console.log(action.payload);
             return state.map(function (delivery) {
                 return delivery._id === action.payload._id ? Object.assign({}, delivery, action.payload) : delivery;
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["n" /* FILTER_DELIVERIES */]:
-            return state.filter(action.payload.filter);
         default:
             return state;
     }
@@ -846,22 +928,22 @@ var deliveriesReducer = function (state, action) {
 
 /***/ },
 
-/***/ 749:
+/***/ 750:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return processingFilterReducer; });
 
 //return appropriate function depending on selected filter
 var processingFilterReducer = function (state, action) {
     if (state === void 0) { state = function (delivery) { return delivery; }; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* SHOW_ALL_P */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["i" /* SHOW_ALL_P */]:
             return function (delivery) { return delivery; };
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["b" /* SHOW_PROCESSED */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["j" /* SHOW_PROCESSED */]:
             return function (delivery) { return delivery.isProcessed; };
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["c" /* SHOW_NOT_PROCESSED */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["k" /* SHOW_NOT_PROCESSED */]:
             return function (delivery) { return !delivery.isProcessed; };
         default:
             return state;
@@ -871,22 +953,22 @@ var processingFilterReducer = function (state, action) {
 
 /***/ },
 
-/***/ 750:
+/***/ 751:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return registrationFilterReducer; });
 
 //return appropriate function depending on selected filter
 var registrationFilterReducer = function (state, action) {
     if (state === void 0) { state = function (delivery) { return delivery; }; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["d" /* SHOW_ALL_R */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["l" /* SHOW_ALL_R */]:
             return function (delivery) { return delivery; };
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["e" /* SHOW_REGISTERED */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["m" /* SHOW_REGISTERED */]:
             return function (delivery) { return delivery.isRegistered; };
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["f" /* SHOW_NOT_REGISTERED */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["n" /* SHOW_NOT_REGISTERED */]:
             return function (delivery) { return !delivery.isRegistered; };
         default:
             return state;
@@ -896,18 +978,17 @@ var registrationFilterReducer = function (state, action) {
 
 /***/ },
 
-/***/ 751:
+/***/ 752:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return selectedDeliveryReducer; });
 
 var selectedDeliveryReducer = function (state, _a) {
-    if (state === void 0) { state = null; }
     var type = _a.type, payload = _a.payload;
     switch (type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["k" /* SELECT_DELIVERY */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["d" /* SELECT_DELIVERY */]:
             return payload;
         default:
             return state;
@@ -917,18 +998,38 @@ var selectedDeliveryReducer = function (state, _a) {
 
 /***/ },
 
-/***/ 752:
+/***/ 753:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return selectedYardReducer; });
+
+var selectedYardReducer = function (state, _a) {
+    var type = _a.type, payload = _a.payload;
+    switch (type) {
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["o" /* SELECT_YARD */]:
+            return payload;
+        default:
+            return state;
+    }
+};
+//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/selected-yard.reducer.js.map
+
+/***/ },
+
+/***/ 754:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return yardFilterReducer; });
 
 //return appropriate function depending on selected filter
 var yardFilterReducer = function (state, action) {
     if (state === void 0) { state = function (delivery) { return delivery; }; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["m" /* FILTER_YARD */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["h" /* FILTER_YARD */]:
             if (action.payload.name === 'All') {
                 return function (delivery) { return delivery; };
             }
@@ -943,22 +1044,22 @@ var yardFilterReducer = function (state, action) {
 
 /***/ },
 
-/***/ 753:
+/***/ 755:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(60);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return yardReducer; });
 
 var yardReducer = function (state, action) {
     if (state === void 0) { state = []; }
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["h" /* ADD_YARDS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["c" /* ADD_YARDS */]:
             return action.payload;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["o" /* CREATE_YARD */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* CREATE_YARD */]:
             return state.concat([
                 Object.assign({}, action.payload[0], {
-                    id: action.payload.id,
+                    id: action.payload._id,
                 })
             ]);
         default:
@@ -969,7 +1070,7 @@ var yardReducer = function (state, action) {
 
 /***/ },
 
-/***/ 754:
+/***/ 756:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -980,84 +1081,6 @@ var YardDelivery = (function () {
     return YardDelivery;
 }());
 //# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/yard-delivery.model.js.map
-
-/***/ },
-
-/***/ 755:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return VisibleDeliveriesPipe; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var VisibleDeliveriesPipe = (function () {
-    function VisibleDeliveriesPipe() {
-    }
-    VisibleDeliveriesPipe.prototype.transform = function (deliveries, filter) {
-        if (!deliveries) {
-            return;
-        }
-        ;
-        return deliveries.filter(filter);
-    };
-    VisibleDeliveriesPipe = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Pipe */])({
-            name: 'visibleDeliveries'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], VisibleDeliveriesPipe);
-    return VisibleDeliveriesPipe;
-}());
-//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/visible-deliveries.pipe.js.map
-
-/***/ },
-
-/***/ 756:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return YardDeliveriesPipe; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var YardDeliveriesPipe = (function () {
-    function YardDeliveriesPipe() {
-    }
-    YardDeliveriesPipe.prototype.transform = function (allDeliveries, selectedYard) {
-        if (!allDeliveries)
-            return allDeliveries;
-        if (!selectedYard)
-            return allDeliveries;
-        if (selectedYard.name === 'All')
-            return allDeliveries;
-        return allDeliveries.filter(function (delivery) { return delivery.yardDeliveries.find(function (yardDelivery) {
-            return (yardDelivery.yard.id == selectedYard.id && yardDelivery.quantity > 0);
-        }); });
-    };
-    YardDeliveriesPipe = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Pipe */])({ name: 'yardDeliveries' }), 
-        __metadata('design:paramtypes', [])
-    ], YardDeliveriesPipe);
-    return YardDeliveriesPipe;
-}());
-//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/yard-deliveries.pipe.js.map
 
 /***/ },
 
@@ -1111,7 +1134,7 @@ var environment = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(773);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(1174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -1130,48 +1153,6 @@ var environment = {
 
 
 //# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/polyfills.js.map
-
-/***/ },
-
-/***/ 82:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "g", function() { return ADD_DELIVERIES; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "i", function() { return CREATE_DELIVERY; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "j", function() { return REMOVE_DELIVERY; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "k", function() { return SELECT_DELIVERY; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "l", function() { return UPDATE_DELIVERY; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "n", function() { return FILTER_DELIVERIES; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return SHOW_PROCESSED; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "c", function() { return SHOW_NOT_PROCESSED; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SHOW_ALL_P; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return SHOW_REGISTERED; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "f", function() { return SHOW_NOT_REGISTERED; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return SHOW_ALL_R; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "h", function() { return ADD_YARDS; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "o", function() { return CREATE_YARD; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "m", function() { return FILTER_YARD; });
-//Delivery Action Constants
-var ADD_DELIVERIES = 'ADD_DELIVERIES';
-var CREATE_DELIVERY = 'CREATE_DELIVERY';
-var REMOVE_DELIVERY = 'REMOVE_DELIVERY';
-var SELECT_DELIVERY = 'SELECT_DELIVERY';
-var UPDATE_DELIVERY = 'UPDATE_DELIVERY';
-var FILTER_DELIVERIES = 'FILTER_DELIVERIES';
-//Processing Filters
-var SHOW_PROCESSED = 'SHOW_PROCESSED';
-var SHOW_NOT_PROCESSED = 'SHOW_NOT_PROCESSED';
-var SHOW_ALL_P = 'SHOW_ALL_P';
-//Registration Filters
-var SHOW_REGISTERED = 'SHOW_REGISTERED';
-var SHOW_NOT_REGISTERED = 'SHOW_NOT_REGISTERED';
-var SHOW_ALL_R = 'SHOW_ALL_R';
-//Yard Action Constants
-var ADD_YARDS = 'ADD_YARDS';
-var CREATE_YARD = 'CREATE_YARD';
-var FILTER_YARD = 'FILTER_YARD';
-//# sourceMappingURL=/Users/benedikthoelker/Projects/weplus/src/actions.js.map
 
 /***/ },
 
@@ -1199,30 +1180,44 @@ module.exports = ""
 /***/ 917:
 /***/ function(module, exports) {
 
-module.exports = "<md-toolbar color=\"primary\">\n  <span>\n    <button md-button>{{title}}</button>\n  </span>\n  <span class=\"fill-remaining-space\"></span>\n  <span>\n    <button md-icon-button [md-menu-trigger-for]=\"menu\">\n      <md-icon>more_vert</md-icon>\n    </button>\n    <md-menu #menu=\"mdMenu\">\n      <button md-menu-item> Refresh </button>\n      <button md-menu-item> Preferences </button>\n      <button md-menu-item> About </button>\n      <button md-menu-item disabled> Sign Out </button>\n    </md-menu>\n  </span>\n</md-toolbar>\n\n<md-sidenav-container class=\"my-container\">\n  <md-sidenav mode=\"side\" opened=\"true\">\n    <app-delivery-list [deliveries]=\"deliveries | async\"\n      [processingFilter]=\"processingFilter | async\"\n      [registrationFilter]=\"registrationFilter | async\"\n      [yardFilter]=\"yardFilter | async\" (selected)=\"selectDelivery($event)\">\n    </app-delivery-list>\n  </md-sidenav>\n  <div class=\"app-content\">\n    <md-card>\n      <div class=\"flex-container\" fxLayout=\"row\"\n        fxLayoutWrap=\"wrap\" fxLayoutAlign=\"space-around center\">\n        <md-select [(ngModel)]=\"selectedYard\" placeholder=\"Filter Location\"\n          (ngModelChange)=\"updateYardFilter()\">\n          <md-option *ngFor=\"let yard of (yards | async)\"\n            [value]=\"yard\">{{yard.name}}</md-option>\n        </md-select>\n        <md-select [(ngModel)]=\"processingStatus\"\n          placeholder=\"Filter Processed\" (ngModelChange)=\"updateProcessingFilter(processingStatus)\">\n          <md-option *ngFor=\"let filter of processingFilters\"\n            [value]=\"filter.action\">{{filter.friendly}}</md-option>\n        </md-select>\n        <md-select [(ngModel)]=\"registrationStatus\"\n          placeholder=\"Filter Registered\" (ngModelChange)=\"updateRegistrationFilter(registrationStatus)\">\n          <md-option *ngFor=\"let filter of registrationFilters\"\n            value=\"{{filter.action}}\">{{filter.friendly}}</md-option>\n        </md-select>\n      </div>\n    </md-card>\n    <app-delivery-detail [delivery]=\"selectedDelivery | async \"\n      [deliveries]=\"deliveries | async\" (updateDelivery)=\"updateDelivery($event)\"\n      (removeDelivery)=\"removeDelivery($event)\"></app-delivery-detail>\n  </div>\n\n</md-sidenav-container>\n<span class=\"app-action\" (click)=\"createDelivery()\">\n  <button md-fab><md-icon>add circle</md-icon></button>\n</span>"
+module.exports = ""
 
 /***/ },
 
 /***/ 918:
 /***/ function(module, exports) {
 
-module.exports = "<md-card *ngIf=\"delivery\" class=\"app-input-section\">\n  <md-card-subtitle *ngIf=\"getTotalQuantity(delivery.yardDeliveries)\">{{getTotalQuantity(delivery.yardDeliveries)}} entities from\n    {{delivery.supplier}}\n  </md-card-subtitle>\n  <md-card-title>{{delivery.carrier || \"New Delivery\"}}</md-card-title>\n  <form (ngSubmit)=\"updateDelivery.emit(delivery)\" #deliveryDetail=\"ngForm\">\n    <md-card-content>\n      <md-tab-group [selectedIndex]=\"selectedTabIndex\">\n        <md-tab label=\"Details\" class=\"flex-container\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input-container>\n              <input md-input class=\"form-control\" [newDeliveryFocus]=\"newDeliveryFocusEventEmitter\"\n                placeholder=\"Carrier\" [(ngModel)]=\"delivery.carrier\"\n                name=\"carrier\">\n            </md-input-container>\n            <md-input class=\"form-control\" placeholder=\"Supplier\" [(ngModel)]=\"delivery.supplier\"\n              name=\"supplier\"></md-input>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isRegistered\"\n              name=\"isRegistered\">Registered</md-checkbox>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isProcessed\"\n              name=\"isProcessed\">Processed</md-checkbox>\n          </div>\n        </md-tab>\n        <md-tab label=\"Yards\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input *ngFor=\"let yardDelivery of delivery.yardDeliveries\"\n              class=\"form-control\" type=\"number\" [(ngModel)]=\"yardDelivery.quantity\"\n              placeholder=\"Quantity {{yardDelivery.yard.name}}\"\n              name=\"quantity yard {{yardDelivery.yard.id}}\"></md-input>\n          </div>\n        </md-tab>\n        <div *ngIf=\"delivery.deviations.length\">\n          <md-tab label=\"Deviations\">\n            <md-list-item *ngFor=\"let selectedDeviation of delivery.deviations\">\n              <app-deviation [selectedDeviation]=\"selectedDeviation\" [deviations]=\"delivery.deviations\"></app-deviation>\n            </md-list-item>\n            <div class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"end\">\n              <button type=\"button\" (click)=\"addDeviation()\" md-button><md-icon>add</md-icon></button>\n            </div>\n          </md-tab>\n        </div>\n      </md-tab-group>\n    </md-card-content>\n    <md-card-actions>\n      <button type=\"submit\" md-button>Submit</button>\n      <button *ngIf=\"!delivery.deviations.length\" type=\"button\" (click)=\"addDeviation()\"\n        md-button>Add Deviation</button>\n      <button type=\"button\" (click)=\"removeDelivery.emit(delivery)\" md-button><md-icon>delete</md-icon></button>\n    </md-card-actions>\n  </form>\n</md-card>"
+module.exports = "<md-toolbar color=\"primary\">\n  <span>\n    <button md-button>{{title}}</button>\n  </span>\n  <span class=\"fill-remaining-space\"></span>\n  <span>\n    <button md-icon-button [md-menu-trigger-for]=\"menu\">\n      <md-icon>more_vert</md-icon>\n    </button>\n    <md-menu #menu=\"mdMenu\">\n      <button md-menu-item> Refresh </button>\n      <button md-menu-item> Preferences </button>\n      <button md-menu-item> About </button>\n      <button md-menu-item disabled> Sign Out </button>\n    </md-menu>\n  </span>\n</md-toolbar>\n\n<md-sidenav-container class=\"my-container\">\n  <md-sidenav mode=\"side\" opened=\"true\">\n    <app-delivery-list \n      [deliveries]=\"(model | async)?.deliveries\"\n      [processingFilter]=\"(model | async)?.processingFilter\"\n      [registrationFilter]=\"(model | async)?.registrationFilter\"\n      [yardFilter]=\"(model | async)?.yardFilter\" \n      (selected)=\"selectDelivery($event)\"></app-delivery-list>\n  </md-sidenav>\n  <div class=\"app-content\">\n    <md-card>\n      <app-filter-bar\n        [selectedYard]=\"(model | async)?.selectedYard\"\n        [yards]=\"(model | async)?.yards\"\n        (updateFilter)=\"updateFilter($event)\"\n        (updateYardFilter)=\"updateYardFilter($event)\"></app-filter-bar>\n    </md-card>\n    <app-delivery-detail \n      [delivery]=\"(model | async)?.selectedDelivery\"\n      [deliveries]=\"(model | async)?.deliveries\" \n      (updateDelivery)=\"updateDelivery($event)\"\n      (removeDelivery)=\"removeDelivery($event)\"></app-delivery-detail>\n  </div>\n\n</md-sidenav-container>\n<span class=\"app-action\" (click)=\"createDelivery()\">\n  <button md-fab><md-icon>add circle</md-icon></button>\n</span>"
 
 /***/ },
 
 /***/ 919:
 /***/ function(module, exports) {
 
-module.exports = "<md-nav-list fxLayout=\"column\" fxLayoutAlign=\"start stretch\">\n  <a md-list-item *ngFor=\"let delivery of deliveries | visibleDeliveries:registrationFilter| visibleDeliveries:processingFilter | visibleDeliveries:yardFilter\"\n    (click)=\"selected.emit(delivery); $event.stopPropagation()\">\n    <h3 md-line> {{delivery.carrier}} </h3>\n    <p md-line>\n      <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>\n      <span class=\"sidenav-supplier\"> -- {{delivery.supplier}} </span>\n    </p>\n  </a>\n</md-nav-list>"
+module.exports = "<md-card *ngIf=\"delivery\" class=\"app-input-section\">\n  <md-card-subtitle *ngIf=\"getTotalQuantity(delivery.yardDeliveries)\">{{getTotalQuantity(delivery.yardDeliveries)}} entities from\n    {{delivery.supplier}}\n  </md-card-subtitle>\n  <md-card-title>{{delivery.carrier || \"New Delivery\"}}</md-card-title>\n  <form (ngSubmit)=\"updateDelivery.emit(delivery)\" #deliveryDetail=\"ngForm\">\n    <md-card-content>\n      <md-tab-group [selectedIndex]=\"selectedTabIndex\">\n        <md-tab label=\"Details\" class=\"flex-container\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input-container>\n              <input md-input class=\"form-control\" [newDeliveryFocus]=\"newDeliveryFocusEventEmitter\"\n                placeholder=\"Carrier\" [(ngModel)]=\"delivery.carrier\"\n                name=\"carrier\">\n            </md-input-container>\n            <md-input class=\"form-control\" placeholder=\"Supplier\" [(ngModel)]=\"delivery.supplier\"\n              name=\"supplier\"></md-input>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isRegistered\"\n              name=\"isRegistered\">Registered</md-checkbox>\n            <md-checkbox class=\"form-control\" [(ngModel)]=\"delivery.isProcessed\"\n              name=\"isProcessed\">Processed</md-checkbox>\n          </div>\n        </md-tab>\n        <md-tab label=\"Yards\">\n          <div class=\"flex-container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\"\n            fxLayoutAlign=\"space-around center\">\n            <md-input *ngFor=\"let yardDelivery of delivery.yardDeliveries\"\n              class=\"form-control\" type=\"number\" [(ngModel)]=\"yardDelivery.quantity\"\n              placeholder=\"Quantity {{yardDelivery.yard.name}}\"\n              name=\"quantity yard {{yardDelivery.yard._id}}\"></md-input>\n          </div>\n        </md-tab>\n        <div *ngIf=\"delivery.deviations.length\">\n          <md-tab label=\"Deviations\">\n            <md-list-item *ngFor=\"let selectedDeviation of delivery.deviations\">\n              <app-deviation [selectedDeviation]=\"selectedDeviation\" [deviations]=\"delivery.deviations\"></app-deviation>\n            </md-list-item>\n            <div class=\"flex-container\" fxLayout=\"row\" fxLayoutAlign=\"end\">\n              <button type=\"button\" (click)=\"addDeviation()\" md-button><md-icon>add</md-icon></button>\n            </div>\n          </md-tab>\n        </div>\n      </md-tab-group>\n    </md-card-content>\n    <md-card-actions>\n      <button type=\"submit\" md-button>Submit</button>\n      <button *ngIf=\"!delivery.deviations.length\" type=\"button\" (click)=\"addDeviation()\"\n        md-button>Add Deviation</button>\n      <button type=\"button\" (click)=\"removeDelivery.emit(delivery)\" md-button><md-icon>delete</md-icon></button>\n    </md-card-actions>\n  </form>\n</md-card>"
 
 /***/ },
 
 /***/ 920:
 /***/ function(module, exports) {
 
+module.exports = "<md-nav-list fxLayout=\"column\" fxLayoutAlign=\"start stretch\">\n  <a md-list-item *ngFor=\"let delivery of deliveries\"\n    (click)=\"selected.emit(delivery); $event.stopPropagation()\">\n    <h3 md-line> {{delivery.carrier}} </h3>\n    <p md-line>\n      <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>\n      <span class=\"sidenav-supplier\"> -- {{delivery.supplier}} </span>\n    </p>\n  </a>\n</md-nav-list>"
+
+/***/ },
+
+/***/ 921:
+/***/ function(module, exports) {
+
 module.exports = "<div class=\"flex-container\" fxLayout=\"row\"\n  fxLayoutAlign=\"space-around center\">\n  <md-input-container class=\"form-control\" >\n    <input md-input class=\"deviation-gravity\" \n      type=\"number\" placeholder=\"Gravity\"\n      [(ngModel)]=\"selectedDeviation.gravity\"\n      name=\"gravity\" ngDefaultControl>\n  </md-input-container>\n  <md-select class=\"form-control\" id=\"deviationType\"\n    name=\"type\" placeholder=\"Type\" required\n    [(ngModel)]=\"selectedDeviation.type\">\n    <md-option *ngFor=\"let deviationType of deviationTypes\"\n      [value]=\"deviationType\">{{deviationType.name}}</md-option>\n  </md-select>\n  <button type=\"button\" (click)=\"removeDeviation()\"\n    md-button><md-icon>delete</md-icon></button>\n</div>"
+
+/***/ },
+
+/***/ 922:
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"flex-container\" fxLayout=\"row\"\n  fxLayoutWrap=\"wrap\" fxLayoutAlign=\"space-around center\">\n  <md-select placeholder=\"Filter Location\"\n    [(ngModel)]=\"selectedYard\" \n    (ngModelChange)=\"updateYardFilter.emit(selectedYard)\">\n    <md-option *ngFor=\"let yard of yards\"\n      [value]=\"yard\">{{yard.name}}</md-option>\n  </md-select>\n  <md-select placeholder=\"Filter Processed\" \n    [(ngModel)]=\"processingStatus\"\n    (ngModelChange)=\"updateFilter.emit(processingStatus)\">\n    <md-option *ngFor=\"let filter of processingFilters\"\n      [value]=\"filter.action\">{{filter.friendly}}</md-option>\n  </md-select>\n  <md-select placeholder=\"Filter Registered\" \n    [(ngModel)]=\"registrationStatus\"\n    (ngModelChange)=\"updateFilter.emit(registrationStatus)\">\n    <md-option *ngFor=\"let filter of registrationFilters\"\n      value=\"{{filter.action}}\">{{filter.friendly}}</md-option>\n  </md-select>\n</div>"
 
 /***/ }
 
-},[1173]);
+},[1175]);
 //# sourceMappingURL=main.bundle.map
