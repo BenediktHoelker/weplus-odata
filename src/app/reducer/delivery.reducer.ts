@@ -11,7 +11,6 @@ export const deliveriesReducer = (state = [], action) => {
     case CREATE_DELIVERY:
       return [
         Object.assign({}, {
-          id: action.payload.id,
           yardDeliveries: action.payload.yardDeliveries,
           deviations: []
         }),
@@ -24,7 +23,7 @@ export const deliveriesReducer = (state = [], action) => {
     case UPDATE_DELIVERY:
       console.log(action.payload);
       return state.map(delivery => {
-        return delivery.id === action.payload.id ? Object.assign({}, delivery, action.payload) : delivery;
+        return delivery._id === action.payload._id ? Object.assign({}, delivery, action.payload) : delivery;
       });
 
     default:

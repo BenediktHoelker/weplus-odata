@@ -1,4 +1,4 @@
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Headers, Http, Response, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -16,6 +16,8 @@ export class DeliveryService {
     private deliveriesUrl = 'http://localhost:3000/api/deliveries';
     private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
     private yardsUrl = 'http://localhost:3000/api/yards';
+    private headers = this.createHeaders('application/json');
+    private options = this.createRequestOptions(this.headers);
 
     // private deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
     // private deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
@@ -47,8 +49,8 @@ export class DeliveryService {
         return new Deviation();
     }
 
-    createRequestOptions(headers: Headers): RequestOptions {
-        return new RequestOptions({ headers: headers });
+    createRequestOptions(headers: Headers, search?: URLSearchParams): RequestOptions {
+        return new RequestOptions({ headers: headers, search: search });
     }
 
     getDeliveries(): Observable<Delivery[]> {
@@ -56,7 +58,7 @@ export class DeliveryService {
             .map(res => res.json());
     }
 
-    loadDeliveries(){
+    loadDeliveries() {
         return this.http.get(this.deliveriesUrl)
             .map(res => res.json())
     }
@@ -71,12 +73,15 @@ export class DeliveryService {
             .map(res => res.json());
     }
 
-    removeDelivery(deliveryToBeRemoved: Delivery, deliveries: Delivery[]): Delivery[] {
-        let index = deliveries.indexOf(deliveryToBeRemoved, 0);
-        if (index > -1) {
-            deliveries.splice(index, 1);
-        }
-        return deliveries;
+    removeDelivery(deliveryToBeRemoved: Delivery): Observable<Delivery> {
+        let params = new URLSearchParams();
+        let headers = new Headers();
+        params.set('_id', deliveryToBeRemoved._id.toString());
+        headers.append('Content-Type', 'x-www-form-encoded');
+        let options = this.createRequestOptions(headers, params)
+        return this.http.delete(this.deliveriesUrl, options)
+            .map(res => res.json())
+            .catch(this.handleError);
     }
 
     removeDeviation(deviationToBeRemoved: Deviation, deviations: Deviation[]): Deviation[] {
@@ -87,13 +92,10 @@ export class DeliveryService {
         return deviations;
     }
 
-    submitDelivery(deliveryToBeSubmitted: Delivery, options: RequestOptions): Observable<Delivery> {
-        console.log(deliveryToBeSubmitted);
-        return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, options)
-            .map(res => res.json());
-            // .toPromise()
-            // .then(this.extractData)
-            // .catch(this.handleError);
+    submitDelivery(deliveryToBeSubmitted: Delivery): Observable<Delivery> {
+        return this.http.post(this.deliveriesUrl, deliveryToBeSubmitted, this.options)
+            .map(res => res.json())
+            .catch(this.handleError);
     }
 
     private extractData(res: Response) {

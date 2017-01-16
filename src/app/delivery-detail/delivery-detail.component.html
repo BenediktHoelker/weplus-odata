@@ -28,7 +28,7 @@
             <md-input *ngFor="let yardDelivery of delivery.yardDeliveries"
               class="form-control" type="number" [(ngModel)]="yardDelivery.quantity"
               placeholder="Quantity {{yardDelivery.yard.name}}"
-              name="quantity yard {{yardDelivery.yard.id}}"></md-input>
+              name="quantity yard {{yardDelivery.yard._id}}"></md-input>
           </div>
         </md-tab>
         <div *ngIf="delivery.deviations.length">

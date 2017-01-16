@@ -50,8 +50,7 @@ export class AppComponent {
     private deliveryService: DeliveryService,
     private store: Store<AppState>
   ) {
-    this.headers = this.deliveryService.createHeaders('application/json');
-    this.options = this.deliveryService.createRequestOptions(this.headers);
+
 
     this.deliveryService.getDeliveries()
       .map(payload => ({ type: RESET_DELIVERIES, payload }))
@@ -108,7 +107,8 @@ export class AppComponent {
   }
 
   removeDelivery(delivery: Delivery) {
-    this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
+    this.deliveryService.removeDelivery(delivery)
+      .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
   }
 
   selectDelivery(delivery: Delivery) {
@@ -116,7 +116,7 @@ export class AppComponent {
   }
 
   updateDelivery(delivery: Delivery) {
-    this.deliveryService.submitDelivery(delivery, this.options)
+    this.deliveryService.submitDelivery(delivery)
       .subscribe(delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }));
   }
 
