@@ -1,11 +1,12 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Delivery } from '../shared/delivery.model';
-import { DeliveryService } from '../shared/delivery.service';
-import { Deviation } from '../shared/deviation.model';
+import { Delivery } from '../models/delivery.model';
+import { Deviation } from '../models/deviation.model';
+import { DeviationType } from '../models/deviation-type.model';
+import { YardDelivery } from '../models/yard-delivery.model';
+
 import { DeviationComponent } from '../deviation/deviation.component';
-import { DeviationType } from '../shared/deviation-type.model';
-import { YardDelivery } from '../shared/yard-delivery.model';
+import { DeliveryService } from '../shared/delivery.service';
 
 @Component({
   selector: 'app-delivery-detail',
@@ -14,8 +15,10 @@ import { YardDelivery } from '../shared/yard-delivery.model';
 export class DeliveryDetailComponent {
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
-  @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
+  @Input() deviationTypes: DeviationType[];
+  
   @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
+  @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
   private selectedTabIndex = 0;

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Inject, Input, Renderer } from '@angular/core';
 
 @Directive({
-  selector: 'input .deviation-gravity'
+  selector: 'md-select .deviation-type'
 })
 export class DeviationFocusDirective {
 

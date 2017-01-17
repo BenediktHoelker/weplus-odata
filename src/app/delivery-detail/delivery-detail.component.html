@@ -1,20 +1,23 @@
 <md-card *ngIf="delivery" class="app-input-section">
-  <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}} entities from
-    {{delivery.supplier}}
+  <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}}
+    entities from {{delivery.supplier}}
   </md-card-subtitle>
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>
-  <form (ngSubmit)="updateDelivery.emit(delivery)" #deliveryDetail="ngForm">
+  <form (ngSubmit)="updateDelivery.emit(delivery)"
+    #deliveryDetailForm="ngForm">
     <md-card-content>
       <md-tab-group [selectedIndex]="selectedTabIndex">
         <md-tab label="Details" class="flex-container">
-          <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
-            fxLayoutAlign="space-around center">
+          <div class="flex-container" fxLayout="row"
+            fxLayoutWrap="wrap" fxLayoutAlign="space-between center">
             <md-input-container>
-              <input md-input class="form-control" [newDeliveryFocus]="newDeliveryFocusEventEmitter"
-                placeholder="Carrier" [(ngModel)]="delivery.carrier"
+              <input md-input class="form-control" placeholder="Carrier"
+                required [newDeliveryFocus]="newDeliveryFocusEventEmitter"
+                [(ngModel)]="delivery.carrier"
                 name="carrier">
             </md-input-container>
-            <md-input class="form-control" placeholder="Supplier" [(ngModel)]="delivery.supplier"
+            <md-input class="form-control" placeholder="Supplier"
+              required [(ngModel)]="delivery.supplier"
               name="supplier"></md-input>
             <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered"
               name="isRegistered">Registered</md-checkbox>
@@ -23,31 +26,40 @@
           </div>
         </md-tab>
         <md-tab label="Yards">
-          <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap"
-            fxLayoutAlign="space-around center">
+          <div class="flex-container" fxLayout="row"
+            fxLayoutWrap="wrap" fxLayoutAlign="space-between center">
             <md-input *ngFor="let yardDelivery of delivery.yardDeliveries"
-              class="form-control" type="number" [(ngModel)]="yardDelivery.quantity"
+              class="form-control" type="number" [min]="0"
+              [(ngModel)]="yardDelivery.quantity"
               placeholder="Quantity {{yardDelivery.yard.name}}"
               name="quantity yard {{yardDelivery.yard._id}}"></md-input>
           </div>
         </md-tab>
         <div *ngIf="delivery.deviations.length">
           <md-tab label="Deviations">
-            <md-list-item *ngFor="let selectedDeviation of delivery.deviations">
-              <app-deviation [selectedDeviation]="selectedDeviation" [deviations]="delivery.deviations"></app-deviation>
+            <md-list-item *ngFor="let deviation of delivery.deviations">
+              <app-deviation [selectedDeviation]="deviation"
+                [deviations]="delivery.deviations"
+                [deviationTypes]="deviationTypes">
+              </app-deviation>
             </md-list-item>
-            <div class="flex-container" fxLayout="row" fxLayoutAlign="end">
-              <button type="button" (click)="addDeviation()" md-button><md-icon>add</md-icon></button>
+            <div class="flex-container" fxLayout="row"
+              fxLayoutAlign="end">
+              <button type="button" (click)="addDeviation()"
+                md-button><md-icon>add</md-icon></button>
             </div>
           </md-tab>
         </div>
       </md-tab-group>
     </md-card-content>
     <md-card-actions>
-      <button type="submit" md-button>Submit</button>
-      <button *ngIf="!delivery.deviations.length" type="button" (click)="addDeviation()"
+      <button type="submit" [disabled]="!deliveryDetailForm.form.valid"
+        md-button>Submit</button>
+      <button *ngIf="!delivery.deviations.length"
+        type="button" (click)="addDeviation()"
         md-button>Add Deviation</button>
-      <button type="button" (click)="removeDelivery.emit(delivery)" md-button><md-icon>delete</md-icon></button>
+      <button type="button" (click)="removeDelivery.emit(delivery)"
+        md-button><md-icon>delete</md-icon></button>
     </md-card-actions>
   </form>
 </md-card>

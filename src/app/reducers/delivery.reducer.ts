@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
-import { Delivery } from '../shared/delivery.model';
-import { ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY, FILTER_DELIVERIES } from './actions';
-import { YardDelivery } from '../shared/yard-delivery.model';
+import { Delivery } from '../models/delivery.model';
+import { ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY } from './actions';
+import { YardDelivery } from '../models/yard-delivery.model';
 
 export const deliveriesReducer = (state = [], action) => {
   switch (action.type) {
@@ -14,16 +14,15 @@ export const deliveriesReducer = (state = [], action) => {
           yardDeliveries: action.payload.yardDeliveries,
           deviations: []
         }),
-        ...state
+        ...state.filter(delivery => delivery._id)
       ];
 
     case REMOVE_DELIVERY:
       return state.filter(delivery => delivery._id !== action.payload._id);
 
     case UPDATE_DELIVERY:
-      console.log(action.payload);
       return state.map(delivery => {
-        return delivery._id === action.payload._id ? Object.assign({}, delivery, action.payload) : delivery;
+        return (delivery._id === action.payload._id || !delivery._id) ? Object.assign({}, delivery, action.payload) : delivery;
       });
 
     default:

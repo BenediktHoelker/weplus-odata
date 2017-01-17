@@ -1,32 +1,32 @@
-import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, AfterViewInit, Input, Output } from '@angular/core';
 
 import { DeliveryService } from '../shared/delivery.service';
-import { Deviation } from '../shared/deviation.model';
-import { DeviationType } from '../shared/deviation-type.model';
+import { Deviation } from '../models/deviation.model';
+import { DeviationType } from '../models/deviation-type.model';
 
 @Component({
   selector: 'app-deviation',
   templateUrl: './deviation.component.html',
   styleUrls: ['./deviation.component.css']
 })
-export class DeviationComponent implements OnInit {
+export class DeviationComponent implements AfterViewInit {
   @Input() selectedDeviation: Deviation;
+  @Input() deviationTypes: DeviationType[];
   @Input() deviations: Deviation[];
-  // @Output() onCreatedFirstDeviation = new EventEmitter<boolean>();
-
-  private deviationTypes: DeviationType[];
 
   constructor(
     private deliveryService: DeliveryService
   ) { }
 
-  getDeviationTypes(): void {
-    this.deliveryService.getDeviationTypes().subscribe((deviationTypes) => { this.deviationTypes = deviationTypes; });
-  }
-
-  ngOnInit() {
-    this.getDeviationTypes();
-    // this.onCreatedFirstDeviation.emit(true);
+  ngAfterViewInit() {
+    /*
+    Workaround for md-select: ngValue must point to the exact instance of the select-options
+    */
+    if (this.selectedDeviation.type && this.deviationTypes.length) {
+      this.selectedDeviation.type = this.deviationTypes.find(deviationType => {
+        return deviationType.name === this.selectedDeviation.type;
+      }).name;
+    }
   }
 
   removeDeviation(): void {

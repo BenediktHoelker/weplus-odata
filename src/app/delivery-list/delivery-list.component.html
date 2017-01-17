@@ -3,8 +3,8 @@
     (click)="selected.emit(delivery); $event.stopPropagation()">
     <h3 md-line> {{delivery.carrier}} </h3>
     <p md-line>
-      <span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>
-      <span class="sidenav-supplier"> -- {{delivery.supplier}} </span>
+      <!--<span> {{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>-->
+      <span class="sidenav-supplier"> {{delivery.supplier}} </span>
     </p>
   </a>
 </md-nav-list>

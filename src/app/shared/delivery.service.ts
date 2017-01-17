@@ -3,40 +3,30 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { Delivery } from './delivery.model';
-import { Deviation } from './deviation.model';
-import { DeviationType } from './deviation-type.model';
-import { Yard } from './yard.model';
-import { YardDelivery } from './yard-delivery.model';
+import { Delivery } from '../models/delivery.model';
+import { Deviation } from '../models/deviation.model';
+import { DeviationType } from '../models/deviation-type.model';
+import { Yard } from '../models/yard.model';
+import { YardDelivery } from '../models/yard-delivery.model';
 
 
 @Injectable()
 export class DeliveryService {
 
-    // private deliveriesUrl = 'http://localhost:3000/api/deliveries';
-    // private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
-    // private yardsUrl = 'http://localhost:3000/api/yards';
+    private deliveriesUrl = 'http://localhost:3000/api/deliveries';
+    private deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
+    private yardsUrl = 'http://localhost:3000/api/yards';
     private headers = this.createHeaders('application/json');
     private options = this.createRequestOptions(this.headers);
 
-    private deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
-    private deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
-    private yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
+    // private deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
+    // private deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
+    // private yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
 
     constructor(private http: Http) { }
 
     createHeaders(contentType: string): Headers {
         return new Headers({ 'Content-Type': contentType });
-    }
-
-    createDelivery(): Delivery {
-        let newDelivery = new Delivery();
-        this.getYards().subscribe((yards) => {
-            yards.forEach(yard => {
-                newDelivery.yardDeliveries.push(this.createYardDelivery(yard));
-            });
-        });
-        return newDelivery;
     }
 
     createYardDelivery(yard: Yard): YardDelivery {
@@ -58,11 +48,6 @@ export class DeliveryService {
             .map(res => res.json());
     }
 
-    loadDeliveries() {
-        return this.http.get(this.deliveriesUrl)
-            .map(res => res.json())
-    }
-
     getYards(): Observable<Yard[]> {
         return this.http.get(this.yardsUrl)
             .map(res => res.json());
@@ -78,6 +63,7 @@ export class DeliveryService {
         let headers = new Headers();
         params.set('_id', deliveryToBeRemoved._id.toString());
         headers.append('Content-Type', 'x-www-form-encoded');
+        
         let options = this.createRequestOptions(headers, params)
         return this.http.delete(this.deliveriesUrl, options)
             .map(res => res.json())

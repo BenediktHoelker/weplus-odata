@@ -10,11 +10,7 @@ export const yardReducer = (state = [], action: Action) => {
       return [
         ...state,
         Object.assign({}, action.payload[0], {
-          id: action.payload._id,
-          // carrier: action.payload.carrier
-          // carrier: action.payload.carrier,
-          // guests: 0,
-          // attending: false
+          id: action.payload.id,
         })];
 
     default:

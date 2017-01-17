@@ -36,6 +36,7 @@
     <app-delivery-detail 
       [delivery]="(model | async)?.selectedDelivery"
       [deliveries]="(model | async)?.deliveries" 
+      [deviationTypes]="(model | async)?.deviationTypes" 
       (updateDelivery)="updateDelivery($event)"
       (removeDelivery)="removeDelivery($event)"></app-delivery-detail>
   </div>
