@@ -20,14 +20,13 @@
   <md-sidenav mode="side" opened="true">
     <app-delivery-list 
       [deliveries]="(model | async)?.deliveries"
-      [processingFilter]="(model | async)?.processingFilter"
-      [registrationFilter]="(model | async)?.registrationFilter"
-      [yardFilter]="(model | async)?.yardFilter" 
       (selected)="selectDelivery($event)"></app-delivery-list>
   </md-sidenav>
   <div class="app-content">
     <md-card>
       <app-filter-bar
+        [deviationFilterActions]="deviationFilterActions" 
+        [deviationFilter]="deviationFilterActions[0]" 
         [selectedYard]="(model | async)?.selectedYard"
         [yards]="(model | async)?.yards"
         (updateFilter)="updateFilter($event)"

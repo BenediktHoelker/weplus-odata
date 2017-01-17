@@ -7,15 +7,21 @@
       [value]="yard">{{yard.name}}</md-option>
   </md-select>
   <md-select placeholder="Filter Processed" 
-    [(ngModel)]="processingStatus"
-    (ngModelChange)="updateFilter.emit(processingStatus)">
+    [(ngModel)]="processingFilter"
+    (ngModelChange)="updateFilter.emit(processingFilter)">
     <md-option *ngFor="let filter of processingFilters"
-      [value]="filter.action">{{filter.friendly}}</md-option>
+      [value]="filter">{{filter.friendly}}</md-option>
   </md-select>
   <md-select placeholder="Filter Registered" 
-    [(ngModel)]="registrationStatus"
-    (ngModelChange)="updateFilter.emit(registrationStatus)">
+    [(ngModel)]="registrationFilter"
+    (ngModelChange)="updateFilter.emit(registrationFilter)">
     <md-option *ngFor="let filter of registrationFilters"
-      value="{{filter.action}}">{{filter.friendly}}</md-option>
+      [value]="filter">{{filter.friendly}}</md-option>
+  </md-select>
+  <md-select placeholder="Filter Deviations" 
+    [(ngModel)]="deviationFilter"
+    (ngModelChange)="updateFilter.emit(deviationFilter)">
+    <md-option *ngFor="let filter of deviationFilterActions"
+      [value]="filter">{{filter.friendly}}</md-option>
   </md-select>
 </div>

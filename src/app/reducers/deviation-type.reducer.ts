@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
-import { ADD_DEVIATIONTYPES } from './actions';
+import { ADD_DEVIATION_TYPES } from './actions';
 
 export const deviationTypeReducer = (state = [], action: Action) => {
   switch (action.type) {
-    case ADD_DEVIATIONTYPES:
+    case ADD_DEVIATION_TYPES:
       return action.payload;
 
     default:

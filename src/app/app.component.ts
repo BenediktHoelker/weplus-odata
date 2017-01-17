@@ -9,7 +9,9 @@ import { Yard } from './models/yard.model';
 import { AppState } from './app.state';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
-import { ADD_DELIVERIES, ADD_DEVIATIONTYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, RESET_DELIVERIES } from './reducers/actions';
+import {
+  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, RESET_DELIVERIES, FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION
+} from './reducers/actions';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +27,19 @@ export class AppComponent {
   private subscription;
   private yardDeliveries = [];
 
+  private deviationFilterActions = [
+    { friendly: "All", type: SHOW_ALL_D, payload: null },
+    { friendly: "With Deviation", type: SHOW_WITH_DEVIATION, payload: null },
+    { friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION, payload: null }
+  ];
+
   private deliveries: Observable<Delivery[]>;
   private deviationTypes: Observable<DeviationType[]>;
   private selectedDelivery: Observable<Delivery>;
   private selectedYard: Observable<Yard>;
   private yards: Observable<Yard[]>;
+
+  private deviationFilter: Observable<String>;
   private processingFilter: Observable<String>;
   private registrationFilter: Observable<String>;
   private yardFilter: Observable<String>;
@@ -48,7 +58,7 @@ export class AppComponent {
       .map(payload => ({ type: ADD_YARDS, payload }))
       .subscribe(action => this.store.dispatch(action));
     this.deliveryService.getDeviationTypes()
-      .map(payload => ({ type: ADD_DEVIATIONTYPES, payload }))
+      .map(payload => ({ type: ADD_DEVIATION_TYPES, payload }))
       .subscribe(action => this.store.dispatch(action));
 
     /*
@@ -63,8 +73,24 @@ export class AppComponent {
           });
       });
 
+    /*
+    Push a new filter entry foreach type of deviation
+    TODO: find a better way
+    */
+    this.subscription = this.store
+      .select('deviationTypes')
+      .subscribe((deviationTypes: DeviationType[]) => {
+        deviationTypes.map(
+          deviationType => {
+            this.deviationFilterActions.push({ friendly: deviationType.name + " Deviation", type: FILTER_DEVIATION_TYPE, payload: deviationType.name });
+          });
+      });
+
+    console.log(this.deviationFilterActions)
+
     this.model = Observable.combineLatest(
       store.select('deliveries'),
+      store.select('deviationFilter'),
       store.select('deviationTypes'),
       store.select('filteredDeliveries'),
       store.select('processingFilter'),
@@ -73,17 +99,20 @@ export class AppComponent {
       store.select('selectedYard'),
       store.select('yardFilter'),
       store.select('yards'),
-      (deliveries, deviationTypes, filteredDeliveries, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
+      (deliveries, deviationFilter, deviationTypes, filteredDeliveries, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
         return {
           deliveries: deliveries
+            .filter(deviationFilter)
             .filter(processingFilter)
             .filter(registrationFilter)
             .filter(yardFilter),
+          deviationFilter: deviationFilter,
           deviationTypes: deviationTypes,
           filteredDeliveries,
           processingFilter,
           registrationFilter,
           selectedDelivery: selectedDelivery || deliveries
+            .filter(deviationFilter)
             .filter(processingFilter)
             .filter(registrationFilter)
             .filter(yardFilter)[0],
@@ -102,8 +131,13 @@ export class AppComponent {
 
   removeDelivery(delivery: Delivery) {
     this.selectDelivery();
-    this.deliveryService.removeDelivery(delivery)
-      .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
+    if (delivery._id) {
+      this.deliveryService.removeDelivery(delivery)
+        .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
+    }
+    else {
+      this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
+    }
   }
 
   /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
@@ -119,11 +153,12 @@ export class AppComponent {
   }
 
   updateFilter(filter) {
+    console.log(filter);
     this.selectDelivery();
-    this.store.dispatch({ type: filter });
+    this.store.dispatch({ type: filter.type, payload: filter.payload });
   }
 
-  updateYardFilter(yard) {
+  updateYardFilter(yard: Yard) {
     this.selectDelivery();
     this.store.dispatch({ type: FILTER_YARD, payload: yard });
   }

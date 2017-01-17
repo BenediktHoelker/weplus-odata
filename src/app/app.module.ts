@@ -21,11 +21,12 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
 import { deliveriesReducer } from './reducers/delivery.reducer';
 import { deviationTypeReducer } from './reducers/deviation-type.reducer';
-import { processingFilterReducer } from './reducers/processing-filter.reducer';
-import { registrationFilterReducer } from './reducers/registration-filter.reducer';
+import { filterDeviationReducer } from './reducers/filter-deviation.reducer';
+import { filterProcessingReducer } from './reducers/filter-processing.reducer';
+import { filterRegistrationReducer } from './reducers/filter-registration.reducer';
+import { filterYardReducer } from './reducers/filter-yard.reducer';
 import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
-import { yardFilterReducer } from './reducers/yard-filter.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 
 @NgModule({
@@ -39,11 +40,12 @@ import { yardReducer } from './reducers/yard.reducer';
     StoreModule.provideStore({
       deliveries: deliveriesReducer,
       deviationTypes: deviationTypeReducer,
-      processingFilter: processingFilterReducer,
-      registrationFilter: registrationFilterReducer,
+      deviationFilter: filterDeviationReducer,
+      processingFilter: filterProcessingReducer,
+      registrationFilter: filterRegistrationReducer,
       selectedDelivery: selectedDeliveryReducer,
       selectedYard: selectedYardReducer,
-      yardFilter: yardFilterReducer,
+      yardFilter: filterYardReducer,
       yards: yardReducer
     }),
     StoreDevtoolsModule.instrumentStore({

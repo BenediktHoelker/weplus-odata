@@ -23,7 +23,15 @@ export const FILTER_YARD = 'FILTER_YARD';
 export const SELECT_YARD = 'SELECT_YARD';
 
 //DeviationType Action Constants
-export const ADD_DEVIATIONTYPES = 'ADD_DEVIATIONTYPES';
+export const ADD_DEVIATION_TYPES = 'ADD_DEVIATION_TYPES';
+
+//Deviation Action Constants
+export const FILTER_DEVIATION_TYPE = 'FILTER_DEVIATION_TYPE';
+export const SHOW_ALL_D = 'SHOW_ALL_D';
+export const SHOW_WITH_DEVIATION = 'SHOW_WITH_DEVIATION';
+export const SHOW_WITHOUT_DEVIATION = 'SHOW_WITHOUT_DEVIATION';
+
+
 
 
 

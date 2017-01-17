@@ -7,6 +7,7 @@ export interface AppState {
   deviationTypes: DeviationType[];
   filteredDeliveries: Delivery[];
   selectedDelivery: Delivery;
+  deviationFilter: String;
   processingFilter: String;
   registrationFilter: String;
   yardFilter: String;
