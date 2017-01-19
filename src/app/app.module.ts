@@ -29,7 +29,6 @@ import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
-import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   imports: [
@@ -67,7 +66,6 @@ import { GraphComponent } from './graph/graph.component';
     FilterBarComponent,
     FocusInputDirective,
     RegistrationDialogComponent,
-    GraphComponent,
   ],
   entryComponents: [
     RegistrationDialogComponent
