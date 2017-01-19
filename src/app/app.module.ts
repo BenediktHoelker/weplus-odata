@@ -28,6 +28,8 @@ import { filterYardReducer } from './reducers/filter-yard.reducer';
 import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
+import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   imports: [
@@ -46,7 +48,7 @@ import { yardReducer } from './reducers/yard.reducer';
       selectedDelivery: selectedDeliveryReducer,
       selectedYard: selectedYardReducer,
       yardFilter: filterYardReducer,
-      yards: yardReducer
+      yards: yardReducer,
     }),
     StoreDevtoolsModule.instrumentStore({
       monitor: useLogMonitor({
@@ -64,6 +66,11 @@ import { yardReducer } from './reducers/yard.reducer';
     DeviationFocusDirective,
     FilterBarComponent,
     FocusInputDirective,
+    RegistrationDialogComponent,
+    GraphComponent,
+  ],
+  entryComponents: [
+    RegistrationDialogComponent
   ],
   providers: [DeliveryService],
   bootstrap: [AppComponent]

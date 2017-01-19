@@ -9,7 +9,7 @@ export const filterYardReducer = (state = delivery => delivery, action: Action) 
         return delivery => delivery
       }
       return delivery => delivery.yardDeliveries.find(yardDelivery =>
-        ((yardDelivery.yard._id === action.payload._id) && (yardDelivery.quantity >> 0)));
+        ((yardDelivery.yard.name === action.payload.name) && (yardDelivery.quantity >> 0)));
 
     default:
       return state;

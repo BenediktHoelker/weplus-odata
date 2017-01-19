@@ -29,9 +29,7 @@ export class FilterBarComponent implements OnInit {
   @Output() updateYardFilter: EventEmitter<any> = new EventEmitter();
   @Output() updateDeviationFilter: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
-
-  }
+  constructor() { }
 
   ngOnInit() {
     this.processingFilters = [
@@ -46,8 +44,5 @@ export class FilterBarComponent implements OnInit {
     ];
     this.registrationFilter = this.registrationFilters[0];
     this.processingFilter = this.processingFilters[0];
-  }
-
-  ngOnChanges() {
   }
 }

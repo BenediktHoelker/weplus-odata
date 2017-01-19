@@ -34,7 +34,7 @@ md-input-container {
 
 .app-content md-card {
   margin: 15px;
-  max-width: 960px;
+  max-width: 768px;
 }
 
 .app-sidenav {

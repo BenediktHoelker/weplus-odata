@@ -10,7 +10,7 @@ import { AppState } from './app.state';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import {
-  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, RESET_DELIVERIES, FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION
+  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION
 } from './reducers/actions';
 
 @Component({
@@ -48,9 +48,6 @@ export class AppComponent {
     private deliveryService: DeliveryService,
     private store: Store<AppState>
   ) {
-    this.deliveryService.getDeliveries()
-      .map(payload => ({ type: RESET_DELIVERIES, payload }))
-      .subscribe(action => this.store.dispatch(action));
     this.deliveryService.getDeliveries()
       .map(payload => ({ type: ADD_DELIVERIES, payload }))
       .subscribe(action => this.store.dispatch(action));
@@ -92,14 +89,13 @@ export class AppComponent {
       store.select('deliveries'),
       store.select('deviationFilter'),
       store.select('deviationTypes'),
-      store.select('filteredDeliveries'),
       store.select('processingFilter'),
       store.select('registrationFilter'),
       store.select('selectedDelivery'),
       store.select('selectedYard'),
       store.select('yardFilter'),
       store.select('yards'),
-      (deliveries, deviationFilter, deviationTypes, filteredDeliveries, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
+      (deliveries, deviationFilter, deviationTypes, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
         return {
           deliveries: deliveries
             .filter(deviationFilter)
@@ -108,7 +104,6 @@ export class AppComponent {
             .filter(yardFilter),
           deviationFilter: deviationFilter,
           deviationTypes: deviationTypes,
-          filteredDeliveries,
           processingFilter,
           registrationFilter,
           selectedDelivery: selectedDelivery || deliveries

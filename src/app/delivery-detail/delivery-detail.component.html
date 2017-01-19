@@ -19,7 +19,7 @@
             <md-input class="form-control" placeholder="Supplier"
               required [(ngModel)]="delivery.supplier"
               name="supplier"></md-input>
-            <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered"
+            <md-checkbox class="form-control" [(ngModel)]="delivery.isRegistered" (change)="openSnackBar(delivery)"
               name="isRegistered">Registered</md-checkbox>
             <md-checkbox class="form-control" [(ngModel)]="delivery.isProcessed"
               name="isProcessed">Processed</md-checkbox>
@@ -30,9 +30,8 @@
             fxLayoutWrap="wrap" fxLayoutAlign="space-between center">
             <md-input *ngFor="let yardDelivery of delivery.yardDeliveries"
               class="form-control" type="number" [min]="0"
-              [(ngModel)]="yardDelivery.quantity"
-              placeholder="Quantity {{yardDelivery.yard.name}}"
-              name="quantity yard {{yardDelivery.yard._id}}"></md-input>
+              [(ngModel)]="yardDelivery.quantity" name="quantity {{yardDelivery.yard.name}}"
+              placeholder="Quantity {{yardDelivery.yard.name}}"></md-input>
           </div>
         </md-tab>
         <div *ngIf="delivery.deviations.length">
