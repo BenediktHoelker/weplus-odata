@@ -19,7 +19,6 @@ export class DeliveryDetailComponent {
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
   @Input() deviationTypes: DeviationType[];
-
   @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
   @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
 
@@ -59,17 +58,17 @@ export class DeliveryDetailComponent {
   }
 
   openSnackBar(delivery: Delivery) {
-    let timeslotBegin = Date.parse(delivery.timeslotBegin.toString());
-    let timeslotEnd = Date.parse(delivery.timeslotEnd.toString());
-    
-    if (delivery.isRegistered && !this.isOnTime(timeslotBegin, timeslotEnd, Date.now())) {
-      let snackBarRef = this.snackBar.open("Delivery not on time", "Comment", {
-        duration: 2000
-      });
-
-      snackBarRef.onAction().subscribe(() => {
-        this.openDialog();
-      });
+    if (delivery.timeslotBegin && delivery.timeslotEnd) {
+      let timeslotBegin = Date.parse(delivery.timeslotBegin.toString());
+      let timeslotEnd = Date.parse(delivery.timeslotEnd.toString());
+      if (delivery.isRegistered && !this.isOnTime(timeslotBegin, timeslotEnd, Date.now())) {
+        let snackBarRef = this.snackBar.open("Delivery not on time", "Comment", {
+          duration: 3000
+        });
+        snackBarRef.onAction().subscribe(() => {
+          this.openDialog();
+        });
+      }
     }
   }
 

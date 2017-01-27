@@ -137,7 +137,6 @@ export class AppComponent {
 
   /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
   selectDelivery(delivery?: Delivery) {
-    console.log(delivery);
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 

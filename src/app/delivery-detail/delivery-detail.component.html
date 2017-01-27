@@ -1,5 +1,5 @@
 <md-card *ngIf="delivery" class="app-input-section">
-  <md-card-subtitle *ngIf="getTotalQuantity(delivery.yardDeliveries)">{{getTotalQuantity(delivery.yardDeliveries)}}
+  <md-card-subtitle *ngIf="delivery.quantity">{{delivery.quantity}}
     entities from {{delivery.supplier}}
   </md-card-subtitle>
   <md-card-title>{{delivery.carrier || "New Delivery"}}</md-card-title>

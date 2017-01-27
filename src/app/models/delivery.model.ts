@@ -7,10 +7,12 @@ export class Delivery {
   deviations: Deviation[];
   isRegistered: boolean;
   isProcessed: boolean;
-  quantity: number;
   supplier: string;
   timeslotBegin: Date;
   timeslotEnd: Date;
+  get quantity(): number {
+    return this.yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
+  }
   yardDeliveries: YardDelivery[];
 
   constructor() {
