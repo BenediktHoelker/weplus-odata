@@ -10,7 +10,7 @@ export const deliveriesReducer = (state = [], action) => {
 
     case CREATE_DELIVERY:
       return [
-        Object.assign({}, {
+        Object.assign(new Delivery(), {
           yardDeliveries: action.payload.yardDeliveries,
           deviations: []
         }),

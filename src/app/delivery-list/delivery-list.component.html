@@ -6,7 +6,7 @@
         <span>{{delivery.carrier}}</span>
         <span class="sidenav-supplier" *ngIf="delivery.carrier && delivery.supplier"> ({{delivery.supplier}})</span>
       </span>
-      <span *ngIf="delivery.quantity"> [{{delivery.quantity}}]</span>
+      <span style="margin-left:0.5em"*ngIf="delivery.quantity"> [{{delivery.quantity}}]</span>
     </h3>
     <p md-line *ngIf="delivery.timeslotBegin && delivery.timeslotEnd">
       <span>{{delivery.timeslotBegin | date:'shortTime'}} - {{delivery.timeslotEnd | date:'shortTime' }} </span>

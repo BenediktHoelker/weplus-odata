@@ -143,11 +143,10 @@ export class AppComponent {
   updateDelivery(delivery: Delivery) {
     this.deliveryService.submitDelivery(delivery)
       .subscribe(delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }));
-    this.selectDelivery();
+    this.selectDelivery(delivery);
   }
 
   updateFilter(filter) {
-    console.log(filter);
     this.selectDelivery();
     this.store.dispatch({ type: filter.type, payload: filter.payload });
   }

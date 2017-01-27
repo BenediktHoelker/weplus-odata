@@ -22,8 +22,10 @@ export class DeliveryDetailComponent {
   @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
   @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
 
-  private dialogRef: MdDialogRef<RegistrationDialogComponent>;
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
+  private dialogRef: MdDialogRef<RegistrationDialogComponent>;
+  private processingMessage: String;
+  private registrationMessage: String;
   private selectedTabIndex = 0;
 
   constructor(
@@ -34,7 +36,7 @@ export class DeliveryDetailComponent {
 
   addDeviation(): void {
     if (!this.delivery.deviations.length) {
-      this.selectedTabIndex = 2;
+      this.selectedTabIndex = 3;
     }
     let newDeviation = this.deliveryService.createDeviation();
     this.delivery.deviations.push(newDeviation);
@@ -72,7 +74,10 @@ export class DeliveryDetailComponent {
     }
   }
 
+
   isOnTime(timeslotBegin: Number, timeslotEnd: Number, now: number): Boolean {
     return (now > timeslotBegin && now < timeslotEnd);
   }
+
+
 }

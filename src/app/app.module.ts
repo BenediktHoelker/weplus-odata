@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CustomFormsModule } from 'ng2-validation'
+import { CustomFormsModule } from 'ng2-validation';
+import { DatePipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -70,7 +71,7 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
   entryComponents: [
     RegistrationDialogComponent
   ],
-  providers: [DeliveryService],
+  providers: [DeliveryService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
