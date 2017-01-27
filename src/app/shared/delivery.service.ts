@@ -82,7 +82,7 @@ export class DeliveryService {
 
   submitDelivery(deliveryToBeSubmitted: Delivery): Observable<Delivery> {
     return this.http.post(deliveriesUrl, deliveryToBeSubmitted, this.options)
-      .map(res => res.json().map(delivery => Object.assign(new Delivery(), delivery)))
+      .map(res => Object.assign(new Delivery(), res.json))
       .catch(this.handleError);
   }
 

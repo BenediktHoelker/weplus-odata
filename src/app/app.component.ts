@@ -24,6 +24,7 @@ export class AppComponent {
   private child: DeliveryDetailComponent;
 
   public model;
+  private isLoading: boolean;
   private subscription;
   private yardDeliveries = [];
 
@@ -83,8 +84,6 @@ export class AppComponent {
           });
       });
 
-    console.log(this.deviationFilterActions)
-
     this.model = Observable.combineLatest(
       store.select('deliveries'),
       store.select('deviationFilter'),
@@ -142,7 +141,12 @@ export class AppComponent {
 
   updateDelivery(delivery: Delivery) {
     this.deliveryService.submitDelivery(delivery)
-      .subscribe(delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }));
+      .do(val => this.isLoading = true)
+      .timeout(1000)
+      .subscribe(
+      delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }),
+      err => console.log(err),
+      () => this.isLoading = false);
     this.selectDelivery(delivery);
   }
 

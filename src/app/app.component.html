@@ -15,7 +15,7 @@
     </md-menu>
   </span>
 </md-toolbar>
-
+<md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
     <app-delivery-list 
