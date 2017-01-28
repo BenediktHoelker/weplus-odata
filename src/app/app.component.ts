@@ -140,13 +140,14 @@ export class AppComponent {
   }
 
   updateDelivery(delivery: Delivery) {
+    this.isLoading = true;
     this.deliveryService.submitDelivery(delivery)
       .do(val => this.isLoading = true)
-      .timeout(1000)
+      .timeout(3000, new Error('timeout exceeded'))
       .subscribe(
       delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }),
       err => console.log(err),
-      () => this.isLoading = false);
+      () => {this.isLoading = false; console.log("Not loading anymore")});
     this.selectDelivery(delivery);
   }
 
