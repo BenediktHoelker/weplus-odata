@@ -136,6 +136,9 @@ export class AppComponent {
 
   /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
   selectDelivery(delivery?: Delivery) {
+    if (delivery) {
+      console.log(delivery.yardDeliveries);
+    }
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 
@@ -143,11 +146,10 @@ export class AppComponent {
     this.isLoading = true;
     this.deliveryService.submitDelivery(delivery)
       .do(val => this.isLoading = true)
-      .timeout(3000, new Error('timeout exceeded'))
       .subscribe(
       delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }),
       err => console.log(err),
-      () => {this.isLoading = false; console.log("Not loading anymore")});
+      () => { this.isLoading = false; console.log("Not loading anymore") });
     this.selectDelivery(delivery);
   }
 

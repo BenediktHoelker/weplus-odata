@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Delivery } from '../models/delivery.model';
+import { Status } from '../models/status.model';
 import { ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY } from './actions';
 import { YardDelivery } from '../models/yard-delivery.model';
 
@@ -11,8 +12,9 @@ export const deliveriesReducer = (state = [], action) => {
     case CREATE_DELIVERY:
       return [
         Object.assign(new Delivery(), {
+          deviations: [],
+          status: new Status(),
           yardDeliveries: action.payload.yardDeliveries,
-          deviations: []
         }),
         ...state.filter(delivery => delivery._id)
       ];

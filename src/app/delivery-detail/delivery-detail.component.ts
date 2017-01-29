@@ -33,7 +33,7 @@ export class DeliveryDetailComponent {
     public dialog: MdDialog,
     public snackBar: MdSnackBar
   ) { }
-
+  
   addDeviation(): void {
     if (!this.delivery.deviations.length) {
       this.selectedTabIndex = 3;
@@ -63,7 +63,7 @@ export class DeliveryDetailComponent {
     if (delivery.timeslotBegin && delivery.timeslotEnd) {
       let timeslotBegin = Date.parse(delivery.timeslotBegin.toString());
       let timeslotEnd = Date.parse(delivery.timeslotEnd.toString());
-      if (delivery.isRegistered && !this.isOnTime(timeslotBegin, timeslotEnd, Date.now())) {
+      if (delivery.status.isRegistered && !this.isOnTime(timeslotBegin, timeslotEnd, Date.now())) {
         let snackBarRef = this.snackBar.open("Delivery not on time", "Comment", {
           duration: 3000
         });

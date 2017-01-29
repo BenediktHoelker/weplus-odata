@@ -8,10 +8,10 @@ export const filterRegistrationReducer = (state = delivery => delivery, action: 
       return delivery => delivery;
 
     case SHOW_REGISTERED:
-      return delivery => delivery.isRegistered;
+      return delivery => delivery.status.isRegistered;
 
     case SHOW_NOT_REGISTERED:
-      return delivery => !delivery.isRegistered;
+      return delivery => !delivery.status.isRegistered;
       
     default:
       return state;

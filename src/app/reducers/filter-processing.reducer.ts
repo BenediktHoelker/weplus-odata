@@ -8,10 +8,10 @@ export const filterProcessingReducer = (state = delivery => delivery, action: Ac
       return delivery => delivery;
 
     case SHOW_PROCESSED:
-      return delivery => delivery.isProcessed;
+      return delivery => delivery.status.isProcessed;
 
     case SHOW_NOT_PROCESSED:
-      return delivery => !delivery.isProcessed;
+      return delivery => !delivery.status.isProcessed;
 
     default:
       return state;

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Delivery } from '../models/delivery.model';
 import { Deviation } from '../models/deviation.model';
 import { DeviationType } from '../models/deviation-type.model';
+import { Status } from '../models/status.model';
 import { Yard } from '../models/yard.model';
 import { YardDelivery } from '../models/yard-delivery.model';
 
@@ -44,9 +45,28 @@ export class DeliveryService {
 
   getDeliveries(): Observable<Delivery[]> {
     return this.http.get(deliveriesUrl)
-      .map(res => res.json().map(delivery => Object.assign(new Delivery(), delivery))) //Object.assign for converting to JSON to Delivery instance
+      .map(res => res.json().map(
+        delivery => {
+          console.log(delivery);
+          let newDelivery = Object.assign(new Delivery(), delivery);
+          let newYardDeliveries = [];
+          let newYardDelivery;
+          let status;
+          newDelivery.status = Object.assign(new Status(), delivery.status);
+          delivery.yardDeliveries.map(yardDelivery => {
+            newYardDelivery = yardDelivery;
+            newYardDelivery.status = Object.assign(new Status(), yardDelivery.status);
+            newYardDeliveries.push(newYardDelivery);
+            console.log(yardDelivery);
+          });
+          newDelivery.yardDeliveries = newYardDeliveries;
+          return newDelivery;
+        })) //Object.assign for converting to JSON to Delivery instance
       .catch(this.handleError);
   }
+  // newYardDelivery.status = Object.assign(new Status(), delivery.yardDeliveries.filter(
+  //   oldYardDelivery => { console.log(oldYardDelivery.status) }));
+  // oldYardDelivery => { oldYardDelivery.yard._id === newYardDelivery.yard._id)[0].status});
 
   getYards(): Observable<Yard[]> {
     return this.http.get(yardsUrl)
@@ -82,8 +102,19 @@ export class DeliveryService {
 
   submitDelivery(deliveryToBeSubmitted: Delivery): Observable<Delivery> {
     return this.http.post(deliveriesUrl, deliveryToBeSubmitted, this.options)
-      .map(res => Object.assign(new Delivery(), res.json))
-      .catch(this.handleError);
+      .map(res => {
+        let newDelivery = Object.assign(new Delivery(), res.json);
+        newDelivery.status = Object.assign(new Status(), res.json().status);
+        let newYardDeliveries = [];
+        let newYardDelivery;
+        res.json().yardDeliveries.map(yardDelivery => {
+          newYardDelivery = yardDelivery;
+          newYardDelivery.status = Object.assign(new Status(), yardDelivery.status);
+          newYardDeliveries.push(newYardDelivery);
+        });
+        newDelivery.yardDeliveries = newYardDeliveries;
+        return newDelivery;
+      });
   }
 
   private extractData(res: Response) {
