@@ -18,24 +18,20 @@
 <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
 <md-sidenav-container class="my-container">
   <md-sidenav mode="side" opened="true">
-    <app-delivery-list 
-      [deliveries]="(model | async)?.deliveries"
+    <app-delivery-list [deliveries]="(model | async)?.deliveries"
       (selected)="selectDelivery($event)"></app-delivery-list>
   </md-sidenav>
   <div class="app-content">
     <md-card>
-      <app-filter-bar
-        [deviationFilterActions]="deviationFilterActions" 
-        [deviationFilter]="deviationFilterActions[0]" 
+      <app-filter-bar [deviationFilterActions]="deviationFilterActions"
+        [deviationFilter]="deviationFilterActions[0]"
         [selectedYard]="(model | async)?.selectedYard"
-        [yards]="(model | async)?.yards"
-        (updateFilter)="updateFilter($event)"
+        [yards]="(model | async)?.yards" (updateFilter)="updateFilter($event)"
         (updateYardFilter)="updateYardFilter($event)"></app-filter-bar>
     </md-card>
-    <app-delivery-detail 
-      [delivery]="(model | async)?.selectedDelivery"
-      [deliveries]="(model | async)?.deliveries" 
-      [deviationTypes]="(model | async)?.deviationTypes" 
+    <app-delivery-detail [delivery]="(model | async)?.selectedDelivery"
+      [deliveries]="(model | async)?.deliveries"
+      [deviationTypes]="(model | async)?.deviationTypes"
       (updateDelivery)="updateDelivery($event)"
       (removeDelivery)="removeDelivery($event)"></app-delivery-detail>
   </div>

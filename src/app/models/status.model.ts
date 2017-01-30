@@ -9,7 +9,7 @@ export class Status {
   timestampProcessing: moment.Moment;
   timestampRegistration: moment.Moment;
 
-  checkValidity(): boolean{
+  checkValidity(): boolean {
     let isValid: boolean;
     isValid = !(this.isProcessed && !this.isRegistered);
     return isValid;
@@ -35,5 +35,12 @@ export class Status {
     this.registrationMessage = this.isRegistered
       ? "Registered at " + this.timestampRegistration.format('LT')
       : "Not Registered";
+  }
+
+  constructor() {
+    this.isProcessed = false;
+    this.isRegistered = false;
+    this.processingMessage = "Not Processed";
+    this.registrationMessage = "Not Registered";
   }
 }

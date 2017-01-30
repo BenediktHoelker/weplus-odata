@@ -1,4 +1,4 @@
 export class Deviation {
-    type: String;
-    gravity: Number;
+    type: string;
+    gravity: number;
 }

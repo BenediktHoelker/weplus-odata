@@ -17,6 +17,8 @@ md-input {
 
 md-select {
   margin-top: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 md-input-container {
@@ -29,11 +31,11 @@ md-input-container {
 }
 
 .app-content md-list {
-  margin: 40px;
+  margin-top: 20px;
 }
 
 .app-content md-card {
-  margin: 15px;
+  margin: 10px;
   max-width: 768px;
 }
 

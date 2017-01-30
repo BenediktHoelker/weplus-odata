@@ -11,7 +11,7 @@ export class Delivery {
   timeslotBegin: Date;
   timeslotEnd: Date;
   yardDeliveries: YardDelivery[];
-  
+
   get activeYardDeliveries(): YardDelivery[]{
     return this.yardDeliveries.filter(yardDelivery => yardDelivery.quantity >> 0);
   }
@@ -28,7 +28,8 @@ export class Delivery {
 
   constructor() {
     this.deviations = [];
-    this.yardDeliveries = [];
+    this.yardDeliveries = new Array<YardDelivery>();
+    this.status = new Status();
   }
 }
 
