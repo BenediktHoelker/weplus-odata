@@ -4,7 +4,7 @@ import { Status } from '../models/status.model';
 import { ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY } from './actions';
 import { YardDelivery } from '../models/yard-delivery.model';
 
-export const deliveriesReducer = (state = [], action) => {
+export function deliveriesReducer(state = [], action) {
   switch (action.type) {
     case ADD_DELIVERIES:
       return action.payload;

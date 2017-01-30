@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ADD_YARDS, CREATE_YARD, FILTER_YARD } from './actions';
 
-export const yardReducer = (state = [], action: Action) => {
+export function yardReducer(state = [], action: Action){
   switch (action.type) {
     case ADD_YARDS:
       return action.payload;

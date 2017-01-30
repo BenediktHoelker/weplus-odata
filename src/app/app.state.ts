@@ -10,6 +10,7 @@ export interface AppState {
   deviationFilter: String;
   processingFilter: String;
   registrationFilter: String;
+  selectedYard: Yard;
   yardFilter: String;
   yards: Yard[];
 }

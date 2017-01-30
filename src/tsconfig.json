@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "",
     "declaration": false,
+    "exclude": [ "./test.ts" ],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es6", "dom"],

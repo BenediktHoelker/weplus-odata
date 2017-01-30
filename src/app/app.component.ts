@@ -85,15 +85,15 @@ export class AppComponent {
       });
 
     this.model = Observable.combineLatest(
-      store.select('deliveries'),
-      store.select('deviationFilter'),
-      store.select('deviationTypes'),
-      store.select('processingFilter'),
-      store.select('registrationFilter'),
-      store.select('selectedDelivery'),
-      store.select('selectedYard'),
-      store.select('yardFilter'),
-      store.select('yards'),
+      store.select(s => s.deliveries),
+      store.select(s => s.deviationFilter),
+      store.select(s => s.deviationTypes),
+      store.select(s => s.processingFilter),
+      store.select(s => s.registrationFilter),
+      store.select(s => s.selectedDelivery),
+      store.select(s => s.selectedYard),
+      store.select(s => s.yardFilter),
+      store.select(s => s.yards),
       (deliveries, deviationFilter, deviationTypes, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
         return {
           deliveries: deliveries

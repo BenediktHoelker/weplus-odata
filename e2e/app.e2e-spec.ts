@@ -1,10 +1,10 @@
-import { Weplus20161213Page } from './app.po';
+import { WeplusPage } from './app.po';
 
-describe('weplus-20161213 App', function() {
-  let page: Weplus20161213Page;
+describe('weplus App', function() {
+  let page: WeplusPage;
 
   beforeEach(() => {
-    page = new Weplus20161213Page();
+    page = new WeplusPage();
   });
 
   it('should display message saying app works', () => {

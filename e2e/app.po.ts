@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class Weplus20161213Page {
+export class WeplusPage {
   navigateTo() {
     return browser.get('/');
   }
