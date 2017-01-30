@@ -47,7 +47,6 @@ export class DeliveryService {
     return this.http.get(deliveriesUrl)
       .map(res => res.json().map(
         delivery => {
-          console.log(delivery);
           let newDelivery = Object.assign(new Delivery(), delivery);
           let newYardDeliveries = [];
           let newYardDelivery;
@@ -57,7 +56,6 @@ export class DeliveryService {
             newYardDelivery = yardDelivery;
             newYardDelivery.status = Object.assign(new Status(), yardDelivery.status);
             newYardDeliveries.push(newYardDelivery);
-            console.log(yardDelivery);
           });
           newDelivery.yardDeliveries = newYardDeliveries;
           return newDelivery;

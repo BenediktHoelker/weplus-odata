@@ -23,9 +23,11 @@ export class DeliveryDetailComponent {
   @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
+  
   private dialogRef: MdDialogRef<RegistrationDialogComponent>;
-  private processingMessage: String;
-  private registrationMessage: String;
+  private statusIsValid: boolean;
+  private processingMessage: string;
+  private registrationMessage: string;
   private selectedTabIndex = 0;
 
   constructor(
@@ -33,7 +35,11 @@ export class DeliveryDetailComponent {
     public dialog: MdDialog,
     public snackBar: MdSnackBar
   ) { }
-  
+
+  ngOnInit(){
+    this.statusIsValid = true;
+  }
+
   addDeviation(): void {
     if (!this.delivery.deviations.length) {
       this.selectedTabIndex = 3;
@@ -46,13 +52,15 @@ export class DeliveryDetailComponent {
     return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
   }
 
+  isOnTime(timeslotBegin: Number, timeslotEnd: Number, now: number): Boolean {
+    return (now > timeslotBegin && now < timeslotEnd);
+  }
+
   openDialog() {
     this.dialogRef = this.dialog.open(RegistrationDialogComponent, {
       disableClose: false,
     });
-
     this.dialogRef.componentInstance.deviationTypes = this.deviationTypes;
-
     this.dialogRef.afterClosed().subscribe(result => {
       console.log('result: ' + result);
       this.dialogRef = null;
@@ -63,7 +71,7 @@ export class DeliveryDetailComponent {
     if (delivery.timeslotBegin && delivery.timeslotEnd) {
       let timeslotBegin = Date.parse(delivery.timeslotBegin.toString());
       let timeslotEnd = Date.parse(delivery.timeslotEnd.toString());
-      if (delivery.status.isRegistered && !this.isOnTime(timeslotBegin, timeslotEnd, Date.now())) {
+      if (!delivery.status.isRegistered && !this.isOnTime(timeslotBegin, timeslotEnd, Date.now())) {
         let snackBarRef = this.snackBar.open("Delivery not on time", "Comment", {
           duration: 3000
         });
@@ -73,11 +81,10 @@ export class DeliveryDetailComponent {
       }
     }
   }
-
-
-  isOnTime(timeslotBegin: Number, timeslotEnd: Number, now: number): Boolean {
-    return (now > timeslotBegin && now < timeslotEnd);
+  
+  setValidity() {
+    let isValid: boolean;
+    isValid = this.delivery.checkValidity();
+    this.statusIsValid = isValid;
   }
-
-
 }

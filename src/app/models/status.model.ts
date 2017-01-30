@@ -1,39 +1,39 @@
 import * as moment from 'moment';
 
 export class Status {
-  isProcessed: Boolean;
-  isRegistered: Boolean;
-  processingMessage: String;
-  registrationMessage: String;
-  timestampProcessing;
-  timestampRegistration;
+  isProcessed: boolean;
+  isRegistered: boolean;
+  isValid: boolean;
+  processingMessage: string;
+  registrationMessage: string;
+  timestampProcessing: moment.Moment;
+  timestampRegistration: moment.Moment;
 
-  setProcessed(value?: Boolean) {
+  checkValidity(): boolean{
+    let isValid: boolean;
+    isValid = !(this.isProcessed && !this.isRegistered);
+    return isValid;
+  }
+  setProcessed(value?: boolean) {
     this.isProcessed = (value === false) ? false : !this.isProcessed;
-    this.timestampProcessing = this.setTimestamp(this.isProcessed);
+    this.timestampProcessing = moment();
     this.setProcessingMessage();
   };
   setRegistered() {
     this.isRegistered = !this.isRegistered;
-    this.timestampRegistration = this.setTimestamp(this.isRegistered);
+    this.timestampRegistration = moment();
+    this.timestampProcessing = moment();
     this.setRegistrationMessage();
     this.setProcessingMessage();
-    if(!this.isRegistered)
-    {
-      this.setProcessed(false);
-    }
   };
   setProcessingMessage() {
     this.processingMessage = this.isProcessed
-      ? "Processing completed on " + this.timestampProcessing
+      ? "Processed at " + this.timestampProcessing.format('LT')
       : (this.isRegistered ? "Being Processed" : "Not Processed");
   }
   setRegistrationMessage() {
     this.registrationMessage = this.isRegistered
-      ? "Registered on " + this.timestampRegistration
+      ? "Registered at " + this.timestampRegistration.format('LT')
       : "Not Registered";
-  }
-  setTimestamp(value: Boolean): any{
-    return value ? moment().format('LLLL') : null;
   }
 }

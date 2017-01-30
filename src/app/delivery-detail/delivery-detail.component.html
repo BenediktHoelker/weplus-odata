@@ -7,34 +7,42 @@
     <md-card-content>
       <md-tab-group [selectedIndex]="selectedTabIndex">
         <md-tab label="Status">
-          <div class="flex-container" fxLayout="column">
-            <md-slide-toggle class="form-control" [checked]="delivery.status.isRegistered"
-              (change)="openSnackBar(delivery); delivery.status.setRegistered()"
-              name="delivery.status.isRegistered">
-              <span>{{delivery.status.registrationMessage}}</span>
-            </md-slide-toggle>
-            <md-slide-toggle class="form-control" [checked]="delivery.status.isProcessed"
-              (change)="delivery.status.setProcessed()"
-              name="delivery.status.isProcessed"
-              [disabled]="!delivery.status.isRegistered">
-              <span>{{delivery.status.processingMessage}}</span>
-            </md-slide-toggle>
-          </div>
-          <div class="flex-container" fxLayout="column"
-            *ngFor="let yardDelivery of delivery.yardDeliveries">
-            <md-slide-toggle class="form-control" [checked]="yardDelivery.status.isRegistered"
-              (change)="yardDelivery.status.setRegistered()"
-              name="yardDelivery.status.isRegistered" 
-              [disabled]="!delivery.status.isRegistered">
-              <span>{{yardDelivery.status.registrationMessage}}</span>
-            </md-slide-toggle>
-            <md-slide-toggle class="form-control" [checked]="yardDelivery.status.isProcessed"
-              (change)="yardDelivery.status.setProcessed()"
-              name="yardDelivery.status.isProcessed" 
-              [disabled]="!delivery.status.isRegistered">
-              <span>{{yardDelivery.status.processingMessage}}</span>
-            </md-slide-toggle>
-          </div>
+          <md-list>
+            <h3 md-subheader>Factory</h3>
+            <md-list-item>
+              <div md-line class="flex-container" fxLayout="row">
+                <md-checkbox class="form-control" [checked]="delivery.status.isRegistered"
+                  (change)="openSnackBar(delivery); delivery.status.setRegistered(); setValidity()"
+                  name="delivery.status.isRegistered">
+                  <span>{{delivery.status.registrationMessage}}</span>
+                </md-checkbox>
+                <md-checkbox class="form-control" [checked]="delivery.status.isProcessed"
+                  (change)="delivery.status.setProcessed(); setValidity()"
+                  name="delivery.status.isProcessed">
+                  <span>{{delivery.status.processingMessage}}</span>
+                </md-checkbox>
+              </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <div *ngFor="let yardDelivery of delivery.activeYardDeliveries">
+              <h3 md-subheader>{{yardDelivery.yard.name}}</h3>
+              <md-list-item>
+                <div md-line class="flex-container" fxLayout="row">
+                  <md-checkbox class="form-control" [checked]="yardDelivery.status.isRegistered"
+                    (change)="yardDelivery.status.setRegistered(); setValidity()"
+                    name="yardDelivery.status.isRegistered">
+                    <span>{{yardDelivery.status.registrationMessage}}</span>
+                  </md-checkbox>
+                  <md-checkbox class="form-control" [checked]="yardDelivery.status.isProcessed"
+                    (change)="yardDelivery.status.setProcessed(); setValidity()"
+                    name="yardDelivery.status.isProcessed">
+                    <span>{{yardDelivery.status.processingMessage}}</span>
+                  </md-checkbox>
+                </div>
+              </md-list-item>
+              <md-divider></md-divider>
+            </div>
+          </md-list>
         </md-tab>
         <md-tab label="Yards">
           <div class="flex-container" fxLayout="column">
@@ -76,7 +84,7 @@
       </md-tab-group>
     </md-card-content>
     <md-card-actions>
-      <button type="submit" [disabled]="!deliveryDetailForm.form.valid"
+      <button type="submit" [disabled]="!deliveryDetailForm.form.valid || !statusIsValid"
         md-button>Submit</button>
       <button *ngIf="!delivery.deviations.length"
         type="button" (click)="addDeviation()"
