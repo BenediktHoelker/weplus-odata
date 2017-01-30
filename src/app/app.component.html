@@ -1,6 +1,7 @@
 <md-toolbar color="primary">
   <span>
     <button md-button>{{title}}</button>
+    <button md-button (click)="sidenav.toggle()">Toggle List</button>
   </span>
   <span class="fill-remaining-space"></span>
   <span>
@@ -17,7 +18,7 @@
 </md-toolbar>
 <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
 <md-sidenav-container class="my-container">
-  <md-sidenav mode="side" opened="true">
+  <md-sidenav #sidenav mode="push" >
     <app-delivery-list [deliveries]="(model | async)?.deliveries"
       (selected)="selectDelivery($event)"></app-delivery-list>
   </md-sidenav>
