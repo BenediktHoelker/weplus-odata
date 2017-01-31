@@ -11,7 +11,7 @@ import { AppState } from './app.state';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import {
-  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION
+  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, FILTER_DEVIATION_TYPE, SELECT_YARD, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION
 } from './reducers/actions';
 
 @Component({
@@ -147,9 +147,6 @@ export class AppComponent {
   /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
   selectDelivery(delivery?: Delivery) {
     this.sidenav.toggle();
-    if (delivery) {
-      console.log(delivery.yardDeliveries);
-    }
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 
@@ -171,6 +168,7 @@ export class AppComponent {
 
   updateYardFilter(yard: Yard) {
     this.selectDelivery();
+    this.store.dispatch({ type: SELECT_YARD, payload: yard });
     this.store.dispatch({ type: FILTER_YARD, payload: yard });
   }
 }
