@@ -1,4 +1,5 @@
 import { Component, EventEmitter, ViewChild } from '@angular/core';
+import { MdSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -20,10 +21,11 @@ import {
 })
 export class AppComponent {
   title = "WEPLUS";
-  @ViewChild(DeliveryDetailComponent)
-  private child: DeliveryDetailComponent;
+  @ViewChild(DeliveryDetailComponent) private child: DeliveryDetailComponent;
+  @ViewChild('sidenav') sidenav: MdSidenav;
 
   public model;
+  private filtersVisible: boolean;
   private isLoading: boolean;
   private subscription;
   private yardDeliveries = [];
@@ -117,10 +119,18 @@ export class AppComponent {
       });
   }
 
+  ngOnInit() {
+    this.filtersVisible = true;
+  }
+
   createDelivery(): void {
     this.selectDelivery();
     this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
     this.child.newDeliveryFocusEventEmitter.emit(true);
+  }
+
+  toggleFilters(): void {
+    this.filtersVisible = !this.filtersVisible;
   }
 
   removeDelivery(delivery: Delivery) {
@@ -136,6 +146,7 @@ export class AppComponent {
 
   /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
   selectDelivery(delivery?: Delivery) {
+    this.sidenav.toggle();
     if (delivery) {
       console.log(delivery.yardDeliveries);
     }
