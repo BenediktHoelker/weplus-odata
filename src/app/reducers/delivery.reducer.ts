@@ -24,7 +24,9 @@ export function deliveriesReducer(state = [], action) {
 
     case UPDATE_DELIVERY:
       return state.map(delivery => {
-        return (delivery._id === action.payload._id || !delivery._id) ? Object.assign({}, delivery, action.payload) : delivery;
+        return (delivery._id === action.payload._id || !delivery._id)
+          ? Object.assign(new Delivery(), delivery, action.payload)
+          : delivery;
       });
 
     default:

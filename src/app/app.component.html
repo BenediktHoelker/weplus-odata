@@ -26,7 +26,7 @@
   <div class="app-content">
     <md-card *ngIf="filtersVisible">
       <app-filter-bar [deviationFilterActions]="deviationFilterActions"
-        [deviationFilter]="deviationFilterActions[0]"
+        [deviationFilter]="deviationFilter"
         [selectedYard]="(model | async)?.selectedYard"
         [yards]="(model | async)?.yards" (updateFilter)="updateFilter($event)"
         (updateYardFilter)="updateYardFilter($event)"></app-filter-bar>

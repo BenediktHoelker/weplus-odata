@@ -33,14 +33,14 @@ export class FilterBarComponent implements OnInit {
 
   ngOnInit() {
     this.processingFilters = [
-      { friendly: "All", type: SHOW_ALL_P },
-      { friendly: "Processed", type: SHOW_PROCESSED },
-      { friendly: "Not Processed", type: SHOW_NOT_PROCESSED }
+      { _name: "PROCESSING_FILTER", friendly: "All", type: SHOW_ALL_P },
+      { _name: "PROCESSING_FILTER", friendly: "Processed", type: SHOW_PROCESSED },
+      { _name: "PROCESSING_FILTER", friendly: "Not Processed", type: SHOW_NOT_PROCESSED }
     ];
     this.registrationFilters = [
-      { friendly: "All", type: SHOW_ALL_R },
-      { friendly: "Registered", type: SHOW_REGISTERED },
-      { friendly: "Not Registered", type: SHOW_NOT_REGISTERED }
+      { _name: "REGISTRATION_FILTER", friendly: "All", type: SHOW_ALL_R },
+      { _name: "REGISTRATION_FILTER", friendly: "Registered", type: SHOW_REGISTERED },
+      { _name: "REGISTRATION_FILTER", friendly: "Not Registered", type: SHOW_NOT_REGISTERED }
     ];
     this.registrationFilter = this.registrationFilters[0];
     this.processingFilter = this.processingFilters[0];

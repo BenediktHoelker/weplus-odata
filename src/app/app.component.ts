@@ -5,13 +5,20 @@ import { Store } from '@ngrx/store';
 
 import { Delivery } from './models/delivery.model';
 import { DeviationType } from './models/deviation-type.model';
+import { Filter } from './models/filter.model';
 import { Yard } from './models/yard.model';
 
 import { AppState } from './app.state';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import {
-  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS, CREATE_YARD, CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY, FILTER_YARD, FILTER_DEVIATION_TYPE, SELECT_YARD, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION
+  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS,
+  CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY,
+  CREATE_YARD, FILTER_YARD, SELECT_YARD,
+  ADD_FILTERS, SELECT_FILTER,
+  FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION,
+  SHOW_ALL_P, SHOW_PROCESSED, SHOW_NOT_PROCESSED,
+  SHOW_ALL_R, SHOW_REGISTERED, SHOW_NOT_REGISTERED
 } from './reducers/actions';
 
 @Component({
@@ -43,8 +50,8 @@ export class AppComponent {
   private yards: Observable<Yard[]>;
 
   private deviationFilter: Observable<String>;
-  private processingFilter: Observable<String>;
-  private registrationFilter: Observable<String>;
+  private processingFilter: Observable<Filter>;
+  private registrationFilter: Observable<Filter>;
   private yardFilter: Observable<String>;
 
   constructor(
@@ -61,6 +68,12 @@ export class AppComponent {
       .map(payload => ({ type: ADD_DEVIATION_TYPES, payload }))
       .subscribe(action => this.store.dispatch(action));
 
+    let filters = [
+      { _name: "PROCESSING_FILTER", friendly: "All", type: SHOW_ALL_P },
+      { _name: "REGISTRATION_FILTER", friendly: "All", type: SHOW_ALL_R },
+    ];
+    this.store.dispatch({type: ADD_FILTERS, payload: filters});
+    
     /*
     Create yard deliveries for creating new deliveries later
     */
@@ -157,12 +170,13 @@ export class AppComponent {
       .subscribe(
       delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }),
       err => console.log(err),
-      () => { this.isLoading = false; console.log("Not loading anymore") });
+      () => { this.isLoading = false; });
     this.selectDelivery(delivery);
   }
 
   updateFilter(filter) {
     this.selectDelivery();
+    this.store.dispatch({ type: SELECT_FILTER, payload: filter });
     this.store.dispatch({ type: filter.type, payload: filter.payload });
   }
 

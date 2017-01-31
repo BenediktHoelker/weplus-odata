@@ -30,6 +30,11 @@ export const SHOW_ALL_D = 'SHOW_ALL_D';
 export const SHOW_WITH_DEVIATION = 'SHOW_WITH_DEVIATION';
 export const SHOW_WITHOUT_DEVIATION = 'SHOW_WITHOUT_DEVIATION';
 
+//Filter Action Constants
+export const ADD_FILTERS = "ADD_FILTERS";
+export const SELECT_FILTER = "SELECT_FILTER";
+
+
 
 
 
