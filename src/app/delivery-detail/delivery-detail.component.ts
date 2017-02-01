@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
+import { Store } from '@ngrx/store';
 
+import { AppState } from '../app.state';
 import { Delivery } from '../models/delivery.model';
 import { Deviation } from '../models/deviation.model';
 import { DeviationType } from '../models/deviation-type.model';
@@ -10,6 +12,8 @@ import { YardDelivery } from '../models/yard-delivery.model';
 import { DeviationComponent } from '../deviation/deviation.component';
 import { DeliveryService } from '../shared/delivery.service';
 import { RegistrationDialogComponent } from '../registration-dialog/registration-dialog.component';
+
+import {TOGGLE_PROCESSING, TOGGLE_REGISTRATION } from '../reducers/actions';
 
 @Component({
   selector: 'wp-delivery-detail',
@@ -34,7 +38,8 @@ export class DeliveryDetailComponent {
   constructor(
     private deliveryService: DeliveryService,
     public dialog: MdDialog,
-    public snackBar: MdSnackBar
+    public snackBar: MdSnackBar,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -49,14 +54,12 @@ export class DeliveryDetailComponent {
     this.delivery.deviations.push(newDeviation);
   }
 
-  toggleRegistration() {
-    this.delivery.status.setRegistered();
-    this.setValidity();
+  toggleProcessing() {
+    this.store.dispatch({type: TOGGLE_PROCESSING, payload: this.delivery._id })
   }
 
-  toggleProcessing() {
-    this.delivery.status.setProcessed();
-    this.setValidity();
+  toggleRegistration() {
+    this.store.dispatch({type: TOGGLE_REGISTRATION, payload: this.delivery._id })
   }
 
   getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
