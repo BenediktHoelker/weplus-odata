@@ -3,7 +3,7 @@ import { Status } from './status.model';
 import { YardDelivery } from './yard-delivery.model';
 
 export class Delivery {
-  _id: number;
+  id: number;
   carrier: string;
   deviations: Deviation[];
   status: Status;

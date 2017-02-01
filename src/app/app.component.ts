@@ -165,7 +165,7 @@ export class AppComponent {
 
   removeDelivery(delivery: Delivery) {
     this.selectDelivery();
-    if (delivery._id) {
+    if (delivery.id) {
       this.deliveryService.removeDelivery(delivery)
         .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
     }

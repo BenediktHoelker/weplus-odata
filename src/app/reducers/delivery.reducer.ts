@@ -7,14 +7,14 @@ import { YardDelivery } from '../models/yard-delivery.model';
 function details(state: Delivery, action) {
   switch (action.type) {
     case TOGGLE_PROCESSING:
-      if (state._id === action.payload) {
+      if (state.id === action.payload) {
         return Object.assign({}, state, {
           status: Object.assign({}, state.status, { isProcessed: !state.status.isProcessed })
         });
       }
 
     case TOGGLE_REGISTRATION:
-      if (state._id === action.payload) {
+      if (state.id === action.payload) {
         return Object.assign({}, state, {
           status: Object.assign({}, state.status, { isRegistered: !state.status.isRegistered })
         });
@@ -35,15 +35,15 @@ export function deliveriesReducer(state = new Array<Delivery>(), action) {
           status: new Status(),
           yardDeliveries: action.payload.yardDeliveries,
         }),
-        ...state.filter(delivery => delivery._id)
+        ...state.filter(delivery => delivery.id)
       ];
 
     case REMOVE_DELIVERY:
-      return state.filter(delivery => delivery._id !== action.payload._id);
+      return state.filter(delivery => delivery.id !== action.payload.id);
 
     case UPDATE_DELIVERY:
       return state.map(delivery => {
-        return (delivery._id === action.payload._id || !delivery._id)
+        return (delivery.id === action.payload.id || !delivery.id)
           ? Object.assign(new Delivery(), delivery, action.payload)
           : delivery;
       });

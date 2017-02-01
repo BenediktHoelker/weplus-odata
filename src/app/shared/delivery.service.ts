@@ -64,7 +64,7 @@ export class DeliveryService {
   }
   // newYardDelivery.status = Object.assign(new Status(), delivery.yardDeliveries.filter(
   //   oldYardDelivery => { console.log(oldYardDelivery.status) }));
-  // oldYardDelivery => { oldYardDelivery.yard._id === newYardDelivery.yard._id)[0].status});
+  // oldYardDelivery => { oldYardDelivery.yard.id === newYardDelivery.yard.id)[0].status});
 
   getYards(): Observable<Yard[]> {
     return this.http.get(yardsUrl)
@@ -81,7 +81,7 @@ export class DeliveryService {
   removeDelivery(deliveryToBeRemoved: Delivery): Observable<Delivery> {
     let params = new URLSearchParams();
     let headers = new Headers();
-    params.set('_id', deliveryToBeRemoved._id.toString());
+    params.set('_id', deliveryToBeRemoved.id.toString());
     headers.append('Content-Type', 'x-www-form-encoded');
 
     let options = this.createRequestOptions(headers, params)
