@@ -9,38 +9,41 @@ export class Status {
   timestampProcessing: moment.Moment;
   timestampRegistration: moment.Moment;
 
-  checkValidity(): boolean {
-    let isValid: boolean;
-    isValid = !(this.isProcessed && !this.isRegistered);
-    return isValid;
-  }
-  setProcessed(value?: boolean) {
-    this.isProcessed = (value === false) ? false : !this.isProcessed;
-    this.timestampProcessing = moment();
-    this.setProcessingMessage();
-  };
-  setRegistered() {
-    this.isRegistered = !this.isRegistered;
-    this.timestampRegistration = moment();
-    this.timestampProcessing = moment();
-    this.setRegistrationMessage();
-    this.setProcessingMessage();
-  };
-  setProcessingMessage() {
-    this.processingMessage = this.isProcessed
-      ? "Processed at " + this.timestampProcessing.format('LT')
-      : (this.isRegistered ? "Being Processed" : "Not Processed");
-  }
-  setRegistrationMessage() {
-    this.registrationMessage = this.isRegistered
-      ? "Registered at " + this.timestampRegistration.format('LT')
-      : "Not Registered";
-  }
+  // checkValidity(): boolean {
+  //   let isValid: boolean;
+  //   isValid = !(this.isProcessed && !this.isRegistered);
+  //   return isValid;
+  // }
+  // get isProcessed(){
+  //   return this._isProcessed;
+  // }
+  // get isRegistered(){
+  //   return this._isRegistered;
+  // }
+  // set isProcessed (value: boolean) {
+  //   this.timestampProcessing = moment();
+  //   this.setProcessingMessage();
+  // };
+  // set isRegistered (value: boolean) {
+  //   this.timestampRegistration = moment();
+  //   this.setRegistrationMessage();
+  //   this.setProcessingMessage();
+  // };
+  // setProcessingMessage() {
+  //   this.processingMessage = this.isProcessed
+  //     ? "Processed at " + this.timestampProcessing.format('LT')
+  //     : (this.isRegistered ? "Being Processed" : "Not Processed");
+  // }
+  // setRegistrationMessage() {
+  //   this.registrationMessage = this.isRegistered
+  //     ? "Registered at " + this.timestampRegistration.format('LT')
+  //     : "Not Registered";
+  // }
 
-  constructor() {
-    this.isProcessed = false;
-    this.isRegistered = false;
-    this.processingMessage = "Not Processed";
-    this.registrationMessage = "Not Registered";
-  }
+  // constructor() {
+  //   this._isProcessed = false;
+  //   this._isRegistered = false;
+  //   this.processingMessage = "Not Processed";
+  //   this.registrationMessage = "Not Registered";
+  // }
 }

@@ -9,14 +9,14 @@ function details(state: Delivery, action) {
     case TOGGLE_PROCESSING:
       if (state.id === action.payload) {
         return Object.assign({}, state, {
-          status: Object.assign({}, state.status, { isProcessed: !state.status.isProcessed })
+          status: Object.assign(new Status(), state.status, { isProcessed: !state.status.isProcessed })
         });
       }
 
     case TOGGLE_REGISTRATION:
       if (state.id === action.payload) {
         return Object.assign({}, state, {
-          status: Object.assign({}, state.status, { isRegistered: !state.status.isRegistered })
+          status: Object.assign(new Status(), state.status, { isRegistered: !state.status.isRegistered })
         });
       }
       return state;

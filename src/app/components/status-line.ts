@@ -10,11 +10,11 @@ import { Delivery } from '../models/delivery.model';
       <div md-line class="flex-container" fxLayout="row">
         <md-checkbox [checked]="isRegistered"
           (change)="openMessage.emit(delivery); checkRegistration.emit(delivery.status)">
-          <span>{{registrationMessage}}</span>
+          <span>Registered</span>
         </md-checkbox>
         <md-checkbox [checked]="isProcessed"
           (change)="checkProcessing.emit(status)">
-          <span>{{processingMessage}}</span>
+          <span>Processed</span>
         </md-checkbox>
       </div>
     </md-list-item>
