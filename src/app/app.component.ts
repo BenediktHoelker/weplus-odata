@@ -16,7 +16,7 @@ import {
   ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS,
   CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY,
   CREATE_YARD, FILTER_YARD, SELECT_YARD,
-  ADD_FILTERS, SELECT_FILTER,
+  ADD_FILTERS, ADD_FILTER_GROUPS, SELECT_FILTER,
   FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION,
   SHOW_ALL_P, SHOW_PROCESSED, SHOW_NOT_PROCESSED,
   SHOW_ALL_R, SHOW_REGISTERED, SHOW_NOT_REGISTERED
@@ -29,7 +29,7 @@ import {
 })
 export class AppComponent {
   title = "WEPLUS";
-  @ViewChild(DeliveryDetailComponent) private child: DeliveryDetailComponent;
+  @ViewChild(DeliveryDetailComponent) private detailComponent: DeliveryDetailComponent;
   @ViewChild('sidenav') sidenav: MdSidenav;
 
   public model;
@@ -37,13 +37,6 @@ export class AppComponent {
   private isLoading: boolean;
   private subscription;
   private yardDeliveries = [];
-  private filterContent: FilterGroup[];
-
-  private deviationFilterActions = [
-    { friendly: "All", type: SHOW_ALL_D, payload: null },
-    { friendly: "With Deviation", type: SHOW_WITH_DEVIATION, payload: null },
-    { friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION, payload: null }
-  ];
 
   constructor(
     private deliveryService: DeliveryService,
@@ -73,10 +66,13 @@ export class AppComponent {
         { id: 1, friendly: "Registered", type: SHOW_REGISTERED },
         { id: 2, friendly: "Not Registered", type: SHOW_NOT_REGISTERED }],
         selectedFilterId: 0
-      }
+      },
+      {
+        type: "Filter Deviations", filters: [], selectedFilterId: 0
+      },
     ];
 
-    this.store.dispatch({ type: ADD_FILTERS, payload: filterGroups });
+    this.store.dispatch({ type: ADD_FILTER_GROUPS, payload: filterGroups });
 
     /*
      * Create yard deliveries for creating new deliveries later
@@ -94,13 +90,24 @@ export class AppComponent {
      * Push a new filter entry foreach type of deviation
      * TODO: find a better way
      */
+    let index = 3;
+    let filter = {};
+    let payload = { type: "Filter Deviations", filters: [] };
+    payload.filters.push(...[{ id: 0, friendly: "All", type: SHOW_ALL_D },
+        { id: 1, friendly: "With Deviation", type: SHOW_WITH_DEVIATION },
+        { id: 2, friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION }]);
     this.subscription = this.store
       .select('deviationTypes')
       .subscribe((deviationTypes: DeviationType[]) => {
         deviationTypes.map(
           deviationType => {
-            this.deviationFilterActions.push({ friendly: deviationType.name + " Deviation", type: FILTER_DEVIATION_TYPE, payload: deviationType.name });
+            filter = { id: index++, friendly: deviationType.name + " Deviation", type: FILTER_DEVIATION_TYPE, payload: deviationType.name }
+            payload.filters.push(filter);
           });
+        this.store.dispatch({ type: ADD_FILTERS, payload });
+      },
+      (err) => console.log(err),
+      () => {
       });
 
     this.model = Observable.combineLatest(
@@ -145,7 +152,7 @@ export class AppComponent {
   createDelivery(): void {
     this.selectDelivery();
     this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
-    this.child.newDeliveryFocusEventEmitter.emit(true);
+    this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
   }
 
   toggleFilters(): void {

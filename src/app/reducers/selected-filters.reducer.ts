@@ -1,12 +1,19 @@
 import { Action } from '@ngrx/store';
 
 import { FilterGroup } from '../models/filter-group.model';
-import { SELECT_FILTER, ADD_FILTERS } from './actions';
+import { ADD_FILTERS, ADD_FILTER_GROUPS, SELECT_FILTER } from './actions';
 
-export function selectedFiltersReducer(state = [], {type, payload}) {
+export function selectedFiltersReducer(state = new Array<FilterGroup>(), {type, payload}) {
   switch (type) {
-    case ADD_FILTERS:
+    case ADD_FILTER_GROUPS:
       return payload;
+
+    case ADD_FILTERS:
+      return state.map(filterGroup => {
+        return (filterGroup.type === payload.type)
+          ? Object.assign(new FilterGroup(), filterGroup, payload)
+          : filterGroup;
+      })
 
     case SELECT_FILTER:
       return state.map(filterGroup => {

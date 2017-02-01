@@ -16,6 +16,12 @@
     <md-option *ngFor="let filter of filterContent[1].filters"
       [value]="filter.id">{{filter.friendly}}</md-option>
   </md-select>
+  <md-select placeholder={{filterContent[2].type}}
+    [(ngModel)]="filterContent[2].selectedFilterId"
+    (ngModelChange)="updateFilter.emit(filterContent[2])">
+    <md-option *ngFor="let filter of filterContent[2].filters"
+      [value]="filter.id">{{filter.friendly}}</md-option>
+  </md-select>
   <!--<md-select placeholder="Filter Processed"
     [(ngModel)]="processingFilter" (ngModelChange)="updateFilter.emit(processingFilter)">
     <md-option *ngFor="let filter of processingFilters"

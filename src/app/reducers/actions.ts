@@ -32,6 +32,7 @@ export const SHOW_WITHOUT_DEVIATION = 'SHOW_WITHOUT_DEVIATION';
 
 //Filter Action Constants
 export const ADD_FILTERS = "ADD_FILTERS";
+export const ADD_FILTER_GROUPS = "ADD_FILTER_GROUPS";
 export const SELECT_FILTER = "SELECT_FILTER";
 
 
