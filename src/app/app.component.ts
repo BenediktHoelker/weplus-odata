@@ -188,7 +188,6 @@ export class AppComponent {
   }
 
   updateFilter(filterGroup) {
-    console.log(filterGroup);
     this.selectDelivery();
     this.store.dispatch({
       type: SELECT_FILTER,

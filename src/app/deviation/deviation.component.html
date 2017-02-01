@@ -7,9 +7,11 @@
     </md-option>
   </md-select>
   <!--No [max]-binding, because it somehow breaks validation-->
-  <md-input class="form-control" type="number"
-    placeholder="Gravity" [min]="1"
-    required [(ngModel)]="selectedDeviation.gravity"></md-input>
+  <md-input-container>
+    <input mdInput class="form-control" type="number"
+      placeholder="Gravity" [min]="1" required
+      [(ngModel)]="selectedDeviation.gravity">
+  </md-input-container>
   <button type="button" (click)="removeDeviation()"
     md-button><md-icon>delete</md-icon></button>
 </div>
