@@ -1,27 +1,34 @@
 <div class="flex-container" fxLayout="row"
   fxLayoutWrap="wrap" fxLayoutAlign="space-around center">
   <md-select placeholder="Filter Location"
-    [(ngModel)]="selectedYard" 
-    (ngModelChange)="updateYardFilter.emit(selectedYard)">
-    <md-option *ngFor="let yard of yards"
-      [value]="yard">{{yard.name}}</md-option>
+    [(ngModel)]="selectedYard" (ngModelChange)="updateYardFilter.emit(selectedYard)">
+    <md-option *ngFor="let yard of yards" [value]="yard">{{yard.name}}</md-option>
   </md-select>
-  <md-select placeholder="Filter Processed" 
-    [(ngModel)]="processingFilter"
-    (ngModelChange)="updateFilter.emit(processingFilter)">
+  <md-select placeholder={{filterContent[0].type}}
+    [(ngModel)]="filterContent[0].selectedFilterId"
+    (ngModelChange)="updateFilter.emit(filterContent[0])">
+    <md-option *ngFor="let filter of filterContent[0].filters"
+      [value]="filter.id">{{filter.friendly}}</md-option>
+  </md-select>
+  <md-select placeholder={{filterContent[1].type}}
+    [(ngModel)]="filterContent[1].selectedFilterId"
+    (ngModelChange)="updateFilter.emit(filterContent[1])">
+    <md-option *ngFor="let filter of filterContent[1].filters"
+      [value]="filter.id">{{filter.friendly}}</md-option>
+  </md-select>
+  <!--<md-select placeholder="Filter Processed"
+    [(ngModel)]="processingFilter" (ngModelChange)="updateFilter.emit(processingFilter)">
     <md-option *ngFor="let filter of processingFilters"
       [value]="filter">{{filter.friendly}}</md-option>
   </md-select>
-  <md-select placeholder="Filter Registered" 
-    [(ngModel)]="registrationFilter"
-    (ngModelChange)="updateFilter.emit(registrationFilter)">
+  <md-select placeholder="Filter Registered"
+    [(ngModel)]="registrationFilter" (ngModelChange)="updateFilter.emit(registrationFilter)">
     <md-option *ngFor="let filter of registrationFilters"
       [value]="filter">{{filter.friendly}}</md-option>
   </md-select>
-  <md-select placeholder="Filter Deviations" 
-    [(ngModel)]="deviationFilter"
-    (ngModelChange)="updateFilter.emit(deviationFilter)">
+  <md-select placeholder="Filter Deviations"
+    [(ngModel)]="deviationFilter" (ngModelChange)="updateFilter.emit(deviationFilter)">
     <md-option *ngFor="let filter of deviationFilterActions"
       [value]="filter">{{filter.friendly}}</md-option>
-  </md-select>
+  </md-select>-->
 </div>

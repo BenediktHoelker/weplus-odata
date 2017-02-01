@@ -6,6 +6,7 @@ import {
 } from '../reducers/actions';
 
 import { DeviationType } from '../models/deviation-type.model';
+import { FilterGroup } from '../models/filter-group.model';
 import { Yard } from '../models/yard.model';
 
 @Component({
@@ -13,36 +14,15 @@ import { Yard } from '../models/yard.model';
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.css']
 })
-export class FilterBarComponent implements OnInit {
-  private processingFilters;
-  private registrationFilters;
-
-  private processingFilter;
-  private registrationFilter;
+export class FilterBarComponent {
 
   @Input() deviationFilterActions;
   @Input() deviationFilter;
+  @Input() filterContent: FilterGroup[];
   @Input() selectedYard: Yard;
   @Input() yards: Yard[];
 
   @Output() updateFilter: EventEmitter<any> = new EventEmitter();
   @Output() updateYardFilter: EventEmitter<any> = new EventEmitter();
   @Output() updateDeviationFilter: EventEmitter<any> = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit() {
-    this.processingFilters = [
-      { _name: "PROCESSING_FILTER", friendly: "All", type: SHOW_ALL_P },
-      { _name: "PROCESSING_FILTER", friendly: "Processed", type: SHOW_PROCESSED },
-      { _name: "PROCESSING_FILTER", friendly: "Not Processed", type: SHOW_NOT_PROCESSED }
-    ];
-    this.registrationFilters = [
-      { _name: "REGISTRATION_FILTER", friendly: "All", type: SHOW_ALL_R },
-      { _name: "REGISTRATION_FILTER", friendly: "Registered", type: SHOW_REGISTERED },
-      { _name: "REGISTRATION_FILTER", friendly: "Not Registered", type: SHOW_NOT_REGISTERED }
-    ];
-    this.registrationFilter = this.registrationFilters[0];
-    this.processingFilter = this.processingFilters[0];
-  }
 }

@@ -27,7 +27,7 @@ import { filterProcessingReducer } from './reducers/filter-processing.reducer';
 import { filterRegistrationReducer } from './reducers/filter-registration.reducer';
 import { filterYardReducer } from './reducers/filter-yard.reducer';
 import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
-import { selectedFilterReducer } from './reducers/selected-filter.reducer';
+import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
@@ -44,10 +44,10 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
       deliveries: deliveriesReducer,
       deviationTypes: deviationTypeReducer,
       deviationFilter: filterDeviationReducer,
+      filterContent: selectedFiltersReducer,
       processingFilter: filterProcessingReducer,
       registrationFilter: filterRegistrationReducer,
       selectedDelivery: selectedDeliveryReducer,
-      selectedFilter: selectedFilterReducer,
       selectedYard: selectedYardReducer,
       yardFilter: filterYardReducer,
       yards: yardReducer,

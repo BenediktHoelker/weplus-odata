@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Delivery } from './models/delivery.model';
 import { DeviationType } from './models/deviation-type.model';
 import { Filter } from './models/filter.model';
+import { FilterGroup } from './models/filter-group.model';
 import { Yard } from './models/yard.model';
 
 import { AppState } from './app.state';
@@ -36,23 +37,13 @@ export class AppComponent {
   private isLoading: boolean;
   private subscription;
   private yardDeliveries = [];
+  private filterContent: FilterGroup[];
 
   private deviationFilterActions = [
     { friendly: "All", type: SHOW_ALL_D, payload: null },
     { friendly: "With Deviation", type: SHOW_WITH_DEVIATION, payload: null },
     { friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION, payload: null }
   ];
-
-  private deliveries: Observable<Delivery[]>;
-  private deviationTypes: Observable<DeviationType[]>;
-  private selectedDelivery: Observable<Delivery>;
-  private selectedYard: Observable<Yard>;
-  private yards: Observable<Yard[]>;
-
-  private deviationFilter: Observable<String>;
-  private processingFilter: Observable<Filter>;
-  private registrationFilter: Observable<Filter>;
-  private yardFilter: Observable<String>;
 
   constructor(
     private deliveryService: DeliveryService,
@@ -68,15 +59,28 @@ export class AppComponent {
       .map(payload => ({ type: ADD_DEVIATION_TYPES, payload }))
       .subscribe(action => this.store.dispatch(action));
 
-    let filters = [
-      { _name: "PROCESSING_FILTER", friendly: "All", type: SHOW_ALL_P },
-      { _name: "REGISTRATION_FILTER", friendly: "All", type: SHOW_ALL_R },
+    let filterGroups = [
+      {
+        type: "Filter Processing", filters:
+        [{ id: 0, friendly: "All", type: SHOW_ALL_P },
+        { id: 1, friendly: "Processed", type: SHOW_PROCESSED },
+        { id: 2, friendly: "Not Processed", type: SHOW_NOT_PROCESSED }],
+        selectedFilterId: 0
+      },
+      {
+        type: "Filter Registration", filters:
+        [{ id: 0, friendly: "All", type: SHOW_ALL_R },
+        { id: 1, friendly: "Registered", type: SHOW_REGISTERED },
+        { id: 2, friendly: "Not Registered", type: SHOW_NOT_REGISTERED }],
+        selectedFilterId: 0
+      }
     ];
-    this.store.dispatch({type: ADD_FILTERS, payload: filters});
-    
+
+    this.store.dispatch({ type: ADD_FILTERS, payload: filterGroups });
+
     /*
-    Create yard deliveries for creating new deliveries later
-    */
+     * Create yard deliveries for creating new deliveries later
+     */
     this.subscription = this.store
       .select('yards')
       .subscribe((yards: Yard[]) => {
@@ -87,9 +91,9 @@ export class AppComponent {
       });
 
     /*
-    Push a new filter entry foreach type of deviation
-    TODO: find a better way
-    */
+     * Push a new filter entry foreach type of deviation
+     * TODO: find a better way
+     */
     this.subscription = this.store
       .select('deviationTypes')
       .subscribe((deviationTypes: DeviationType[]) => {
@@ -103,13 +107,14 @@ export class AppComponent {
       store.select(s => s.deliveries),
       store.select(s => s.deviationFilter),
       store.select(s => s.deviationTypes),
+      store.select(s => s.filterContent),
       store.select(s => s.processingFilter),
       store.select(s => s.registrationFilter),
       store.select(s => s.selectedDelivery),
       store.select(s => s.selectedYard),
       store.select(s => s.yardFilter),
       store.select(s => s.yards),
-      (deliveries, deviationFilter, deviationTypes, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
+      (deliveries, deviationFilter, deviationTypes, filterContent, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
         return {
           deliveries: deliveries
             .filter(deviationFilter)
@@ -118,6 +123,7 @@ export class AppComponent {
             .filter(yardFilter),
           deviationFilter: deviationFilter,
           deviationTypes: deviationTypes,
+          filterContent,
           processingFilter,
           registrationFilter,
           selectedDelivery: selectedDelivery || deliveries
@@ -174,10 +180,14 @@ export class AppComponent {
     this.selectDelivery(delivery);
   }
 
-  updateFilter(filter) {
+  updateFilter(filterGroup) {
+    console.log(filterGroup);
     this.selectDelivery();
-    this.store.dispatch({ type: SELECT_FILTER, payload: filter });
-    this.store.dispatch({ type: filter.type, payload: filter.payload });
+    this.store.dispatch({
+      type: SELECT_FILTER,
+      payload: { type: filterGroup.type, selectedFilterId: filterGroup.selectedFilterId }
+    });
+    this.store.dispatch({ type: filterGroup.filters.find(filter => filter.id === filterGroup.selectedFilterId).type });
   }
 
   updateYardFilter(yard: Yard) {
