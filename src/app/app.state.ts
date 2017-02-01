@@ -18,5 +18,5 @@ export interface AppState {
   registrationFilter: Filter;
   yardFilter: String;
 
-  filterContent: FilterGroup[];
+  filterGroups: FilterGroup[];
 }

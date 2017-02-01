@@ -31,6 +31,8 @@ import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+import { StatusLineComponent } from './components/status-line';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   imports: [
@@ -44,7 +46,7 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
       deliveries: deliveriesReducer,
       deviationTypes: deviationTypeReducer,
       deviationFilter: filterDeviationReducer,
-      filterContent: selectedFiltersReducer,
+      filterGroups: selectedFiltersReducer,
       processingFilter: filterProcessingReducer,
       registrationFilter: filterRegistrationReducer,
       selectedDelivery: selectedDeliveryReducer,
@@ -52,13 +54,13 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
       yardFilter: filterYardReducer,
       yards: yardReducer,
     }),
-    StoreDevtoolsModule.instrumentStore({
-      monitor: useLogMonitor({
-        visible: true,
-        position: 'left'
-      })
-    }),
-    StoreLogMonitorModule
+    // StoreDevtoolsModule.instrumentStore({
+    //   monitor: useLogMonitor({
+    //     visible: true,
+    //     position: 'left'
+    //   })
+    // }),
+    // StoreLogMonitorModule
   ],
   declarations: [
     AppComponent,
@@ -69,6 +71,8 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
     FilterBarComponent,
     FocusInputDirective,
     RegistrationDialogComponent,
+    StatusLineComponent,
+    ToolbarComponent,
   ],
   entryComponents: [
     RegistrationDialogComponent

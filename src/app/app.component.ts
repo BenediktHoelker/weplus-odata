@@ -114,14 +114,14 @@ export class AppComponent {
       store.select(s => s.deliveries),
       store.select(s => s.deviationFilter),
       store.select(s => s.deviationTypes),
-      store.select(s => s.filterContent),
+      store.select(s => s.filterGroups),
       store.select(s => s.processingFilter),
       store.select(s => s.registrationFilter),
       store.select(s => s.selectedDelivery),
       store.select(s => s.selectedYard),
       store.select(s => s.yardFilter),
       store.select(s => s.yards),
-      (deliveries, deviationFilter, deviationTypes, filterContent, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
+      (deliveries, deviationFilter, deviationTypes, filterGroups, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
         return {
           deliveries: deliveries
             .filter(deviationFilter)
@@ -130,7 +130,7 @@ export class AppComponent {
             .filter(yardFilter),
           deviationFilter: deviationFilter,
           deviationTypes: deviationTypes,
-          filterContent,
+          filterGroups,
           processingFilter,
           registrationFilter,
           selectedDelivery: selectedDelivery || deliveries
@@ -155,6 +155,10 @@ export class AppComponent {
     this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
   }
 
+  openSidenav(): void{
+    this.sidenav.open();
+  }
+
   toggleFilters(): void {
     this.filtersVisible = !this.filtersVisible;
   }
@@ -172,7 +176,6 @@ export class AppComponent {
 
   /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
   selectDelivery(delivery?: Delivery) {
-    this.sidenav.toggle();
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 

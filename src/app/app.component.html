@@ -1,42 +1,23 @@
 <md-sidenav-container class="my-container">
-  <md-toolbar color="primary">
-    <span>
-    <button md-button>{{title}}</button>
-    <button md-button (click)="sidenav.toggle()">Toggle List</button>
-    <button md-button (click)="toggleFilters()">Toggle Filters</button>
-  </span>
-    <span class="fill-remaining-space"></span>
-    <span>
-    <button md-icon-button [md-menu-trigger-for]="menu">
-      <md-icon>more_vert</md-icon>
-    </button>
-    <md-menu #menu="mdMenu">
-      <button md-menu-item> Refresh </button>
-      <button md-menu-item> Preferences </button>
-      <button md-menu-item> About </button>
-      <button md-menu-item disabled> Sign Out </button>
-    </md-menu>
-  </span>
-  </md-toolbar>
+  <wp-toolbar (openList)=openSidenav()></wp-toolbar>
   <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
-  <md-card *ngIf="filtersVisible">
-    <app-filter-bar [deviationFilterActions]="deviationFilterActions"
-      [deviationFilter]="deviationFilter" 
-      [filterContent]="(model | async)?.filterContent"
-      [selectedYard]="(model | async)?.selectedYard"
-      [yards]="(model | async)?.yards" (updateFilter)="updateFilter($event)"
-      (updateYardFilter)="updateYardFilter($event)"></app-filter-bar>
-  </md-card>
+  <wp-filter-bar *ngIf="filtersVisible"
+    [filterGroups]="(model | async)?.filterGroups"
+    [selectedYard]="(model | async)?.selectedYard"
+    [yards]="(model | async)?.yards" 
+    (updateFilter)="updateFilter($event)"
+    (updateYardFilter)="updateYardFilter($event)"></wp-filter-bar>
   <md-sidenav #sidenav mode="push">
     <app-delivery-list [deliveries]="(model | async)?.deliveries"
       (selected)="selectDelivery($event)"></app-delivery-list>
   </md-sidenav>
   <div class="app-content">
-    <app-delivery-detail [delivery]="(model | async)?.selectedDelivery"
+    <wp-delivery-detail 
+      [delivery]="(model | async)?.selectedDelivery"
       [deliveries]="(model | async)?.deliveries"
       [deviationTypes]="(model | async)?.deviationTypes"
       (updateDelivery)="updateDelivery($event)"
-      (removeDelivery)="removeDelivery($event)"></app-delivery-detail>
+      (removeDelivery)="removeDelivery($event)"></wp-delivery-detail>
   </div>
 </md-sidenav-container>
 <span class="app-action" (click)="createDelivery()">

@@ -4,6 +4,7 @@ import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
 import { Delivery } from '../models/delivery.model';
 import { Deviation } from '../models/deviation.model';
 import { DeviationType } from '../models/deviation-type.model';
+import { Status } from '../models/status.model';
 import { YardDelivery } from '../models/yard-delivery.model';
 
 import { DeviationComponent } from '../deviation/deviation.component';
@@ -11,7 +12,7 @@ import { DeliveryService } from '../shared/delivery.service';
 import { RegistrationDialogComponent } from '../registration-dialog/registration-dialog.component';
 
 @Component({
-  selector: 'app-delivery-detail',
+  selector: 'wp-delivery-detail',
   templateUrl: './delivery-detail.component.html',
   providers: [MdSnackBar]
 })
@@ -23,7 +24,7 @@ export class DeliveryDetailComponent {
   @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
-  
+
   private dialogRef: MdDialogRef<RegistrationDialogComponent>;
   private statusIsValid: boolean;
   private processingMessage: string;
@@ -36,7 +37,7 @@ export class DeliveryDetailComponent {
     public snackBar: MdSnackBar
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.statusIsValid = true;
   }
 
@@ -46,6 +47,16 @@ export class DeliveryDetailComponent {
     }
     let newDeviation = this.deliveryService.createDeviation();
     this.delivery.deviations.push(newDeviation);
+  }
+
+  toggleRegistration() {
+    this.delivery.status.setRegistered();
+    this.setValidity();
+  }
+
+  toggleProcessing() {
+    this.delivery.status.setProcessed();
+    this.setValidity();
   }
 
   getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
@@ -81,7 +92,7 @@ export class DeliveryDetailComponent {
       }
     }
   }
-  
+
   setValidity() {
     let isValid: boolean;
     isValid = this.delivery.checkValidity();

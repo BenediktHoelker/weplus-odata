@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, Inject, Input, Renderer } from '@angular/core';
-import { MdInput } from '@angular/material';
+import { MdInputContainer } from '@angular/material';
 
 @Directive({
   selector: '[newDeliveryFocus]'
