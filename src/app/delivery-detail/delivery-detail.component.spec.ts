@@ -55,7 +55,7 @@ describe('DeliveryDetailComponent', () => {
   });
 
   it('should accumulate the quantities for each YardDelivery', () => {
-    let mockYards = [{ id: 1, name: "STE1" }, { id: 2, name: "STE2" }, { id: 3, name: "STE3" }];
+    let mockYards = [{ _id: 1, name: "STE1" }, { _id: 2, name: "STE2" }, { _id: 3, name: "STE3" }];
     let mockYardDeliveries = [{ yard: mockYards[0], quantity: 12 }, { yard: mockYards[1], quantity: 13 }, { yard: mockYards[2], quantity: 23 }];
 
     expect(component.getTotalQuantity(mockYardDeliveries)).toEqual(48);

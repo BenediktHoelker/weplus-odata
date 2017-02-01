@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 
 export class Status {
+  _id: number;
   isProcessed: boolean;
   isRegistered: boolean;
   isValid: boolean;
@@ -9,11 +10,11 @@ export class Status {
   timestampProcessing: moment.Moment;
   timestampRegistration: moment.Moment;
 
-  // checkValidity(): boolean {
-  //   let isValid: boolean;
-  //   isValid = !(this.isProcessed && !this.isRegistered);
-  //   return isValid;
-  // }
+  checkValidity(): boolean {
+    let isValid: boolean;
+    isValid = !(this.isProcessed && !this.isRegistered);
+    return isValid;
+  }
   // get isProcessed(){
   //   return this._isProcessed;
   // }

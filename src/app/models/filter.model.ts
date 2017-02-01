@@ -1,5 +1,5 @@
 export class Filter {
-  id: number;
+  _id: number;
   friendly: string;
   type: string;
 }

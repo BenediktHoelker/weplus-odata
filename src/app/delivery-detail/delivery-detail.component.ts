@@ -13,7 +13,7 @@ import { DeviationComponent } from '../deviation/deviation.component';
 import { DeliveryService } from '../shared/delivery.service';
 import { RegistrationDialogComponent } from '../registration-dialog/registration-dialog.component';
 
-import {TOGGLE_PROCESSING, TOGGLE_REGISTRATION } from '../reducers/actions';
+import { TOGGLE_PROCESSING, TOGGLE_REGISTRATION } from '../reducers/actions';
 
 @Component({
   selector: 'wp-delivery-detail',
@@ -54,12 +54,12 @@ export class DeliveryDetailComponent {
     this.delivery.deviations.push(newDeviation);
   }
 
-  toggleProcessing() {
-    this.store.dispatch({type: TOGGLE_PROCESSING, payload: this.delivery.id })
+  toggleProcessing(status: Status) {
+    this.store.dispatch({ type: TOGGLE_PROCESSING, payload: { deliveryId: this.delivery._id, status: status } });
   }
 
-  toggleRegistration() {
-    this.store.dispatch({type: TOGGLE_REGISTRATION, payload: this.delivery.id })
+  toggleRegistration(status: Status) {
+    this.store.dispatch({ type: TOGGLE_REGISTRATION, payload: { deliveryId: this.delivery._id, status: status } });
   }
 
   getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
@@ -76,12 +76,12 @@ export class DeliveryDetailComponent {
     });
     this.dialogRef.componentInstance.deviationTypes = this.deviationTypes;
     this.dialogRef.afterClosed().subscribe(result => {
-      console.log('result: ' + result);
       this.dialogRef = null;
     });
   }
 
-  openSnackBar(delivery: Delivery) {
+  openSnackBar() {
+    let delivery = this.delivery;
     if (delivery.timeslotBegin && delivery.timeslotEnd) {
       let timeslotBegin = Date.parse(delivery.timeslotBegin.toString());
       let timeslotEnd = Date.parse(delivery.timeslotEnd.toString());

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Status } from '../models/status.model';
 import { Delivery } from '../models/delivery.model';
+import { YardDelivery } from '../models/yard-delivery.model';
 
 @Component({
   selector: 'wp-status-line',

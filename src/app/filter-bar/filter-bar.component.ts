@@ -22,7 +22,7 @@ import { Yard } from '../models/yard.model';
         [(ngModel)]="filterGroup.selectedFilterId"
         (ngModelChange)="updateFilter.emit(filterGroup)">
         <md-option *ngFor="let filter of filterGroup.filters"
-          [value]="filter.id">{{filter.friendly}}</md-option>
+          [value]="filter._id">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>  
   `

@@ -62,10 +62,6 @@ export class DeliveryService {
         })) //Object.assign for converting to JSON to Delivery instance
       .catch(this.handleError);
   }
-  // newYardDelivery.status = Object.assign(new Status(), delivery.yardDeliveries.filter(
-  //   oldYardDelivery => { console.log(oldYardDelivery.status) }));
-  // oldYardDelivery => { oldYardDelivery.yard.id === newYardDelivery.yard.id)[0].status});
-
   getYards(): Observable<Yard[]> {
     return this.http.get(yardsUrl)
       .map(res => res.json() as Yard[])

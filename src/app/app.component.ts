@@ -55,16 +55,16 @@ export class AppComponent {
     let filterGroups = [
       {
         type: "Filter Processing", filters:
-        [{ id: 0, friendly: "All", type: SHOW_ALL_P },
-        { id: 1, friendly: "Processed", type: SHOW_PROCESSED },
-        { id: 2, friendly: "Not Processed", type: SHOW_NOT_PROCESSED }],
+        [{ _id: 0, friendly: "All", type: SHOW_ALL_P },
+        { _id: 1, friendly: "Processed", type: SHOW_PROCESSED },
+        { _id: 2, friendly: "Not Processed", type: SHOW_NOT_PROCESSED }],
         selectedFilterId: 0
       },
       {
         type: "Filter Registration", filters:
-        [{ id: 0, friendly: "All", type: SHOW_ALL_R },
-        { id: 1, friendly: "Registered", type: SHOW_REGISTERED },
-        { id: 2, friendly: "Not Registered", type: SHOW_NOT_REGISTERED }],
+        [{ _id: 0, friendly: "All", type: SHOW_ALL_R },
+        { _id: 1, friendly: "Registered", type: SHOW_REGISTERED },
+        { _id: 2, friendly: "Not Registered", type: SHOW_NOT_REGISTERED }],
         selectedFilterId: 0
       },
       {
@@ -93,15 +93,15 @@ export class AppComponent {
     let index = 3;
     let filter = {};
     let payload = { type: "Filter Deviations", filters: [] };
-    payload.filters.push(...[{ id: 0, friendly: "All", type: SHOW_ALL_D },
-        { id: 1, friendly: "With Deviation", type: SHOW_WITH_DEVIATION },
-        { id: 2, friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION }]);
+    payload.filters.push(...[{ _id: 0, friendly: "All", type: SHOW_ALL_D },
+    { _id: 1, friendly: "With Deviation", type: SHOW_WITH_DEVIATION },
+    { _id: 2, friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION }]);
     this.subscription = this.store
       .select('deviationTypes')
       .subscribe((deviationTypes: DeviationType[]) => {
         deviationTypes.map(
           deviationType => {
-            filter = { id: index++, friendly: deviationType.name + " Deviation", type: FILTER_DEVIATION_TYPE, payload: deviationType.name }
+            filter = { _id: index++, friendly: deviationType.name + " Deviation", type: FILTER_DEVIATION_TYPE, payload: deviationType.name }
             payload.filters.push(filter);
           });
         this.store.dispatch({ type: ADD_FILTERS, payload });
@@ -155,7 +155,7 @@ export class AppComponent {
     this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
   }
 
-  openSidenav(): void{
+  openSidenav(): void {
     this.sidenav.open();
   }
 
@@ -165,7 +165,7 @@ export class AppComponent {
 
   removeDelivery(delivery: Delivery) {
     this.selectDelivery();
-    if (delivery.id) {
+    if (delivery._id) {
       this.deliveryService.removeDelivery(delivery)
         .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
     }
@@ -196,7 +196,7 @@ export class AppComponent {
       type: SELECT_FILTER,
       payload: { type: filterGroup.type, selectedFilterId: filterGroup.selectedFilterId }
     });
-    this.store.dispatch({ type: filterGroup.filters.find(filter => filter.id === filterGroup.selectedFilterId).type });
+    this.store.dispatch({ type: filterGroup.filters.find(filter => filter._id === filterGroup.selectedFilterId).type });
   }
 
   updateYardFilter(yard: Yard) {
