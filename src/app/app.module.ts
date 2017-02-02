@@ -29,6 +29,7 @@ import { filterYardReducer } from './reducers/filter-yard.reducer';
 import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
 import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
+import { statusReducer } from './reducers/status.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
 import { StatusLineComponent } from './components/status-line';
@@ -51,16 +52,17 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
       registrationFilter: filterRegistrationReducer,
       selectedDelivery: selectedDeliveryReducer,
       selectedYard: selectedYardReducer,
+      statusses: statusReducer,
       yardFilter: filterYardReducer,
       yards: yardReducer,
     }),
-    // StoreDevtoolsModule.instrumentStore({
-    //   monitor: useLogMonitor({
-    //     visible: true,
-    //     position: 'left'
-    //   })
-    // }),
-    // StoreLogMonitorModule
+    StoreDevtoolsModule.instrumentStore({
+      monitor: useLogMonitor({
+        visible: true,
+        position: 'left'
+      })
+    }),
+    StoreLogMonitorModule
   ],
   declarations: [
     AppComponent,

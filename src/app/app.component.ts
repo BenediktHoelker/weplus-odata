@@ -10,6 +10,8 @@ import { FilterGroup } from './models/filter-group.model';
 import { Yard } from './models/yard.model';
 
 import { AppState } from './app.state';
+import { normalize, denormalize } from 'normalizr';
+import { deliverySchema, statusSchema } from './models/schemas';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import {
@@ -19,7 +21,8 @@ import {
   ADD_FILTERS, ADD_FILTER_GROUPS, SELECT_FILTER,
   FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION,
   SHOW_ALL_P, SHOW_PROCESSED, SHOW_NOT_PROCESSED,
-  SHOW_ALL_R, SHOW_REGISTERED, SHOW_NOT_REGISTERED
+  SHOW_ALL_R, SHOW_REGISTERED, SHOW_NOT_REGISTERED,
+  ADD_STATUSSES
 } from './reducers/actions';
 
 @Component({
@@ -45,11 +48,18 @@ export class AppComponent {
     this.deliveryService.getDeliveries()
       .map(payload => ({ type: ADD_DELIVERIES, payload }))
       .subscribe(action => this.store.dispatch(action));
-    this.deliveryService.getYards()
-      .map(payload => ({ type: ADD_YARDS, payload }))
+    this.deliveryService.getDeliveries()
+      .map(payload => ({
+        type: ADD_STATUSSES,
+        payload: Object.keys(normalize(payload, [deliverySchema]).entities.statusses).map(
+          (k) => normalize(payload, [deliverySchema]).entities.statusses[k])
+      }))
       .subscribe(action => this.store.dispatch(action));
     this.deliveryService.getDeviationTypes()
       .map(payload => ({ type: ADD_DEVIATION_TYPES, payload }))
+      .subscribe(action => this.store.dispatch(action));
+    this.deliveryService.getYards()
+      .map(payload => ({ type: ADD_YARDS, payload }))
       .subscribe(action => this.store.dispatch(action));
 
     let filterGroups = [
@@ -119,9 +129,10 @@ export class AppComponent {
       store.select(s => s.registrationFilter),
       store.select(s => s.selectedDelivery),
       store.select(s => s.selectedYard),
+      store.select(s => s.statusses),
       store.select(s => s.yardFilter),
       store.select(s => s.yards),
-      (deliveries, deviationFilter, deviationTypes, filterGroups, processingFilter, registrationFilter, selectedDelivery, selectedYard, yardFilter, yards) => {
+      (deliveries, deviationFilter, deviationTypes, filterGroups, processingFilter, registrationFilter, selectedDelivery, selectedYard, statusses, yardFilter, yards) => {
         return {
           deliveries: deliveries
             .filter(deviationFilter)
@@ -139,6 +150,7 @@ export class AppComponent {
             .filter(registrationFilter)
             .filter(yardFilter)[0],
           selectedYard: selectedYard || yards[0],
+          statusses: statusses,
           yardFilter,
           yards
         }
@@ -165,7 +177,7 @@ export class AppComponent {
 
   removeDelivery(delivery: Delivery) {
     this.selectDelivery();
-    if (delivery._id) {
+    if (delivery.id) {
       this.deliveryService.removeDelivery(delivery)
         .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
     }

@@ -55,11 +55,11 @@ export class DeliveryDetailComponent {
   }
 
   toggleProcessing(status: Status) {
-    this.store.dispatch({ type: TOGGLE_PROCESSING, payload: { deliveryId: this.delivery._id, status: status } });
+    this.store.dispatch({ type: TOGGLE_PROCESSING, payload: status });
   }
 
   toggleRegistration(status: Status) {
-    this.store.dispatch({ type: TOGGLE_REGISTRATION, payload: { deliveryId: this.delivery._id, status: status } });
+    this.store.dispatch({ type: TOGGLE_REGISTRATION, payload: status });
   }
 
   getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {

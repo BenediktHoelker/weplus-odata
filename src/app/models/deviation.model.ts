@@ -1,5 +1,5 @@
 export class Deviation {
-    _id: number;
+    id: number;
     type: string;
     gravity: number;
 }

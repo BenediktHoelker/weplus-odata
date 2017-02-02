@@ -4,6 +4,9 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 import { Delivery } from '../models/delivery.model';
+import { normalize, denormalize } from 'normalizr';
+import { deliverySchema, statusSchema } from '../models/schemas';
+
 import { Deviation } from '../models/deviation.model';
 import { DeviationType } from '../models/deviation-type.model';
 import { Status } from '../models/status.model';
@@ -13,6 +16,7 @@ import { YardDelivery } from '../models/yard-delivery.model';
 const deliveriesUrl = 'http://localhost:3000/api/deliveries';
 const deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
 const yardsUrl = 'http://localhost:3000/api/yards';
+const statusUrl = 'http://localhost:3000/api/statusses';
 
 // const deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
 // const deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
@@ -45,32 +49,25 @@ export class DeliveryService {
 
   getDeliveries(): Observable<Delivery[]> {
     return this.http.get(deliveriesUrl)
-      .map(res => res.json().map(
-        delivery => {
-          let newDelivery = Object.assign(new Delivery(), delivery);
-          let newYardDeliveries = [];
-          let newYardDelivery;
-          let status;
-          newDelivery.status = Object.assign(new Status(), delivery.status);
-          delivery.yardDeliveries.map(yardDelivery => {
-            newYardDelivery = yardDelivery;
-            newYardDelivery.status = Object.assign(new Status(), yardDelivery.status);
-            newYardDeliveries.push(newYardDelivery);
-          });
-          newDelivery.yardDeliveries = newYardDeliveries;
-          return newDelivery;
-        })) //Object.assign for converting to JSON to Delivery instance
-      .catch(this.handleError);
-  }
-  getYards(): Observable<Yard[]> {
-    return this.http.get(yardsUrl)
-      .map(res => res.json() as Yard[])
+      .map(res => res.json())
       .catch(this.handleError);
   }
 
   getDeviationTypes(): Observable<DeviationType[]> {
     return this.http.get(deviationTypesUrl)
       .map(res => res.json() as DeviationType[])
+      .catch(this.handleError);
+  }
+
+  getStatusses(): Observable<Status[]> {
+    return this.http.get(statusUrl)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  getYards(): Observable<Yard[]> {
+    return this.http.get(yardsUrl)
+      .map(res => res.json() as Yard[])
       .catch(this.handleError);
   }
 
@@ -96,19 +93,8 @@ export class DeliveryService {
 
   submitDelivery(deliveryToBeSubmitted: Delivery): Observable<Delivery> {
     return this.http.post(deliveriesUrl, deliveryToBeSubmitted, this.options)
-      .map(res => {
-        let newDelivery = Object.assign(new Delivery(), res.json);
-        newDelivery.status = Object.assign(new Status(), res.json().status);
-        let newYardDeliveries = [];
-        let newYardDelivery;
-        res.json().yardDeliveries.map(yardDelivery => {
-          newYardDelivery = yardDelivery;
-          newYardDelivery.status = Object.assign(new Status(), yardDelivery.status);
-          newYardDeliveries.push(newYardDelivery);
-        });
-        newDelivery.yardDeliveries = newYardDeliveries;
-        return newDelivery;
-      });
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {

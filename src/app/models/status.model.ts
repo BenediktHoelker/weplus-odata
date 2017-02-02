@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 export class Status {
-  _id: number;
+  id: number;
   isProcessed: boolean;
   isRegistered: boolean;
   isValid: boolean;
