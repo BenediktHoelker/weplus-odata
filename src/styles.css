@@ -15,9 +15,6 @@ md-input {
   margin-top: 20px;
 }
 
-md-select {
-}
-
 md-input-container {
   margin-top: 20px;
 }
@@ -34,11 +31,6 @@ md-input-container {
 .app-content md-card {
   margin: 10px;
   max-width: 768px;
-}
-
-.app-sidenav {
-  padding: 10px;
-  min-width: 100px;
 }
 
 .app-content md-checkbox {

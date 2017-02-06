@@ -12,12 +12,12 @@
       (selected)="selectDelivery($event)"></wp-delivery-list>
   </md-sidenav>
   <div class="app-content">
-    <wp-delivery-detail 
-      [delivery]="(model | async)?.selectedDelivery"
+    <wp-selected-delivery></wp-selected-delivery>
+      <!--[delivery]="(model | async)?.selectedDelivery"
       [deliveries]="(model | async)?.deliveries"
       [deviationTypes]="(model | async)?.deviationTypes"
       (updateDelivery)="updateDelivery($event)"
-      (removeDelivery)="removeDelivery($event)"></wp-delivery-detail>
+      (removeDelivery)="removeDelivery($event)"></wp-delivery-detail>-->
   </div>
 </md-sidenav-container>
 <span class="app-action" (click)="createDelivery()">

@@ -21,9 +21,15 @@ import * as fromRoot from '../reducers';
 @Component({
   selector: 'wp-delivery-detail',
   templateUrl: './delivery-detail.component.html',
+  styles: [`
+    md-slide-toggle {
+      margin-left: 30px;
+    }
+  `],
   providers: [MdSnackBar]
 })
 export class DeliveryDetailComponent {
+  delivery$: Observable<Delivery>;
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
   @Input() deviationTypes: DeviationType[];
@@ -43,9 +49,7 @@ export class DeliveryDetailComponent {
     public dialog: MdDialog,
     public snackBar: MdSnackBar,
     private store: Store<fromRoot.State>
-  ) {this.delivery$ = store.select(fromRoot.getSelectedDelivery); }
-
-  delivery$: Observable<Delivery>;
+  ) {  }
 
   ngOnInit() {
     this.statusIsValid = true;

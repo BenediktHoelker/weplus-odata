@@ -12,21 +12,6 @@
               (openMessage)=openSnackBar($event)
               (checkRegistration)=toggleRegistration($event)
               (checkProcessing)=toggleProcessing($event)></wp-status-line>
-            <!--<h3 md-subheader>Factory</h3>
-            <md-list-item>
-              <div md-line class="flex-container" fxLayout="row">
-                <md-checkbox class="form-control" [checked]="delivery.status.isRegistered"
-                  (change)="openSnackBar(delivery); delivery.status.setRegistered(); setValidity()"
-                  name="delivery.status.isRegistered">
-                  <span>{{delivery.status.registrationMessage}}</span>
-                </md-checkbox>
-                <md-checkbox class="form-control" [checked]="delivery.status.isProcessed"
-                  (change)="delivery.status.setProcessed(); setValidity()"
-                  name="delivery.status.isProcessed">
-                  <span>{{delivery.status.processingMessage}}</span>
-                </md-checkbox>
-              </div>
-            </md-list-item>-->
             <div *ngFor="let yardDelivery of delivery.activeYardDeliveries">
               <h3 md-subheader>{{yardDelivery.yard.name}}</h3>
               <md-list-item>
@@ -51,8 +36,8 @@
             <md-input-container *ngFor="let yardDelivery of delivery.yardDeliveries">
               <input mdInput class="form-control" type="number"
                 [min]="0" [(ngModel)]="yardDelivery.quantity"
-                name="quantity {{yardDelivery.yard.name}}"
-                placeholder="Quantity {{yardDelivery.yard.name}}">
+                name="quantity {{yardDelivery.yard}}"
+                placeholder="Quantity {{yardDelivery.yard}}">
             </md-input-container>
           </div>
         </md-tab>

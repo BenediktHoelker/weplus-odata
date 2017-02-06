@@ -11,14 +11,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import 'hammerjs';
 
-import { AppComponent } from './app.component';
-import { DeliveryListComponent } from './delivery-list/delivery-list.component';
-import { DeliveryService } from './shared/delivery.service';
-import { DeviationComponent } from './deviation/deviation.component';
-import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeviationFocusDirective } from './directives/deviation-focus.directive';
 import { FocusInputDirective } from './directives/focus-input.directive';
-import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
 import { reducer } from './reducers';
 import { deviationTypeReducer } from './reducers/deviation-type.reducer';
@@ -31,9 +25,17 @@ import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+
+import { AppComponent } from './app.component';
+import { DeliveryListComponent } from './delivery-list/delivery-list.component';
+import { DeliveryService } from './shared/delivery.service';
+import { DeviationComponent } from './deviation/deviation.component';
+import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
+import { FilterBarComponent } from './components/filter-bar';
 import { StatusLineComponent } from './components/status-line';
+import { SelectedDeliveryComponent } from './containers/selected-delivery';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ToolbarComponent } from './components/toolbar';
 
 @NgModule({
   imports: [
@@ -55,6 +57,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     FilterBarComponent,
     FocusInputDirective,
     RegistrationDialogComponent,
+    SelectedDeliveryComponent,
     SidenavDeliveryListComponent,
     StatusLineComponent,
     ToolbarComponent,

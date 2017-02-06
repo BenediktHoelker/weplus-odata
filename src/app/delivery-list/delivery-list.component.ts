@@ -16,6 +16,6 @@ export class DeliveryListComponent {
   @Output() selected = new EventEmitter();
 
   constructor(store: Store<fromRoot.State>) {
-    this.deliveries$ = store.select(fromRoot.getDeliveryCollection);
+    this.deliveries$ = store.select(fromRoot.getDeliveryArray);
   }
 }

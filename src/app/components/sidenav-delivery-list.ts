@@ -25,6 +25,12 @@ import { Delivery } from '../models/delivery.model';
     </a>
     </md-nav-list>
   `,
+  styles: [`
+    md-nav-list {
+      padding: 10px;
+      width: 300px;
+    }
+  `]
 })
 export class SidenavDeliveryListComponent {
   @Input() deliveries: Delivery[];

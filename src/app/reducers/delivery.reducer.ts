@@ -43,7 +43,7 @@ function addDeliveries(state, action) {
   return {
     ids: [...state.ids, ...deliveryIds],
     entities: Object.assign({}, deliveryEntities),
-    selectedDeliveryId: state.selectedDeliveryId
+    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[1]
   }
 }
 
