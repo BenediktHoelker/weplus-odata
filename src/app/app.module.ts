@@ -20,7 +20,7 @@ import { DeviationFocusDirective } from './directives/deviation-focus.directive'
 import { FocusInputDirective } from './directives/focus-input.directive';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
-import { deliveriesReducer } from './reducers/delivery.reducer';
+import { reducer } from './reducers/delivery.reducer';
 import { deviationTypeReducer } from './reducers/deviation-type.reducer';
 import { filterDeviationReducer } from './reducers/filter-deviation.reducer';
 import { filterProcessingReducer } from './reducers/filter-processing.reducer';
@@ -29,7 +29,6 @@ import { filterYardReducer } from './reducers/filter-yard.reducer';
 import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
 import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
-import { statusReducer } from './reducers/status.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
 import { StatusLineComponent } from './components/status-line';
@@ -43,26 +42,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    StoreModule.provideStore({
-      deliveries: deliveriesReducer,
-      deviationTypes: deviationTypeReducer,
-      deviationFilter: filterDeviationReducer,
-      filterGroups: selectedFiltersReducer,
-      processingFilter: filterProcessingReducer,
-      registrationFilter: filterRegistrationReducer,
-      selectedDelivery: selectedDeliveryReducer,
-      selectedYard: selectedYardReducer,
-      statusses: statusReducer,
-      yardFilter: filterYardReducer,
-      yards: yardReducer,
-    }),
-    StoreDevtoolsModule.instrumentStore({
-      monitor: useLogMonitor({
-        visible: true,
-        position: 'left'
-      })
-    }),
-    StoreLogMonitorModule
+    StoreModule.provideStore(reducer),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
   ],
   declarations: [
     AppComponent,

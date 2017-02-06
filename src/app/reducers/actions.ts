@@ -34,6 +34,7 @@ export const FILTER_DEVIATION_TYPE = 'FILTER_DEVIATION_TYPE';
 export const SHOW_ALL_D = 'SHOW_ALL_D';
 export const SHOW_WITH_DEVIATION = 'SHOW_WITH_DEVIATION';
 export const SHOW_WITHOUT_DEVIATION = 'SHOW_WITHOUT_DEVIATION';
+export const ADD_DEVIATION = 'ADD_DEVIATION';
 
 //Filter Action Constants
 export const ADD_FILTERS = "ADD_FILTERS";

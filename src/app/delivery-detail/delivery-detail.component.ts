@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../app.state';
@@ -13,7 +14,9 @@ import { DeviationComponent } from '../deviation/deviation.component';
 import { DeliveryService } from '../shared/delivery.service';
 import { RegistrationDialogComponent } from '../registration-dialog/registration-dialog.component';
 
-import { TOGGLE_PROCESSING, TOGGLE_REGISTRATION } from '../reducers/actions';
+import { ADD_DEVIATION, TOGGLE_PROCESSING, TOGGLE_REGISTRATION } from '../reducers/actions';
+
+import * as fromRoot from '../reducers';
 
 @Component({
   selector: 'wp-delivery-detail',
@@ -39,19 +42,26 @@ export class DeliveryDetailComponent {
     private deliveryService: DeliveryService,
     public dialog: MdDialog,
     public snackBar: MdSnackBar,
-    private store: Store<AppState>
-  ) { }
+    private store: Store<fromRoot.State>
+  ) {this.delivery$ = store.select(fromRoot.getSelectedDelivery); }
+
+  delivery$: Observable<Delivery>;
 
   ngOnInit() {
     this.statusIsValid = true;
   }
 
   addDeviation(): void {
-    if (!this.delivery.deviations.length) {
-      this.selectedTabIndex = 3;
+    // if (!this.delivery.deviations.length) {
+    //   this.selectedTabIndex = 3;
+    // }
+    // let newDeviation = this.deliveryService.createDeviation();
+    // this.delivery.deviations.push(newDeviation);
+    const payload = {
+      deliveryId: this.delivery.id,
+      deviationId: Math.random(),
     }
-    let newDeviation = this.deliveryService.createDeviation();
-    this.delivery.deviations.push(newDeviation);
+    this.store.dispatch({ type: ADD_DEVIATION, payload: payload });
   }
 
   toggleProcessing(status: Status) {

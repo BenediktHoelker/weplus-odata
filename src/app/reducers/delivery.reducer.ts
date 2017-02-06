@@ -1,87 +1,108 @@
 import { Action } from '@ngrx/store';
-import { Delivery } from '../models/delivery.model';
 import { normalize, denormalize } from 'normalizr';
+import { createSelector } from 'reselect';
+
 import { deliverySchema, statusSchema } from '../models/schemas';
+import { Delivery } from '../models/delivery.model';
 import { Status } from '../models/status.model';
+
 import {
   ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY,
-  TOGGLE_PROCESSING, TOGGLE_REGISTRATION
+  TOGGLE_PROCESSING, TOGGLE_REGISTRATION,
+  ADD_DEVIATION
 } from './actions';
-import { YardDelivery } from '../models/yard-delivery.model';
+
+export interface State {
+  ids: string[];
+  entities: {  };
+  selectedDeliveryId: string | null;
+};
+
+const initialState: State = {
+  ids: [],
+  entities: {  },
+  selectedDeliveryId: null,
+};
+
 
 function details(state: Status, action) {
   switch (action.type) {
     case TOGGLE_PROCESSING:
-      if (state.id === action.payload.id) {
-        return Object.assign({}, state, {
-          isProcessed: !state.isProcessed
-        });
-      }
-      return state;
+      return Object.assign({}, state, {
+        isProcessed: !state.isProcessed
+      });
 
     case TOGGLE_REGISTRATION:
-      if (state.id === action.payload.id) {
-        return Object.assign({}, state, {
-          isRegistered: !state.isRegistered
-        });
-      }
-      return state;
+      return Object.assign({}, state, {
+        isRegistered: !state.isRegistered
+      });
+
     default: return state;
   }
 }
 
-export function deliveriesReducer(state = [], action) {
+function addDeviation(state, action) {
+  const {payload} = action;
+  const {deliveryId, deviationId} = payload;
+
+  //Look up the correct delivery, to simplify the rest of the code
+  const delivery = state[deliveryId];
+
+  return Object.assign({}, state, {
+    // Update the Delivery object with a new "Devitations" array
+    [deliveryId]: Object.assign({}, delivery, delivery.deviations.concat(deviationId))
+  })
+}
+
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_DELIVERIES:
       return action.payload;
 
-    case CREATE_DELIVERY:
-      return [
-        Object.assign(new Delivery(), {
-          deviations: [],
-          status: new Status(),
-          yardDeliveries: action.payload.yardDeliveries,
-        }),
-        ...state.filter(delivery => delivery.id)
-      ];
+    case ADD_DEVIATION:
+      return addDeviation(state, action);
 
-    case REMOVE_DELIVERY:
-      return state.filter(delivery => delivery.id !== action.payload._id);
+    // case CREATE_DELIVERY:
+    //   return [
+    //     Object.assign(new Delivery(), {
+    //       deviations: [],
+    //       status: new Status(),
+    //       yardDeliveries: action.payload.yardDeliveries,
+    //     }),
+    //     ...state.filter(delivery => delivery.id)
+    //   ];
 
-    case UPDATE_DELIVERY:
-      return state.map(delivery => {
-        return (delivery.id === action.payload._id || !delivery.id)
-          ? Object.assign(new Delivery(), delivery, action.payload)
-          : delivery;
-      });
+    // case REMOVE_DELIVERY:
+    //   return state.filter(delivery => delivery.id !== action.payload._id);
 
-    //to shorten case statements, delegate detail updates to second private reducer   
-    case TOGGLE_PROCESSING:
-    case TOGGLE_REGISTRATION:
-      console.log(action.payload.id);
-      console.log(state);
-      console.log(normalize(state, [deliverySchema]).entities.statusses);
-      let normalizedState = normalize(state, [deliverySchema]);
-
-      let statussesArray = Object.keys(normalizedState.entities.statusses).map(
-        (k) => normalize(state, [deliverySchema]).entities.statusses[k]);
-      console.log(statussesArray);
-
-      let newStatusses = statussesArray.reduce(function (previous, current) {
-        previous[current.id] = details(current, action);
-        return previous;
-      }, {});
-      console.log(newStatusses);
-      //TODO: remove Mutability!!!
-      normalizedState.entities = Object.assign({}, normalizedState.entities, { statusses: newStatusses });
-
-      console.log(normalizedState);
-
-      let newDeliveries = denormalize(normalizedState.result, [deliverySchema], normalizedState.entities);
-      console.log(newDeliveries);
-
-      return newDeliveries;
-    default:
-      return state;
+    // case UPDATE_DELIVERY:
+    //   return state.map(delivery => {
+    //     return (delivery.id === action.payload._id || !delivery.id)
+    //       ? Object.assign(new Delivery(), delivery, action.payload)
+    //       : delivery;
+    //   });
   }
 };
+
+/**
+ * Because the data structure is defined within the reducer it is optimal to
+ * locate our selector functions at this level. If store is to be thought of
+ * as a database, and reducers the tables, selectors can be considered the
+ * queries into said database. Remember to keep your selectors small and
+ * focused so they can be combined and composed to fit each particular
+ * use-case.
+ */
+
+export const getEntities = (state: State) => state.entities;
+
+export const getIds = (state: State) => state.ids;
+
+export const getSelectedId = (state: State) => state.selectedDeliveryId;
+
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});
+
+export const getAll = createSelector(getEntities, getIds, (entities, ids) => {
+  return ids.map(id => entities[id]);
+});
