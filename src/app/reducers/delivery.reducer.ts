@@ -14,32 +14,15 @@ import {
 
 export interface State {
   ids: string[];
-  entities: {  };
+  entities: {};
   selectedDeliveryId: string | null;
 };
 
 const initialState: State = {
   ids: [],
-  entities: {  },
+  entities: {},
   selectedDeliveryId: null,
 };
-
-
-function details(state: Status, action) {
-  switch (action.type) {
-    case TOGGLE_PROCESSING:
-      return Object.assign({}, state, {
-        isProcessed: !state.isProcessed
-      });
-
-    case TOGGLE_REGISTRATION:
-      return Object.assign({}, state, {
-        isRegistered: !state.isRegistered
-      });
-
-    default: return state;
-  }
-}
 
 function addDeviation(state, action) {
   const {payload} = action;
@@ -54,13 +37,22 @@ function addDeviation(state, action) {
   })
 }
 
+function addDeliveries(state, action) {
+  const deliveryIds = action.payload.result;
+  const deliveryEntities = action.payload.entities.deliveries;
+
+  return {
+    ids: [...state.ids, ...deliveryIds],
+    entities: Object.assign({}, deliveryEntities),
+    selectedDeliveryId: state.selectedDeliveryId
+  }
+}
+
 export function reducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_DELIVERIES:
-      return action.payload;
+    case ADD_DELIVERIES: return addDeliveries(state, action);
 
-    case ADD_DEVIATION:
-      return addDeviation(state, action);
+    case ADD_DEVIATION: return addDeviation(state, action);
 
     // case CREATE_DELIVERY:
     //   return [
