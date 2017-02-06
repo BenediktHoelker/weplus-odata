@@ -94,6 +94,7 @@ export const getDeliveriesState = (state: State) => state.deliveries;
  * pieces of state.
  */
  export const getDeliveryEntities = createSelector(getDeliveriesState, fromDeliveries.getEntities);
+ export const getDeliveryCollection = createSelector(getDeliveriesState, fromDeliveries.getAll);
  export const getDeliveryIds = createSelector(getDeliveriesState, fromDeliveries.getIds);
  export const getSelectedDeliveryId = createSelector(getDeliveriesState, fromDeliveries.getSelectedId);
  export const getSelectedDelivery = createSelector(getDeliveriesState, fromDeliveries.getSelected);

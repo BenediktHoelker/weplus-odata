@@ -2,9 +2,8 @@ import { Action } from '@ngrx/store';
 import { normalize, denormalize } from 'normalizr';
 import { createSelector } from 'reselect';
 
-import { deliverySchema, statusSchema } from '../models/schemas';
+import { deliverySchema } from '../models/schemas';
 import { Delivery } from '../models/delivery.model';
-import { Status } from '../models/status.model';
 
 import {
   ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY,
@@ -48,31 +47,13 @@ function addDeliveries(state, action) {
   }
 }
 
-export function reducer(state = initialState, action) {
+export function reducer(state = initialState, action): State {
   switch (action.type) {
     case ADD_DELIVERIES: return addDeliveries(state, action);
-
     case ADD_DEVIATION: return addDeviation(state, action);
-
-    // case CREATE_DELIVERY:
-    //   return [
-    //     Object.assign(new Delivery(), {
-    //       deviations: [],
-    //       status: new Status(),
-    //       yardDeliveries: action.payload.yardDeliveries,
-    //     }),
-    //     ...state.filter(delivery => delivery.id)
-    //   ];
-
-    // case REMOVE_DELIVERY:
-    //   return state.filter(delivery => delivery.id !== action.payload._id);
-
-    // case UPDATE_DELIVERY:
-    //   return state.map(delivery => {
-    //     return (delivery.id === action.payload._id || !delivery.id)
-    //       ? Object.assign(new Delivery(), delivery, action.payload)
-    //       : delivery;
-    //   });
+    default: {
+      return state;
+    }
   }
 };
 

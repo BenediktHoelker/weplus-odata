@@ -20,7 +20,7 @@ import { DeviationFocusDirective } from './directives/deviation-focus.directive'
 import { FocusInputDirective } from './directives/focus-input.directive';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
 
-import { reducer } from './reducers/delivery.reducer';
+import { reducer } from './reducers';
 import { deviationTypeReducer } from './reducers/deviation-type.reducer';
 import { filterDeviationReducer } from './reducers/filter-deviation.reducer';
 import { filterProcessingReducer } from './reducers/filter-processing.reducer';
@@ -32,6 +32,7 @@ import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
 import { StatusLineComponent } from './components/status-line';
+import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     FilterBarComponent,
     FocusInputDirective,
     RegistrationDialogComponent,
+    SidenavDeliveryListComponent,
     StatusLineComponent,
     ToolbarComponent,
   ],

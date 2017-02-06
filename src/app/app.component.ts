@@ -9,7 +9,6 @@ import { Filter } from './models/filter.model';
 import { FilterGroup } from './models/filter-group.model';
 import { Yard } from './models/yard.model';
 
-import { AppState } from './app.state';
 import { normalize, denormalize } from 'normalizr';
 import { deliverySchema, statusSchema } from './models/schemas';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
@@ -50,115 +49,6 @@ export class AppComponent {
     this.deliveryService.getDeliveries()
       .map(payload => ({ type: ADD_DELIVERIES, payload: normalize(payload, [deliverySchema]) }))
       .subscribe(action => this.store.dispatch(action));
-      
-
-    // this.deliveryService.getDeliveries()
-    //   .map(payload => ({
-    //     type: ADD_STATUSSES,
-    //     payload: Object.keys(normalize(payload, [deliverySchema]).entities.statusses).map(
-    //       (k) => normalize(payload, [deliverySchema]).entities.statusses[k])
-    //   }))
-    //   .subscribe(action => this.store.dispatch(action));
-    // this.deliveryService.getDeviationTypes()
-    //   .map(payload => ({ type: ADD_DEVIATION_TYPES, payload }))
-    //   .subscribe(action => this.store.dispatch(action));
-    // this.deliveryService.getYards()
-    //   .map(payload => ({ type: ADD_YARDS, payload }))
-    //   .subscribe(action => this.store.dispatch(action));
-
-    // let filterGroups = [
-    //   {
-    //     type: "Filter Processing", filters:
-    //     [{ _id: 0, friendly: "All", type: SHOW_ALL_P },
-    //     { _id: 1, friendly: "Processed", type: SHOW_PROCESSED },
-    //     { _id: 2, friendly: "Not Processed", type: SHOW_NOT_PROCESSED }],
-    //     selectedFilterId: 0
-    //   },
-    //   {
-    //     type: "Filter Registration", filters:
-    //     [{ _id: 0, friendly: "All", type: SHOW_ALL_R },
-    //     { _id: 1, friendly: "Registered", type: SHOW_REGISTERED },
-    //     { _id: 2, friendly: "Not Registered", type: SHOW_NOT_REGISTERED }],
-    //     selectedFilterId: 0
-    //   },
-    //   {
-    //     type: "Filter Deviations", filters: [], selectedFilterId: 0
-    //   },
-    // ];
-
-    // this.store.dispatch({ type: ADD_FILTER_GROUPS, payload: filterGroups });
-
-    /*
-     * Create yard deliveries for creating new deliveries later
-     */
-    // this.subscription = this.store
-    //   .select('yards')
-    //   .subscribe((yards: Yard[]) => {
-    //     yards.filter(yard => yard.name !== 'All')
-    //       .map(yard => {
-    //         this.yardDeliveries.push(this.deliveryService.createYardDelivery(yard));
-    //       });
-    //   });
-
-    /*
-     * Push a new filter entry foreach type of deviation
-     * TODO: find a better way
-     */
-    // let index = 3;
-    // let filter = {};
-    // let payload = { type: "Filter Deviations", filters: [] };
-    // payload.filters.push(...[{ _id: 0, friendly: "All", type: SHOW_ALL_D },
-    // { _id: 1, friendly: "With Deviation", type: SHOW_WITH_DEVIATION },
-    // { _id: 2, friendly: "Without Deviation", type: SHOW_WITHOUT_DEVIATION }]);
-    // this.subscription = this.store
-    //   .select('deviationTypes')
-    //   .subscribe((deviationTypes: DeviationType[]) => {
-    //     deviationTypes.map(
-    //       deviationType => {
-    //         filter = { _id: index++, friendly: deviationType.name + " Deviation", type: FILTER_DEVIATION_TYPE, payload: deviationType.name }
-    //         payload.filters.push(filter);
-    //       });
-    //     this.store.dispatch({ type: ADD_FILTERS, payload });
-    //   },
-    //   (err) => console.log(err),
-    //   () => {
-    //   });
-
-    // this.model = Observable.combineLatest(
-    //   store.select(s => s.deliveries),
-    //   store.select(s => s.deviationFilter),
-    //   store.select(s => s.deviationTypes),
-    //   store.select(s => s.filterGroups),
-    //   store.select(s => s.processingFilter),
-    //   store.select(s => s.registrationFilter),
-    //   store.select(s => s.selectedDelivery),
-    //   store.select(s => s.selectedYard),
-    //   store.select(s => s.statusses),
-    //   store.select(s => s.yardFilter),
-    //   store.select(s => s.yards),
-    //   (deliveries, deviationFilter, deviationTypes, filterGroups, processingFilter, registrationFilter, selectedDelivery, selectedYard, statusses, yardFilter, yards) => {
-    //     return {
-    //       deliveries: deliveries,
-    //         // .filter(deviationFilter)
-    //         // .filter(processingFilter)
-    //         // .filter(registrationFilter)
-    //         // .filter(yardFilter),
-    //       deviationFilter: deviationFilter,
-    //       deviationTypes: deviationTypes,
-    //       filterGroups,
-    //       processingFilter,
-    //       registrationFilter,
-    //       // selectedDelivery: selectedDelivery || deliveries
-    //       //   .filter(deviationFilter)
-    //       //   .filter(processingFilter)
-    //       //   .filter(registrationFilter)
-    //       //   .filter(yardFilter)[0],
-    //       selectedYard: selectedYard || yards[0],
-    //       statusses: statusses,
-    //       yardFilter,
-    //       yards
-    //     }
-    //   });
   }
 
   ngOnInit() {

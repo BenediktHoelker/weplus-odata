@@ -8,8 +8,8 @@
     (updateFilter)="updateFilter($event)"
     (updateYardFilter)="updateYardFilter($event)"></wp-filter-bar>
   <md-sidenav #sidenav mode="push">
-    <app-delivery-list [deliveries]="(model | async)?.deliveries"
-      (selected)="selectDelivery($event)"></app-delivery-list>
+    <wp-delivery-list 
+      (selected)="selectDelivery($event)"></wp-delivery-list>
   </md-sidenav>
   <div class="app-content">
     <wp-delivery-detail 

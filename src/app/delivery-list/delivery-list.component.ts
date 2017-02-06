@@ -1,18 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import * as fromRoot from '../reducers';
 import { YardDelivery } from '../models/yard-delivery.model';
+import { Delivery } from '../models/delivery.model';
 
 @Component({
-  selector: 'app-delivery-list',
-  templateUrl: './delivery-list.component.html',
-  styleUrls: ['./delivery-list.component.css']
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'wp-delivery-list',
+  template: '<wp-sidenav-delivery-list [deliveries]="deliveries$ | async" ></wp-sidenav-delivery-list>'
 })
 export class DeliveryListComponent {
-  @Input() deliveries;
+  deliveries$: Observable<Delivery[]>;
   @Output() selected = new EventEmitter();
 
-  getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
-    return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
+  constructor(store: Store<fromRoot.State>) {
+    this.deliveries$ = store.select(fromRoot.getDeliveryCollection);
   }
 }
-
-
