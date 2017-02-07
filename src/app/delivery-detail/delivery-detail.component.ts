@@ -8,7 +8,6 @@ import { DeviationType } from '../models/deviation-type.model';
 import { Status } from '../models/status.model';
 import { YardDelivery } from '../models/yard-delivery.model';
 
-import { DeviationComponent } from '../deviation/deviation.component';
 import { DeliveryService } from '../shared/delivery.service';
 
 import * as fromRoot from '../reducers';
@@ -32,8 +31,7 @@ export class DeliveryDetailComponent {
   status$: Observable<Status[]>;
   yardDeliveries$: Observable<YardDelivery[]>;
   @Input() delivery: Delivery;
-  @Input() deliveries: Delivery[];
-  @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
+
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
 
@@ -57,15 +55,15 @@ export class DeliveryDetailComponent {
     this.store.dispatch(new deviation.AddDeviationAction(payload));
   }
 
+  removeDeviation():void{
+
+  }
+
   updateYardDelivery(payload: YardDelivery): void {
     this.store.dispatch(new yardDelivery.UpdateYardDeliveryAction(payload));
   }
 
   updateDelivery(payload: Delivery): void {
     this.store.dispatch(new delivery.UpdateDeliveryAction(payload));
-  }
-
-  getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
-    return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
   }
 }

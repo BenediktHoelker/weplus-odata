@@ -67,7 +67,7 @@ function fetchDeliveries(state: State, action) {
   return {
     ids: [...state.ids, ...deliveryIds],
     entities: Object.assign({}, deliveryEntities),
-    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[0]
+    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[1]
   }
 }
 

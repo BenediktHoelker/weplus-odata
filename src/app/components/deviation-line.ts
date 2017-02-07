@@ -6,9 +6,11 @@ import { DeviationType } from '../models/deviation-type.model';
   selector: 'wp-deviation-line',
   template: `
     <div class="flex-container" fxLayout="row" fxLayoutAlign="space-between center">
-      <md-select placeholder="Type" required [(ngModel)]="deviation.type">
+      <md-select placeholder="Type" required 
+        [(ngModel)]="deviation.type"
+        (change)="updateDeviation.emit(deviation)">
         <md-option *ngFor="let deviationType of optionValues"
-          [value]="deviationType.name">
+          [value]="deviationType.id">
           {{deviationType.name}}
         </md-option>
       </md-select>
@@ -16,7 +18,8 @@ import { DeviationType } from '../models/deviation-type.model';
       <md-input-container>
         <input mdInput class="form-control" type="number"
           placeholder="Gravity" [min]="1" required
-          [(ngModel)]="deviation.gravity">
+          [(ngModel)]="deviation.gravity"
+          (change)="updateDeviation.emit(deviation)">
       </md-input-container>
       <button type="button" (click)="removeDeviation()"
         md-button><md-icon>delete</md-icon></button>
@@ -26,5 +29,5 @@ import { DeviationType } from '../models/deviation-type.model';
 export class DeviationLineComponent {
   @Input() deviation: Deviation;
   @Input() optionValues: DeviationType[];
-  // @Output() toggleCheckbox = new EventEmitter<Status>();
+  @Output() updateDeviation = new EventEmitter<Deviation>();
 }
