@@ -1,6 +1,6 @@
 <div class="flex-container" fxLayout="row"
   fxLayoutAlign="space-between center">
-  <md-select placeholder="Type" required [(ngModel)]="selectedDeviation.type">
+  <md-select placeholder="Type" *ngIf="deviationTypes && deviationTypes.length" required [(ngModel)]="selectedDeviation.type">
     <md-option *ngFor="let deviationType of deviationTypes"
       [value]="deviationType.name">
       {{deviationType.name}}

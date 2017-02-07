@@ -10,7 +10,7 @@ import { FilterGroup } from './models/filter-group.model';
 import { Yard } from './models/yard.model';
 
 import { normalize, denormalize } from 'normalizr';
-import { deliverySchema, statusSchema } from './models/schemas';
+import { deliverySchema, deviationTypeSchema } from './models/schemas';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import {
@@ -27,6 +27,7 @@ import {
 import * as fromRoot from './reducers';
 import * as delivery from './actions/delivery';
 import * as deviation from './actions/deviation';
+import * as deviationTypes from './actions/deviation-type';
 import * as status from './actions/status';
 import * as yardDelivery from './actions/yard-delivery';
 
@@ -53,10 +54,18 @@ export class AppComponent {
     this.deliveryService.getDeliveries()
       .map(payload => normalize(payload, [deliverySchema]))
       .subscribe(normalizedPayload => {
-        this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload))
-        this.store.dispatch(new deviation.FetchDeviationsAction(normalizedPayload))
-        this.store.dispatch(new status.FetchStatusAction(normalizedPayload))
-        this.store.dispatch(new yardDelivery.FetchYardDeliveriesAction(normalizedPayload))
+        console.log(normalizedPayload);
+        this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload));
+        this.store.dispatch(new deviation.FetchDeviationsAction(normalizedPayload));
+        this.store.dispatch(new status.FetchStatusAction(normalizedPayload));
+        this.store.dispatch(new yardDelivery.FetchYardDeliveriesAction(normalizedPayload));
+      });
+
+    this.deliveryService.getDeviationTypes()
+      .map(payload => normalize(payload, [deviationTypeSchema]))
+      .subscribe(normalizedPayload => {
+        console.log(normalizedPayload);
+        this.store.dispatch(new deviationTypes.FetchDeviationTypesAction(normalizedPayload));
       });
   }
 

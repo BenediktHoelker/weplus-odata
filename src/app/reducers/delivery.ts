@@ -115,6 +115,6 @@ export const getSelected = createSelector(getEntities, getSelectedId, (entities,
   return entities[selectedId];
 });
 
-export const getAll = createSelector(getEntities, getIds, (entities, ids) => {
+export const getArray = createSelector(getEntities, getIds, (entities, ids) => {
   return ids.map(id => entities[id]);
 });

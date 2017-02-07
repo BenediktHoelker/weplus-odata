@@ -28,11 +28,11 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
 
 import { AppComponent } from './app.component';
 import { DeliveryService } from './shared/delivery.service';
-import { DeviationComponent } from './deviation/deviation.component';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 
 import { FilterBarComponent } from './components/filter-bar';
 import { DetailsTabComponent } from './components/details-tab';
+import { DeviationLineComponent } from './components/deviation-line';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
 import { StatusLineComponent } from './components/status-line';
 import { ToolbarComponent } from './components/toolbar';
@@ -41,6 +41,7 @@ import { YardsTabComponent } from './components/yards-tab';
 import { DeliveryListComponent } from './containers/delivery-list';
 import { SelectedDeliveryComponent } from './containers/selected-delivery';
 import { StatusTabComponent } from './containers/status-tab';
+import { DeviationsTabComponent } from './containers/deviations-tab';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { StatusTabComponent } from './containers/status-tab';
     AppComponent,
     DetailsTabComponent,
     DeliveryDetailComponent,
-    DeviationComponent,
+    DeviationLineComponent,
+    DeviationsTabComponent,
     DeliveryListComponent,
     DeviationFocusDirective,
     FilterBarComponent,

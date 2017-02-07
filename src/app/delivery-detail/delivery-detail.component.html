@@ -19,17 +19,7 @@
         </md-tab>
         <div *ngIf="delivery.deviations.length">
           <md-tab label="Deviations">
-            <md-list-item *ngFor="let deviation of delivery.deviations">
-              <app-deviation [selectedDeviation]="deviation"
-                [deviations]="delivery.deviations"
-                [deviationTypes]="deviationTypes">
-              </app-deviation>
-            </md-list-item>
-            <div class="flex-container" fxLayout="row"
-              fxLayoutAlign="end">
-              <button type="button" (click)="addDeviation()"
-                md-button><md-icon>add</md-icon></button>
-            </div>
+            <wp-deviations-tab [deviations]="deviations$ | async" [deviationTypes]="deviationTypes$ | async"></wp-deviations-tab>
           </md-tab>
         </div>
       </md-tab-group>

@@ -26,12 +26,13 @@ import * as yardDelivery from '../actions/yard-delivery';
   `]
 })
 export class DeliveryDetailComponent {
+  deviations$: Observable<Deviation[]>;
+  deviationTypes$: Observable<DeviationType[]>;
   selectedDelivery$: Observable<Delivery>;
   status$: Observable<Status[]>;
   yardDeliveries$: Observable<YardDelivery[]>;
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
-  @Input() deviationTypes: DeviationType[];
   @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
@@ -41,6 +42,8 @@ export class DeliveryDetailComponent {
   constructor(
     private store: Store<fromRoot.State>
   ) {
+    this.deviations$ = this.store.select(fromRoot.getSelectedDeliveryDeviations);
+    this.deviationTypes$ = this.store.select(fromRoot.getDeviationTypeArray);
     this.selectedDelivery$ = this.store.select(fromRoot.getSelectedDelivery);
     this.status$ = this.store.select(fromRoot.getSelectedDeliveryStatus);
     this.yardDeliveries$ = this.store.select(fromRoot.getSelectedDeliveryYardDeliveries);

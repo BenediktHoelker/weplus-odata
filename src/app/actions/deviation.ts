@@ -38,5 +38,6 @@ export class UpdateDeviationAction implements Action {
 
 export type Actions
   = AddDeviationAction
+  | FetchDeviationsAction
   | RemoveDeviationAction
   | UpdateDeviationAction;

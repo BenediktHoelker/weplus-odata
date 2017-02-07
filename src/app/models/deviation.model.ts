@@ -1,5 +1,7 @@
+import { DeviationType } from './deviation-type.model';
+
 export class Deviation {
     id: number;
-    type: string;
+    type: DeviationType;
     gravity: number;
 }
