@@ -4,16 +4,17 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../reducers';
 import { Delivery } from '../models/delivery.model';
+import { DeviationType } from '../models/deviation-type.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'wp-selected-delivery',
-  template: '<wp-delivery-detail [delivery]="selectedDelivery$ | async"></wp-delivery-detail>'
+  template: '<wp-delivery-detail [deviationTypes]="deviationTypes$ | async"></wp-delivery-detail>'
 })
 export class SelectedDeliveryComponent {
-  selectedDelivery$: Observable<Delivery>;
+  deviationTypes$: Observable<DeviationType[]>;
 
   constructor(store: Store<fromRoot.State>) {
-    this.selectedDelivery$ = store.select(fromRoot.getSelectedDelivery);
+    this.deviationTypes$ = store.select(fromRoot.getDeviationTypeArray);
   }
 }

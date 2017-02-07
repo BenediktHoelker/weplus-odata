@@ -27,7 +27,9 @@ export class AddDeviationAction implements Action {
 export class RemoveDeviationAction implements Action {
   type = ActionTypes.REMOVE_DEVIATION;
 
-  constructor(public payload: Deviation) { }
+  constructor(public payload: {
+    deviationId: number, deliveryId: number
+  }) { }
 }
 
 export class UpdateDeviationAction implements Action {

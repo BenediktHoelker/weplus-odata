@@ -5,7 +5,7 @@ import { DeviationType } from '../models/deviation-type.model';
 @Component({
   selector: 'wp-deviation-line',
   template: `
-    <div class="flex-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <div *ngIf="deviation" class="flex-container" fxLayout="row" fxLayoutAlign="space-between center">
       <md-select placeholder="Type" required 
         [(ngModel)]="deviation.type"
         (change)="updateDeviation.emit(deviation)">
@@ -21,7 +21,7 @@ import { DeviationType } from '../models/deviation-type.model';
           [(ngModel)]="deviation.gravity"
           (change)="updateDeviation.emit(deviation)">
       </md-input-container>
-      <button type="button" (click)="removeDeviation()"
+      <button type="button" (click)="removeDeviation.emit(deviation)"
         md-button><md-icon>delete</md-icon></button>
     </div>
   `,
@@ -30,4 +30,5 @@ export class DeviationLineComponent {
   @Input() deviation: Deviation;
   @Input() optionValues: DeviationType[];
   @Output() updateDeviation = new EventEmitter<Deviation>();
+  @Output() removeDeviation = new EventEmitter<Deviation>();
 }

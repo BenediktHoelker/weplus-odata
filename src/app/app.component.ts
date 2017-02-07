@@ -11,7 +11,7 @@ import { Yard } from './models/yard.model';
 
 import { normalize, denormalize } from 'normalizr';
 import { deliverySchema, deviationTypeSchema } from './models/schemas';
-import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
+import { DeliveryDetailComponent } from './containers/delivery-detail';
 import { DeliveryService } from './shared/delivery.service';
 import {
   ADD_DEVIATION_TYPES, ADD_YARDS,

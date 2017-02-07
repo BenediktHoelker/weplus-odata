@@ -3,7 +3,7 @@ import { ADD_DEVIATION } from './actions';
 
 import * as deviation from '../actions/deviation';
 
-export interface State {};
+export interface State { };
 
 const initialState: State = {};
 
@@ -24,10 +24,21 @@ function fetchDeviations(state: State, action) {
   return Object.assign({}, deviationEntities)
 }
 
+function removeDeviation(state: State, action) {
+  const {payload} = action;
+  const {deviationId} = payload;
+
+  delete state[deviationId];
+
+  return Object.assign({}, state);
+}
+
+
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
     case deviation.ActionTypes.FETCH_DEVIATIONS: return fetchDeviations(state, action);
+    case deviation.ActionTypes.REMOVE_DEVIATION: return removeDeviation(state, action);
     default: return state;
   }
 }

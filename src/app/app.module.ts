@@ -28,9 +28,10 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
 
 import { AppComponent } from './app.component';
 import { DeliveryService } from './shared/delivery.service';
-import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
+import { DeliveryDetailComponent } from './containers/delivery-detail';
 
 import { FilterBarComponent } from './components/filter-bar';
+import { DetailsActionsComponent } from './components/details-actions';
 import { DetailsTabComponent } from './components/details-tab';
 import { DeviationLineComponent } from './components/deviation-line';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
@@ -56,6 +57,7 @@ import { DeviationsTabComponent } from './containers/deviations-tab';
   ],
   declarations: [
     AppComponent,
+    DetailsActionsComponent,
     DetailsTabComponent,
     DeliveryDetailComponent,
     DeviationLineComponent,
