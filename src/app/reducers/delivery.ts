@@ -71,11 +71,25 @@ function fetchDeliveries(state: State, action) {
   }
 }
 
+function updateDelivery(state: State, action) {
+  const {payload} = action;
+  const deliveryId = payload.id;
+
+  return {
+    ids: [...state.ids],
+    entities: Object.assign({}, state.entities, {
+      [deliveryId]: payload
+    }),
+    selectedDeliveryId: state.selectedDeliveryId
+  }
+}
+
 export function reducer(state = initialState, action): State {
   switch (action.type) {
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
     case delivery.ActionTypes.FETCH_DELIVERIES: return fetchDeliveries(state, action);
+    case delivery.ActionTypes.UPDATE_DELIVERY: return updateDelivery(state, action);
     default: {
       return state;
     }

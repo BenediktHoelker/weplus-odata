@@ -24,19 +24,23 @@ import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
 import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
 import { selectedYardReducer } from './reducers/selected-yard.reducer';
 import { yardReducer } from './reducers/yard.reducer';
-import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+import { RegistrationDialogComponent } from './registration-dialog/registration-dialog';
 
 import { AppComponent } from './app.component';
-import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { DeliveryService } from './shared/delivery.service';
 import { DeviationComponent } from './deviation/deviation.component';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
+
 import { FilterBarComponent } from './components/filter-bar';
-import { SelectedDeliveryComponent } from './containers/selected-delivery';
+import { DetailsTabComponent } from './components/details-tab';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
 import { StatusLineComponent } from './components/status-line';
-import { StatusTabComponent } from './containers/status-tab';
 import { ToolbarComponent } from './components/toolbar';
+import { YardsTabComponent } from './components/yards-tab';
+
+import { DeliveryListComponent } from './containers/delivery-list';
+import { SelectedDeliveryComponent } from './containers/selected-delivery';
+import { StatusTabComponent } from './containers/status-tab';
 
 @NgModule({
   imports: [
@@ -51,6 +55,7 @@ import { ToolbarComponent } from './components/toolbar';
   ],
   declarations: [
     AppComponent,
+    DetailsTabComponent,
     DeliveryDetailComponent,
     DeviationComponent,
     DeliveryListComponent,
@@ -63,6 +68,7 @@ import { ToolbarComponent } from './components/toolbar';
     StatusLineComponent,
     StatusTabComponent,
     ToolbarComponent,
+    YardsTabComponent
   ],
   entryComponents: [
     RegistrationDialogComponent

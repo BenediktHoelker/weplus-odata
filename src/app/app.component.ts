@@ -94,16 +94,6 @@ export class AppComponent {
     this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
 
-  updateDelivery(delivery: Delivery) {
-    this.isLoading = true;
-    this.deliveryService.submitDelivery(delivery)
-      .do(val => this.isLoading = true)
-      .subscribe(
-      delivery => this.store.dispatch({ type: UPDATE_DELIVERY, payload: delivery }),
-      err => console.log(err),
-      () => { this.isLoading = false; });
-    this.selectDelivery(delivery);
-  }
 
   updateFilter(filterGroup) {
     this.selectDelivery();

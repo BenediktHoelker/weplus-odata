@@ -53,7 +53,7 @@ export class SelectDeliveryAction implements Action {
 export class UpdateDeliveryAction implements Action {
   type = ActionTypes.UPDATE_DELIVERY;
 
-  constructor(public payload: string) { }
+  constructor(public payload: Delivery) { }
 }
 
 /**

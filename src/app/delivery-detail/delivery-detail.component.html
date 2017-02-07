@@ -9,59 +9,13 @@
         <md-tab label="Status">
           <wp-status-tab [status]="status$ | async"></wp-status-tab>
         </md-tab>
-        <!--<md-tab label="Status">
-          <md-list>
-            <wp-status-line [delivery]="delivery" [status]="delivery.status"
-              (openMessage)=openSnackBar($event)
-              (checkRegistration)=toggleRegistration($event)
-              (checkProcessing)=toggleProcessing($event)></wp-status-line>
-            <div *ngFor="let yardDelivery of delivery.activeYardDeliveries">
-              <h3 md-subheader>{{yardDelivery.yard.name}}</h3>
-              <md-list-item>
-                <div md-line class="flex-container" fxLayout="row">
-                  <md-checkbox class="form-control" [checked]="yardDelivery.status.isRegistered"
-                    (change)="yardDelivery.status.setRegistered(); setValidity()"
-                    name="yardDelivery.status.isRegistered">
-                    <span>{{yardDelivery.status.registrationMessage}}</span>
-                  </md-checkbox>
-                  <md-checkbox class="form-control" [checked]="yardDelivery.status.isProcessed"
-                    (change)="yardDelivery.status.setProcessed(); setValidity()"
-                    name="yardDelivery.status.isProcessed">
-                    <span>{{yardDelivery.status.processingMessage}}</span>
-                  </md-checkbox>
-                </div>
-              </md-list-item>
-            </div>
-          </md-list>
-        </md-tab>-->
         <md-tab label="Yards">
-          <div class="flex-container" fxLayout="column">
-            <md-input-container *ngFor="let yardDelivery of delivery.yardDeliveries">
-              <input mdInput class="form-control" type="number"
-                [min]="0" [(ngModel)]="yardDelivery.quantity"
-                name="quantity {{yardDelivery.yard}}"
-                placeholder="Quantity {{yardDelivery.yard}}">
-              <!--<input mdInput class="form-control" type="number"
-                [min]="0" [(ngModel)]="yardDelivery.quantity"
-                name="quantity {{yardDelivery.yard.name}}"
-                placeholder="Quantity {{yardDelivery.yard.name}}">-->
-            </md-input-container>
-          </div>
+          <wp-yards-tab [yardDeliveries]="yardDeliveries$ | async"
+            (updateQuantity)="updateYardDelivery($event)"></wp-yards-tab>
         </md-tab>
-        <md-tab label="Details" class="flex-container">
-          <div class="flex-container" fxLayout="column">
-            <md-input-container>
-              <input mdInput class="form-control" placeholder="Carrier"
-                required [newDeliveryFocus]="newDeliveryFocusEventEmitter"
-                [(ngModel)]="delivery.carrier"
-                name="carrier">
-            </md-input-container>
-            <md-input-container>
-              <input mdInput class="form-control" placeholder="Supplier"
-                required [(ngModel)]="delivery.supplier"
-                name="supplier">
-            </md-input-container>
-          </div>
+        <md-tab label="Details">
+          <wp-details-tab [delivery]="selectedDelivery$ | async"
+            (updateDetails)="updateDelivery($event)"></wp-details-tab>
         </md-tab>
         <div *ngIf="delivery.deviations.length">
           <md-tab label="Deviations">
@@ -81,8 +35,7 @@
       </md-tab-group>
     </md-card-content>
     <md-card-actions>
-      <button type="submit" 
-        md-button>Submit</button>
+      <button type="submit" md-button>Submit</button>
       <button *ngIf="!delivery.deviations.length"
         type="button" (click)="addDeviation()"
         md-button>Add Deviation</button>

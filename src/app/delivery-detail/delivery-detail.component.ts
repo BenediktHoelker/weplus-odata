@@ -12,7 +12,9 @@ import { DeviationComponent } from '../deviation/deviation.component';
 import { DeliveryService } from '../shared/delivery.service';
 
 import * as fromRoot from '../reducers';
+import * as delivery from '../actions/delivery';
 import * as deviation from '../actions/deviation';
+import * as yardDelivery from '../actions/yard-delivery';
 
 @Component({
   selector: 'wp-delivery-detail',
@@ -24,21 +26,24 @@ import * as deviation from '../actions/deviation';
   `]
 })
 export class DeliveryDetailComponent {
+  selectedDelivery$: Observable<Delivery>;
   status$: Observable<Status[]>;
+  yardDeliveries$: Observable<YardDelivery[]>;
   @Input() delivery: Delivery;
   @Input() deliveries: Delivery[];
   @Input() deviationTypes: DeviationType[];
   @Output() removeDelivery: EventEmitter<any> = new EventEmitter();
-  @Output() updateDelivery: EventEmitter<any> = new EventEmitter();
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
 
   private selectedTabIndex = 0;
-  
+
   constructor(
     private store: Store<fromRoot.State>
-  ) { 
+  ) {
+    this.selectedDelivery$ = this.store.select(fromRoot.getSelectedDelivery);
     this.status$ = this.store.select(fromRoot.getSelectedDeliveryStatus);
+    this.yardDeliveries$ = this.store.select(fromRoot.getSelectedDeliveryYardDeliveries);
   }
 
   addDeviation(): void {
@@ -47,6 +52,14 @@ export class DeliveryDetailComponent {
       deviationId: Math.random(),
     }
     this.store.dispatch(new deviation.AddDeviationAction(payload));
+  }
+
+  updateYardDelivery(payload: YardDelivery): void {
+    this.store.dispatch(new yardDelivery.UpdateYardDeliveryAction(payload));
+  }
+
+  updateDelivery(payload: Delivery): void {
+    this.store.dispatch(new delivery.UpdateDeliveryAction(payload));
   }
 
   getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
