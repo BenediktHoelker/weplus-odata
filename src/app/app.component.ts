@@ -14,7 +14,7 @@ import { deliverySchema, statusSchema } from './models/schemas';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './shared/delivery.service';
 import {
-  ADD_DELIVERIES, ADD_DEVIATION_TYPES, ADD_YARDS,
+  ADD_DEVIATION_TYPES, ADD_YARDS,
   CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY,
   CREATE_YARD, FILTER_YARD, SELECT_YARD,
   ADD_FILTERS, ADD_FILTER_GROUPS, SELECT_FILTER,
@@ -25,6 +25,10 @@ import {
 } from './reducers/actions';
 
 import * as fromRoot from './reducers';
+import * as delivery from './actions/delivery';
+import * as deviation from './actions/deviation';
+import * as status from './actions/status';
+import * as yardDelivery from './actions/yard-delivery';
 
 @Component({
   selector: 'app-root',
@@ -47,8 +51,13 @@ export class AppComponent {
     private store: Store<fromRoot.State>
   ) {
     this.deliveryService.getDeliveries()
-      .map(payload => ({ type: ADD_DELIVERIES, payload: normalize(payload, [deliverySchema]) }))
-      .subscribe(action => this.store.dispatch(action));
+      .map(payload => normalize(payload, [deliverySchema]))
+      .subscribe(normalizedPayload => {
+        this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload))
+        this.store.dispatch(new deviation.FetchDeviationsAction(normalizedPayload))
+        this.store.dispatch(new status.FetchStatusAction(normalizedPayload))
+        this.store.dispatch(new yardDelivery.FetchYardDeliveriesAction(normalizedPayload))
+      });
   }
 
   ngOnInit() {

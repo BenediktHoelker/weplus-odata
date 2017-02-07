@@ -8,7 +8,7 @@ import { Delivery } from '../models/delivery.model';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'wp-selected-delivery',
-  template: '<wp-delivery-detail [delivery]="selectedDelivery$ | async" ></wp-delivery-detail>'
+  template: '<wp-delivery-detail [delivery]="selectedDelivery$ | async"></wp-delivery-detail>'
 })
 export class SelectedDeliveryComponent {
   selectedDelivery$: Observable<Delivery>;

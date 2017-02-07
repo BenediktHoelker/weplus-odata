@@ -1,6 +1,9 @@
-import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
+import { createSelector } from 'reselect';
 import { environment } from '../../environments/environment';
+import { normalize } from 'normalizr';
+import { deliverySchema } from '../models/schemas';
+import { statusSchema } from '../models/schemas';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -29,7 +32,10 @@ import { combineReducers } from '@ngrx/store';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import * as fromDeliveries from './delivery.reducer';
+import * as fromDeliveries from './delivery';
+import * as fromDeviations from './deviation';
+import * as fromStatus from './status';
+import * as fromYardDelivery from './yard-delivery';
 
 
 /**
@@ -38,6 +44,9 @@ import * as fromDeliveries from './delivery.reducer';
  */
 export interface State {
   deliveries: fromDeliveries.State;
+  deviations: fromDeviations.State;
+  status: fromStatus.State;
+  yardDelivery: fromYardDelivery.State;
 }
 
 
@@ -49,7 +58,10 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-  deliveries: fromDeliveries.reducer
+  deliveries: fromDeliveries.reducer,
+  deviations: fromDeviations.reducer,
+  status: fromStatus.reducer,
+  yardDelivery: fromYardDelivery.reducer
 };
 
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -93,9 +105,33 @@ export const getDeliveriesState = (state: State) => state.deliveries;
  * The created selectors can also be composed together to select different
  * pieces of state.
  */
- export const getDeliveryEntities = createSelector(getDeliveriesState, fromDeliveries.getEntities);
- export const getDeliveryArray = createSelector(getDeliveriesState, fromDeliveries.getAll);
- export const getDeliveryIds = createSelector(getDeliveriesState, fromDeliveries.getIds);
- export const getSelectedDeliveryId = createSelector(getDeliveriesState, fromDeliveries.getSelectedId);
- export const getSelectedDelivery = createSelector(getDeliveriesState, fromDeliveries.getSelected);
+export const getDeliveryEntities = createSelector(getDeliveriesState, fromDeliveries.getEntities);
+export const getDeliveryArray = createSelector(getDeliveriesState, fromDeliveries.getAll);
+export const getDeliveryIds = createSelector(getDeliveriesState, fromDeliveries.getIds);
+export const getSelectedDeliveryId = createSelector(getDeliveriesState, fromDeliveries.getSelectedId);
+export const getSelectedDelivery = createSelector(getDeliveriesState, fromDeliveries.getSelected);
+
+
+export const getDeviationsState = (state: State) => state.deviations;
+
+export const getDeviationEntities = createSelector(getDeviationsState, fromDeviations.getEntities);
+export const getSelectedDeliveryDeviations = createSelector(getDeviationEntities, getSelectedDelivery, (deviationEntities, selectedDelivery) => {
+  return selectedDelivery.deviations.map(id => deviationEntities[id]);
+});
+
+export const getYardDeliveriesState = (state: State) => state.yardDelivery;
+
+export const getYardDeliveryEntities = createSelector(getYardDeliveriesState, fromYardDelivery.getEntities);
+export const getSelectedDeliveryYardDeliveries = createSelector(getYardDeliveryEntities, getSelectedDelivery, (yardDeliveryEntities, selectedDelivery) => {
+  return selectedDelivery.yardDeliveries.map(id => yardDeliveryEntities[id]);
+});
+
+export const getStatusState = (state: State) => state.status;
+
+export const getStatusEntities = createSelector(getStatusState, fromStatus.getEntities);
+export const getSelectedDeliveryStatus = createSelector(getStatusEntities, getSelectedDelivery, getSelectedDeliveryYardDeliveries, (statusEntities, selectedDelivery, selectedDeliveryYardDeliveries) => {
+  return [statusEntities[selectedDelivery.status], ...selectedDeliveryYardDeliveries.map(yardDelivery => statusEntities[yardDelivery.status])];
+});
+
+
 

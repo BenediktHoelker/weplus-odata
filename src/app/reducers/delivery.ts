@@ -4,10 +4,11 @@ import { createSelector } from 'reselect';
 
 import { deliverySchema } from '../models/schemas';
 import { Delivery } from '../models/delivery.model';
+import * as delivery from '../actions/delivery';
+import * as yardDelivery from '../actions/yard-delivery';
+import * as deviation from '../actions/deviation';
 
 import {
-  ADD_DELIVERIES, ADD_YARDS, CREATE_DELIVERY, REMOVE_DELIVERY, UPDATE_DELIVERY,
-  TOGGLE_PROCESSING, TOGGLE_REGISTRATION,
   ADD_DEVIATION
 } from './actions';
 
@@ -23,34 +24,58 @@ const initialState: State = {
   selectedDeliveryId: null,
 };
 
-function addDeviation(state, action) {
+function addDeviation(state: State, action) {
   const {payload} = action;
   const {deliveryId, deviationId} = payload;
 
   //Look up the correct delivery, to simplify the rest of the code
-  const delivery = state[deliveryId];
+  const delivery = state.entities[deliveryId];
 
-  return Object.assign({}, state, {
-    // Update the Delivery object with a new "Devitations" array
-    [deliveryId]: Object.assign({}, delivery, delivery.deviations.concat(deviationId))
-  })
+  return {
+    ids: [...state.ids],
+    entities: Object.assign({}, state.entities, {
+      [deliveryId]: Object.assign({}, delivery, {
+        deviations: delivery.deviations.concat(deviationId)
+      })
+    }),
+    selectedDeliveryId: state.selectedDeliveryId
+  }
 }
 
-function addDeliveries(state, action) {
+function addYardDelivery(state: State, action) {
+  const {payload} = action;
+  const {deliveryId, yardDeliveryId} = payload;
+
+  //Look up the correct delivery, to simplify the rest of the code
+  const delivery = state.entities[deliveryId];
+
+  return {
+    ids: [...state.ids],
+    entities: Object.assign({}, state.entities, {
+      [deliveryId]: Object.assign({}, delivery, {
+        yardDeliveries: delivery.yardDeliveries.concat(yardDeliveryId)
+      })
+    }),
+    selectedDeliveryId: state.selectedDeliveryId
+  }
+}
+
+function fetchDeliveries(state: State, action) {
   const deliveryIds = action.payload.result;
   const deliveryEntities = action.payload.entities.deliveries;
 
   return {
     ids: [...state.ids, ...deliveryIds],
     entities: Object.assign({}, deliveryEntities),
-    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[1]
+    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[0]
   }
 }
 
 export function reducer(state = initialState, action): State {
   switch (action.type) {
-    case ADD_DELIVERIES: return addDeliveries(state, action);
-    case ADD_DEVIATION: return addDeviation(state, action);
+    case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
+    case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
+    case delivery.ActionTypes.FETCH_DELIVERIES: return fetchDeliveries(state, action);
     default: {
       return state;
     }

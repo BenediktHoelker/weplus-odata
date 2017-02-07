@@ -32,9 +32,10 @@ import { DeliveryService } from './shared/delivery.service';
 import { DeviationComponent } from './deviation/deviation.component';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { FilterBarComponent } from './components/filter-bar';
-import { StatusLineComponent } from './components/status-line';
 import { SelectedDeliveryComponent } from './containers/selected-delivery';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
+import { StatusLineComponent } from './components/status-line';
+import { StatusTabComponent } from './containers/status-tab';
 import { ToolbarComponent } from './components/toolbar';
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ToolbarComponent } from './components/toolbar';
     SelectedDeliveryComponent,
     SidenavDeliveryListComponent,
     StatusLineComponent,
+    StatusTabComponent,
     ToolbarComponent,
   ],
   entryComponents: [

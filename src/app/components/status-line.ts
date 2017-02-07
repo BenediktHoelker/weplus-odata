@@ -9,12 +9,12 @@ import { YardDelivery } from '../models/yard-delivery.model';
     <h3 md-subheader>Factory</h3>
     <md-list-item>
       <div md-line class="flex-container" fxLayout="row">
-        <md-checkbox [checked]="isRegistered"
-          (change)="openMessage.emit(delivery); checkRegistration.emit(delivery.status)">
+        <md-checkbox [(ngModel)]="status.isRegistered"
+          (change)="toggleCheckbox.emit(status)">
           <span>Registered</span>
         </md-checkbox>
-        <md-checkbox [checked]="isProcessed"
-          (change)="checkProcessing.emit(status)">
+        <md-checkbox [(ngModel)]="status.isProcessed"
+          (change)="toggleCheckbox.emit(status)">
           <span>Processed</span>
         </md-checkbox>
       </div>
@@ -24,9 +24,7 @@ import { YardDelivery } from '../models/yard-delivery.model';
 export class StatusLineComponent {
   @Input() status: Status;
   @Input() delivery: Delivery;
-  @Output() openMessage = new EventEmitter<Delivery>();
-  @Output() checkRegistration = new EventEmitter<Status>();
-  @Output() checkProcessing = new EventEmitter<Status>();
+  @Output() toggleCheckbox = new EventEmitter<Status>();
 
   get isProcessed(){
     return this.status.isProcessed;
@@ -43,5 +41,4 @@ export class StatusLineComponent {
   get registrationMessage(){
     return this.status.registrationMessage;
   }
-
 }
