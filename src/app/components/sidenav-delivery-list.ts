@@ -11,7 +11,7 @@ import { Delivery } from '../models/delivery.model';
   template: `
     <md-nav-list>
     <a md-list-item *ngFor="let delivery of deliveries"
-      (click)="selected.emit(delivery)">
+      (click)="selectDelivery.emit(delivery.id)">
       <h3 md-line fxLayout="row" fxLayoutAlign="space-between center">
         <span>
           <span>{{delivery.carrier}}</span>
@@ -34,9 +34,5 @@ import { Delivery } from '../models/delivery.model';
 })
 export class SidenavDeliveryListComponent {
   @Input() deliveries: Delivery[];
-  @Output() selected = new EventEmitter();
-
-  getTotalQuantity(yardDeliveries: YardDelivery[] = []): number {
-    return yardDeliveries.reduce((prev, current) => prev + current.quantity, 0);
-  }
+  @Output() selectDelivery = new EventEmitter<number>();
 }

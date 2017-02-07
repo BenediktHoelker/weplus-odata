@@ -47,7 +47,7 @@ export class RemoveDeliveryAction implements Action {
 export class SelectDeliveryAction implements Action {
   type = ActionTypes.SELECT_DELIVERY;
 
-  constructor(public payload: string) { }
+  constructor(public payload: number) { }
 }
 
 export class UpdateDeliveryAction implements Action {

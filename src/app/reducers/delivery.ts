@@ -67,7 +67,7 @@ function fetchDeliveries(state: State, action) {
   return {
     ids: [...state.ids, ...deliveryIds],
     entities: Object.assign({}, deliveryEntities),
-    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[1]
+    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[0]
   }
 }
 
@@ -77,7 +77,6 @@ function removeDeviation(state: State, action) {
 
   //Look up the correct delivery, to simplify the rest of the code
   const delivery = state.entities[deliveryId];
-  console.log(delivery.deviations.filter(id => !(id === deviationId)));
 
   return {
     ids: [...state.ids],
@@ -90,6 +89,16 @@ function removeDeviation(state: State, action) {
   }
 }
 
+function selectDelivery(state: State, action) {
+  const {payload} = action;
+  const deliveryId = payload;
+
+  return {
+    ids: [...state.ids],
+    entities: state.entities,
+    selectedDeliveryId: deliveryId
+  }
+}
 
 function updateDelivery(state: State, action) {
   const {payload} = action;
@@ -110,6 +119,7 @@ export function reducer(state = initialState, action): State {
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
     case delivery.ActionTypes.FETCH_DELIVERIES: return fetchDeliveries(state, action);
     case deviation.ActionTypes.REMOVE_DEVIATION: return removeDeviation(state, action);
+    case delivery.ActionTypes.SELECT_DELIVERY: return selectDelivery(state, action);
     case delivery.ActionTypes.UPDATE_DELIVERY: return updateDelivery(state, action);
     default: {
       return state;

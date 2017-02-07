@@ -19,6 +19,7 @@ import * as yardDelivery from '../actions/yard-delivery';
   selector: 'wp-delivery-detail',
   template: `
     <md-card *ngIf="(model | async)?.selectedDelivery" class="app-input-section">
+      <md-card-title>{{(model | async)?.selectedDelivery.carrier || "New Delivery"}}</md-card-title>
       <form (ngSubmit)="updateDelivery.emit(delivery)"
         #deliveryDetailForm="ngForm">
         <md-card-content>
@@ -61,7 +62,6 @@ import * as yardDelivery from '../actions/yard-delivery';
   `]
 })
 export class DeliveryDetailComponent {
-  //Input for timing purposes, so that selectors don't fire before state is set
   @Input() deviationTypes;
 
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
@@ -71,6 +71,7 @@ export class DeliveryDetailComponent {
   constructor(
     private store: Store<fromRoot.State>
   ) {
+    //Timeout, so that selectors don't fire before state is set
     setTimeout(() => {
       this.model = Observable.combineLatest(
         this.store.select(fromRoot.getSelectedDeliveryDeviations),

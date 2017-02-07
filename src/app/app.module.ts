@@ -40,7 +40,6 @@ import { ToolbarComponent } from './components/toolbar';
 import { YardsTabComponent } from './components/yards-tab';
 
 import { DeliveryListComponent } from './containers/delivery-list';
-import { SelectedDeliveryComponent } from './containers/selected-delivery';
 import { StatusTabComponent } from './containers/status-tab';
 import { DeviationsTabComponent } from './containers/deviations-tab';
 
@@ -67,7 +66,6 @@ import { DeviationsTabComponent } from './containers/deviations-tab';
     FilterBarComponent,
     FocusInputDirective,
     RegistrationDialogComponent,
-    SelectedDeliveryComponent,
     SidenavDeliveryListComponent,
     StatusLineComponent,
     StatusTabComponent,
