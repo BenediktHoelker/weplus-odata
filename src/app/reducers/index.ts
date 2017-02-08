@@ -35,6 +35,7 @@ import * as fromDeliveries from './delivery';
 import * as fromDeviations from './deviation';
 import * as fromDeviationTypes from './deviation-type';
 import * as fromStatus from './status';
+import * as fromYards from './yard';
 import * as fromYardDeliveries from './yard-delivery';
 
 
@@ -48,6 +49,7 @@ export interface State {
   deviationTypes: fromDeviationTypes.State;
   status: fromStatus.State;
   yardDeliveries: fromYardDeliveries.State;
+  yards: fromYards.State;
 }
 
 
@@ -63,7 +65,8 @@ const reducers = {
   deviations: fromDeviations.reducer,
   deviationTypes: fromDeviationTypes.reducer,
   status: fromStatus.reducer,
-  yardDeliveries: fromYardDeliveries.reducer
+  yardDeliveries: fromYardDeliveries.reducer,
+  yards: fromYards.reducer
 };
 
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -142,6 +145,12 @@ export const getDeviationTypesState = (state: State) => state.deviationTypes;
 
 export const getDeviationTypeEntities = createSelector(getDeviationTypesState, fromDeviationTypes.getEntities);
 export const getDeviationTypeArray = createSelector(getDeviationTypesState, fromDeviationTypes.getArray);
+
+
+export const getYardsState = (state: State) => state.yards;
+
+export const getYardEntities = createSelector(getYardsState, fromYards.getEntities);
+export const getYardsArray = createSelector(getYardsState, fromYards.getArray);
 
 
 

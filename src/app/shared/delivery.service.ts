@@ -4,7 +4,6 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 import { Delivery } from '../models/delivery.model';
-import { normalize, denormalize } from 'normalizr';
 import { deliverySchema, statusSchema } from '../models/schemas';
 
 import { Deviation } from '../models/deviation.model';

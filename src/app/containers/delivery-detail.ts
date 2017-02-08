@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { denormalize } from 'normalizr';
+import { deliverySchema } from '../models/schemas';
 
 import { Delivery } from '../models/delivery.model';
 import { Deviation } from '../models/deviation.model';
@@ -20,7 +22,7 @@ import * as yardDelivery from '../actions/yard-delivery';
   template: `
     <md-card *ngIf="(model | async)?.selectedDelivery" class="app-input-section">
       <md-card-title>{{(model | async)?.selectedDelivery.carrier || "New Delivery"}}</md-card-title>
-      <form (ngSubmit)="updateDelivery.emit(delivery)"
+      <form (ngSubmit)="submitDelivery()"
         #deliveryDetailForm="ngForm">
         <md-card-content>
           <md-tab-group [selectedIndex]="selectedTabIndex">
@@ -62,14 +64,14 @@ import * as yardDelivery from '../actions/yard-delivery';
   `]
 })
 export class DeliveryDetailComponent {
-  @Input() deviationTypes;
-
   public newDeliveryFocusEventEmitter = new EventEmitter<boolean>();
-  private model;
+  private model: Observable<any>;
+  private updateModel: Observable<any>;
   private selectedTabIndex = 0;
 
   constructor(
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    private deliveryService: DeliveryService
   ) {
     //Timeout, so that selectors don't fire before state is set
     setTimeout(() => {
@@ -88,6 +90,24 @@ export class DeliveryDetailComponent {
             yardDeliveries: yardDeliveries
           }
         });
+
+      this.updateModel = Observable.combineLatest(
+        this.store.select(fromRoot.getDeviationEntities),
+        this.store.select(fromRoot.getDeviationTypeEntities),
+        this.store.select(fromRoot.getSelectedDelivery),
+        this.store.select(fromRoot.getStatusEntities),
+        this.store.select(fromRoot.getYardDeliveryEntities),
+        this.store.select(fromRoot.getYardEntities),
+        (deviations, deviationTypes, selectedDelivery, status, yardDeliveries, yards) => {
+          return {
+            deviations: deviations,
+            deviationTypes: deviationTypes,
+            selectedDelivery: selectedDelivery,
+            status: status,
+            yardDeliveries: yardDeliveries,
+            yards: yards
+          }
+        })
     }, 1000);
   }
 
@@ -97,6 +117,15 @@ export class DeliveryDetailComponent {
       deviationId: Math.random(),
     }
     this.store.dispatch(new deviation.AddDeviationAction(payload));
+  }
+
+  submitDelivery() {
+    this.updateModel.subscribe((entities) => {
+      const delivery = denormalize(entities.selectedDelivery, deliverySchema, entities);
+      console.log(delivery);
+      this.deliveryService.submitDelivery(delivery).subscribe(delivery => console.log(delivery));
+    },
+      (err) => console.log(err));
   }
 
   updateYardDelivery(payload: YardDelivery): void {

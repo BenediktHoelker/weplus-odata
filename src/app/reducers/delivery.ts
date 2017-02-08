@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { normalize, denormalize } from 'normalizr';
 import { createSelector } from 'reselect';
 
 import { deliverySchema } from '../models/schemas';

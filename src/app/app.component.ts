@@ -9,8 +9,8 @@ import { Filter } from './models/filter.model';
 import { FilterGroup } from './models/filter-group.model';
 import { Yard } from './models/yard.model';
 
-import { normalize, denormalize } from 'normalizr';
-import { deliverySchema, deviationTypeSchema } from './models/schemas';
+import { normalize } from 'normalizr';
+import { deliverySchema, deviationTypeSchema, yardSchema } from './models/schemas';
 import { DeliveryDetailComponent } from './containers/delivery-detail';
 import { DeliveryService } from './shared/delivery.service';
 import {
@@ -30,6 +30,7 @@ import * as deviation from './actions/deviation';
 import * as deviationTypes from './actions/deviation-type';
 import * as status from './actions/status';
 import * as yardDelivery from './actions/yard-delivery';
+import * as yard from './actions/yard';
 
 @Component({
   selector: 'app-root',
@@ -66,6 +67,13 @@ export class AppComponent {
       .subscribe(normalizedPayload => {
         console.log(normalizedPayload);
         this.store.dispatch(new deviationTypes.FetchDeviationTypesAction(normalizedPayload));
+      });
+
+    this.deliveryService.getYards()
+      .map(payload => normalize(payload, [yardSchema]))
+      .subscribe(normalizedPayload => {
+        console.log(normalizedPayload);
+        this.store.dispatch(new yard.FetchYardsAction(normalizedPayload));
       });
   }
 
