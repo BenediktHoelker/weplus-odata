@@ -151,7 +151,6 @@ export function reducer(state = initialState, action): State {
   switch (action.type) {
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
-    case delivery.ActionTypes.FETCH_DELIVERIES: return fetchDeliveries(state, action);
     case delivery.ActionTypes.LOAD: return load(state, action);
     case delivery.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
     case deviation.ActionTypes.REMOVE_DEVIATION: return removeDeviation(state, action);

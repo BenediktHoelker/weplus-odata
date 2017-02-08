@@ -11,13 +11,13 @@ import { type } from '../util';
  * action types in the application are unique. 
  */
 export const ActionTypes = {
-  FETCH_DELIVERIES: type('[Deliveries] Fetch'),
-  LOAD: type('[Deliveries] Load'),
-  LOAD_SUCCESS: type('[Deliveries] Load Success'),
   CREATE_DELIVERY: type('[Delivery] Create'),
   REMOVE_DELIVERY: type('[Delivery] Remove'),
   SELECT_DELIVERY: type('[Delivery] Select'),
   UPDATE_DELIVERY: type('[Delivery] Update'),
+  LOAD: type('[Deliveries] Load'),
+  LOAD_SUCCESS: type('[Deliveries] Load Success'),
+  LOAD_FAIL: type('[Deliveries] Load Fail'),
 };
 
 
@@ -28,23 +28,7 @@ export const ActionTypes = {
  * 
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
  */
-export class FetchDeliveriesAction implements Action {
-  type = ActionTypes.FETCH_DELIVERIES;
 
-  constructor(public payload: { entities: any, result: any }) { }
-}
-
-export class LoadAction implements Action {
-  type = ActionTypes.LOAD;
-
-  constructor() { }
-}
-
-export class LoadSuccessAction implements Action {
-  type = ActionTypes.LOAD_SUCCESS;
-
-  constructor(public payload: { entities: any, result: any }) { }
-}
 
 export class CreateDeliveryAction implements Action {
   type = ActionTypes.CREATE_DELIVERY;
@@ -71,14 +55,35 @@ export class UpdateDeliveryAction implements Action {
 }
 
 /**
+ * Load Deliveries Actions
+ */
+export class LoadAction implements Action {
+  type = ActionTypes.LOAD;
+
+  constructor() { }
+}
+
+export class LoadSuccessAction implements Action {
+  type = ActionTypes.LOAD_SUCCESS;
+
+  constructor(public payload: { entities: any, result: any }) { }
+}
+
+export class LoadFailAction implements Action {
+  type = ActionTypes.LOAD_FAIL;
+
+  constructor(public payload: any) { }
+}
+
+/**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
 export type Actions
-  = FetchDeliveriesAction
-  | CreateDeliveryAction
+  = CreateDeliveryAction
   | RemoveDeliveryAction
   | SelectDeliveryAction
   | UpdateDeliveryAction
   | LoadAction
-  | LoadSuccessAction;
+  | LoadSuccessAction
+  | LoadFailAction;

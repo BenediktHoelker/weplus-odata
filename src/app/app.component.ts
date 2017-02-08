@@ -57,17 +57,16 @@ export class AppComponent {
       .subscribe(normalizedPayload => {
         console.log(normalizedPayload);
         // this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload));
-        this.store.dispatch(new deviation.FetchDeviationsAction(normalizedPayload));
         this.store.dispatch(new status.FetchStatusAction(normalizedPayload));
         this.store.dispatch(new yardDelivery.FetchYardDeliveriesAction(normalizedPayload));
       });
 
-    this.deliveryService.getDeviationTypes()
-      .map(payload => normalize(payload, [deviationTypeSchema]))
-      .subscribe(normalizedPayload => {
-        console.log(normalizedPayload);
-        this.store.dispatch(new deviationTypes.FetchDeviationTypesAction(normalizedPayload));
-      });
+    // this.deliveryService.getDeviationTypes()
+    //   .map(payload => normalize(payload, [deviationTypeSchema]))
+    //   .subscribe(normalizedPayload => {
+    //     console.log(normalizedPayload);
+    //     this.store.dispatch(new deviationTypes.FetchDeviationTypesAction(normalizedPayload));
+    //   });
 
     this.deliveryService.getYards()
       .map(payload => normalize(payload, [yardSchema]))

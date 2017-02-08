@@ -3,18 +3,35 @@ import { YardDelivery } from '../models/yard-delivery.model';
 import { type } from '../util';
 
 export const ActionTypes = {
-  FETCH_DEVIATION_TYPES: type('[DeviationType] Fetch'),
+  LOAD: type('[DeviationTypes] Load'),
+  LOAD_SUCCESS: type('[DeviationTypes] Load Success'),
+  LOAD_FAIL: type('[DeviationTypes] Load Fail'),
 };
 
+/**
+ * Load Deliveries Actions
+ */
+export class LoadAction implements Action {
+  type = ActionTypes.LOAD;
 
-export class FetchDeviationTypesAction implements Action {
-  type = ActionTypes.FETCH_DEVIATION_TYPES;
-
-  constructor(public payload: {
-    entities: any, result: any
-  }) { }
+  constructor() { }
 }
+
+export class LoadSuccessAction implements Action {
+  type = ActionTypes.LOAD_SUCCESS;
+
+  constructor(public payload: { entities: any, result: any }) { }
+}
+
+export class LoadFailAction implements Action {
+  type = ActionTypes.LOAD_FAIL;
+
+  constructor(public payload: any) { }
+} 
 
 
 export type Actions
-  = FetchDeviationTypesAction;
+  = LoadAction
+  | LoadSuccessAction
+  | LoadFailAction;
+

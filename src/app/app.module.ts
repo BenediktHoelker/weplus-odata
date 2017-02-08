@@ -45,6 +45,8 @@ import { StatusTabComponent } from './containers/status-tab';
 import { DeviationsTabComponent } from './containers/deviations-tab';
 
 import { DeliveryEffects } from './effects/deliveries';
+import { DeviationTypeEffects } from './effects/deviation-types';
+import { DeviationEffects } from './effects/deviations';
 
 
 @NgModule({
@@ -52,6 +54,8 @@ import { DeliveryEffects } from './effects/deliveries';
     BrowserModule,
     CustomFormsModule,
     EffectsModule.run(DeliveryEffects),
+    EffectsModule.run(DeviationTypeEffects),
+    EffectsModule.run(DeviationEffects),
     FlexLayoutModule.forRoot(),
     FormsModule,
     HttpModule,

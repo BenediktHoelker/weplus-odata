@@ -3,9 +3,17 @@ import { ADD_DEVIATION } from './actions';
 
 import * as deviation from '../actions/deviation';
 
-export interface State { };
+export interface State {
+  loaded: boolean,
+  loading: boolean,
+  entities: {}
+};
 
-const initialState: State = {};
+const initialState: State = {
+  loaded: false,
+  loading: false,
+  entities: {}
+};
 
 function addDeviation(state: State, action) {
   const {payload} = action;
@@ -15,14 +23,13 @@ function addDeviation(state: State, action) {
   const deviation = { id: deviationId };
 
   //Insert the new Deviation object into the updated lookup table
-  return Object.assign({}, state, { [deviationId]: deviation });
+  return {
+    loaded: state.loaded,
+    loading: state.loading,
+    entities: Object.assign({}, state.entities, { [deviationId]: deviation })
+  }
 }
 
-function fetchDeviations(state: State, action) {
-  const deviationEntities = action.payload.entities.deviations;
-
-  return Object.assign({}, deviationEntities)
-}
 
 function removeDeviation(state: State, action) {
   const {payload} = action;
@@ -30,19 +37,39 @@ function removeDeviation(state: State, action) {
 
   delete state[deviationId];
 
-  return Object.assign({}, state);
+  return {
+    loaded: state.loaded,
+    loading: state.loading,
+    entities: Object.assign({}, state.entities, { [deviationId]: deviation })
+  }
 }
 
+function load(state: State, action) {
+  return Object.assign({}, state, {
+    loading: true
+  });
+}
+
+function loadSuccess(state: State, action) {
+  const deviationEntities = action.payload.entities.deviations;
+
+  return {
+    loaded: true,
+    loading: false,
+    entities: Object.assign({}, deviationEntities)
+  }
+}
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
-    case deviation.ActionTypes.FETCH_DEVIATIONS: return fetchDeviations(state, action);
     case deviation.ActionTypes.REMOVE_DEVIATION: return removeDeviation(state, action);
+    case deviation.ActionTypes.LOAD: return load(state, action);
+    case deviation.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
     default: return state;
   }
 }
 
-export const getEntities = (state: State) => state;
+export const getEntities = (state: State) => state.entities;
 
 

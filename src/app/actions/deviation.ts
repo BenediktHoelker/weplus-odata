@@ -5,16 +5,12 @@ import { type } from '../util';
 
 export const ActionTypes = {
   ADD_DEVIATION: type('[Deviation] Add'),
-  FETCH_DEVIATIONS: type('[Deviations] Fetch'),
   REMOVE_DEVIATION: type('[Deviation] Remove'),
   UPDATE_DEVIATION: type('[Deviation] Update'),
+  LOAD: type('[Deviations] Load'),
+  LOAD_SUCCESS: type('[Deviations] Load Success'),
+  LOAD_FAIL: type('[Deviations] Load Fail'),
 };
-
-export class FetchDeviationsAction implements Action {
-  type = ActionTypes.FETCH_DEVIATIONS;
-
-  constructor(public payload: { entities: any, result: any }) { }
-}
 
 export class AddDeviationAction implements Action {
   type = ActionTypes.ADD_DEVIATION;
@@ -38,8 +34,31 @@ export class UpdateDeviationAction implements Action {
   constructor(public payload: Deviation) { }
 }
 
+/**
+ * Load Deviations Actions
+ */
+export class LoadAction implements Action {
+  type = ActionTypes.LOAD;
+
+  constructor() { }
+}
+
+export class LoadSuccessAction implements Action {
+  type = ActionTypes.LOAD_SUCCESS;
+
+  constructor(public payload: { entities: any, result: any }) { }
+}
+
+export class LoadFailAction implements Action {
+  type = ActionTypes.LOAD_FAIL;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = AddDeviationAction
-  | FetchDeviationsAction
   | RemoveDeviationAction
-  | UpdateDeviationAction;
+  | UpdateDeviationAction
+  | LoadAction
+  | LoadSuccessAction
+  | LoadFailAction;
