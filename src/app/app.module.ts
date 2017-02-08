@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CustomFormsModule } from 'ng2-validation';
 import { DatePipe } from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -43,10 +44,14 @@ import { DeliveryListComponent } from './containers/delivery-list';
 import { StatusTabComponent } from './containers/status-tab';
 import { DeviationsTabComponent } from './containers/deviations-tab';
 
+import { DeliveryEffects } from './effects/deliveries';
+
+
 @NgModule({
   imports: [
     BrowserModule,
     CustomFormsModule,
+    EffectsModule.run(DeliveryEffects),
     FlexLayoutModule.forRoot(),
     FormsModule,
     HttpModule,

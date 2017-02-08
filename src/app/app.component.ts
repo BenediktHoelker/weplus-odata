@@ -56,7 +56,7 @@ export class AppComponent {
       .map(payload => normalize(payload, [deliverySchema]))
       .subscribe(normalizedPayload => {
         console.log(normalizedPayload);
-        this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload));
+        // this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload));
         this.store.dispatch(new deviation.FetchDeviationsAction(normalizedPayload));
         this.store.dispatch(new status.FetchStatusAction(normalizedPayload));
         this.store.dispatch(new yardDelivery.FetchYardDeliveriesAction(normalizedPayload));

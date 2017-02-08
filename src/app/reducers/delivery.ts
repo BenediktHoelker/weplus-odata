@@ -12,12 +12,16 @@ import {
 } from './actions';
 
 export interface State {
+  loaded: boolean,
+  loading: boolean,
   ids: string[];
   entities: {};
   selectedDeliveryId: string | null;
 };
 
 const initialState: State = {
+  loaded: false,
+  loading: false,
   ids: [],
   entities: {},
   selectedDeliveryId: null,
@@ -31,6 +35,8 @@ function addDeviation(state: State, action) {
   const delivery = state.entities[deliveryId];
 
   return {
+    loaded: state.loaded,
+    loading: state.loading,
     ids: [...state.ids],
     entities: Object.assign({}, state.entities, {
       [deliveryId]: Object.assign({}, delivery, {
@@ -49,6 +55,8 @@ function addYardDelivery(state: State, action) {
   const delivery = state.entities[deliveryId];
 
   return {
+    loaded: state.loaded,
+    loading: state.loading,
     ids: [...state.ids],
     entities: Object.assign({}, state.entities, {
       [deliveryId]: Object.assign({}, delivery, {
@@ -64,6 +72,27 @@ function fetchDeliveries(state: State, action) {
   const deliveryEntities = action.payload.entities.deliveries;
 
   return {
+    loaded: state.loaded,
+    loading: state.loading,
+    ids: [...state.ids, ...deliveryIds],
+    entities: Object.assign({}, deliveryEntities),
+    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[0]
+  }
+}
+
+function load(state: State, action) {
+  return Object.assign({}, state, {
+    loading: true
+  });
+}
+
+function loadSuccess(state: State, action) {
+  const deliveryIds = action.payload.result;
+  const deliveryEntities = action.payload.entities.deliveries;
+
+  return {
+    loaded: true,
+    loading: false,
     ids: [...state.ids, ...deliveryIds],
     entities: Object.assign({}, deliveryEntities),
     selectedDeliveryId: state.selectedDeliveryId || deliveryIds[0]
@@ -78,6 +107,8 @@ function removeDeviation(state: State, action) {
   const delivery = state.entities[deliveryId];
 
   return {
+    loaded: state.loaded,
+    loading: state.loading,
     ids: [...state.ids],
     entities: Object.assign({}, state.entities, {
       [deliveryId]: Object.assign({}, delivery, {
@@ -93,6 +124,8 @@ function selectDelivery(state: State, action) {
   const deliveryId = payload;
 
   return {
+    loaded: state.loaded,
+    loading: state.loading,
     ids: [...state.ids],
     entities: state.entities,
     selectedDeliveryId: deliveryId
@@ -104,6 +137,8 @@ function updateDelivery(state: State, action) {
   const deliveryId = payload.id;
 
   return {
+    loaded: state.loaded,
+    loading: state.loading,
     ids: [...state.ids],
     entities: Object.assign({}, state.entities, {
       [deliveryId]: payload
@@ -117,6 +152,8 @@ export function reducer(state = initialState, action): State {
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
     case delivery.ActionTypes.FETCH_DELIVERIES: return fetchDeliveries(state, action);
+    case delivery.ActionTypes.LOAD: return load(state, action);
+    case delivery.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
     case deviation.ActionTypes.REMOVE_DEVIATION: return removeDeviation(state, action);
     case delivery.ActionTypes.SELECT_DELIVERY: return selectDelivery(state, action);
     case delivery.ActionTypes.UPDATE_DELIVERY: return updateDelivery(state, action);

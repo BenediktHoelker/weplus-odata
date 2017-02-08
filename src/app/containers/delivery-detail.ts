@@ -122,7 +122,6 @@ export class DeliveryDetailComponent {
   submitDelivery() {
     this.updateModel.subscribe((entities) => {
       const delivery = denormalize(entities.selectedDelivery, deliverySchema, entities);
-      console.log(delivery);
       this.deliveryService.submitDelivery(delivery).subscribe(delivery => console.log(delivery));
     },
       (err) => console.log(err));

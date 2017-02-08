@@ -12,6 +12,8 @@ import { type } from '../util';
  */
 export const ActionTypes = {
   FETCH_DELIVERIES: type('[Deliveries] Fetch'),
+  LOAD: type('[Deliveries] Load'),
+  LOAD_SUCCESS: type('[Deliveries] Load Success'),
   CREATE_DELIVERY: type('[Delivery] Create'),
   REMOVE_DELIVERY: type('[Delivery] Remove'),
   SELECT_DELIVERY: type('[Delivery] Select'),
@@ -28,6 +30,18 @@ export const ActionTypes = {
  */
 export class FetchDeliveriesAction implements Action {
   type = ActionTypes.FETCH_DELIVERIES;
+
+  constructor(public payload: { entities: any, result: any }) { }
+}
+
+export class LoadAction implements Action {
+  type = ActionTypes.LOAD;
+
+  constructor() { }
+}
+
+export class LoadSuccessAction implements Action {
+  type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: { entities: any, result: any }) { }
 }
@@ -65,4 +79,6 @@ export type Actions
   | CreateDeliveryAction
   | RemoveDeliveryAction
   | SelectDeliveryAction
-  | UpdateDeliveryAction;
+  | UpdateDeliveryAction
+  | LoadAction
+  | LoadSuccessAction;

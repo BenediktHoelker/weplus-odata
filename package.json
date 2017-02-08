@@ -25,6 +25,7 @@
     "@angular/platform-server": "^2.4.5",
     "@angular/router": "^3.3.1",
     "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.2.1",
     "@ngrx/store-devtools": "^3.2.2",
     "@ngrx/store-log-monitor": "^3.0.2",
