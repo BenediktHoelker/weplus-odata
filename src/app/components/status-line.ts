@@ -5,7 +5,7 @@ import { Status } from '../models/status.model';
   selector: 'wp-status-line',
   template: `
     <h3 md-subheader>Factory</h3>
-    <md-list-item>
+    <md-list-item *ngIf="status">
       <div md-line class="flex-container" fxLayout="row">
         <md-checkbox [(ngModel)]="status.isRegistered"
           (change)="toggleCheckbox.emit(status)">

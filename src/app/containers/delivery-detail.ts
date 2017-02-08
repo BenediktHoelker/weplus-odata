@@ -74,42 +74,39 @@ export class DeliveryDetailComponent {
     private store: Store<fromRoot.State>,
     private deliveryService: DeliveryService
   ) {
-    //Timeout, so that selectors don't fire before state is set
-      setTimeout(() => {
-      this.model = Observable.combineLatest(
-        this.store.select(fromRoot.getDeviationTypeArray),
-        this.store.select(fromRoot.getSelectedDelivery),
-        this.store.select(fromRoot.getSelectedDeliveryDeviations),
-        this.store.select(fromRoot.getSelectedDeliveryStatus),
-        this.store.select(fromRoot.getSelectedDeliveryYardDeliveries),
-        (deviationTypes, selectedDelivery, deviations, status, yardDeliveries) => {
-          return {
-            deviationTypes: deviationTypes,
-            selectedDelivery: selectedDelivery,
-            deviations: deviations,
-            status: status,
-            yardDeliveries: yardDeliveries
-          }
-        });
+    this.model = Observable.combineLatest(
+      this.store.select(fromRoot.getDeviationTypeArray),
+      this.store.select(fromRoot.getSelectedDelivery),
+      this.store.select(fromRoot.getSelectedDeliveryDeviations),
+      this.store.select(fromRoot.getSelectedDeliveryStatus),
+      this.store.select(fromRoot.getSelectedDeliveryYardDeliveries),
+      (deviationTypes, selectedDelivery, deviations, status, yardDeliveries) => {
+        return {
+          deviationTypes: deviationTypes,
+          selectedDelivery: selectedDelivery,
+          deviations: deviations,
+          status: status,
+          yardDeliveries: yardDeliveries
+        }
+      });
 
-      this.updateModel = Observable.combineLatest(
-        this.store.select(fromRoot.getDeviationEntities),
-        this.store.select(fromRoot.getDeviationTypeEntities),
-        this.store.select(fromRoot.getSelectedDelivery),
-        this.store.select(fromRoot.getStatusEntities),
-        this.store.select(fromRoot.getYardDeliveryEntities),
-        this.store.select(fromRoot.getYardEntities),
-        (deviations, deviationTypes, selectedDelivery, status, yardDeliveries, yards) => {
-          return {
-            deviations: deviations,
-            deviationTypes: deviationTypes,
-            selectedDelivery: selectedDelivery,
-            status: status,
-            yardDeliveries: yardDeliveries,
-            yards: yards
-          }
-        })
-      }, 1000);
+    this.updateModel = Observable.combineLatest(
+      this.store.select(fromRoot.getDeviationEntities),
+      this.store.select(fromRoot.getDeviationTypeEntities),
+      this.store.select(fromRoot.getSelectedDelivery),
+      this.store.select(fromRoot.getStatusEntities),
+      this.store.select(fromRoot.getYardDeliveryEntities),
+      this.store.select(fromRoot.getYardEntities),
+      (deviations, deviationTypes, selectedDelivery, status, yardDeliveries, yards) => {
+        return {
+          deviations: deviations,
+          deviationTypes: deviationTypes,
+          selectedDelivery: selectedDelivery,
+          status: status,
+          yardDeliveries: yardDeliveries,
+          yards: yards
+        }
+      })
   }
 
   addDeviation(delivery: Delivery): void {
@@ -121,11 +118,13 @@ export class DeliveryDetailComponent {
   }
 
   submitDelivery() {
-    this.updateModel.subscribe((entities) => {
-      const delivery = denormalize(entities.selectedDelivery, deliverySchema, entities);
-      this.deliveryService.submitDelivery(delivery).subscribe(delivery => console.log(delivery));
-    },
-      (err) => console.log(err));
+    this.updateModel.subscribe(
+      (entities) => {
+        const delivery = denormalize(entities.selectedDelivery, deliverySchema, entities);
+        this.deliveryService.submitDelivery(delivery).subscribe(delivery => console.log(delivery));
+      },
+      (err) => console.log(err),
+      () => {});
   }
 
   updateYardDelivery(payload: YardDelivery): void {

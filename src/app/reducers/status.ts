@@ -40,7 +40,7 @@ function loadSuccess(state: State, action) {
   }
 }
 
-export function reducer(state: State, action) {
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case status.ActionTypes.UPDATE_STATUS: return updateStatus(state, action);
     case status.ActionTypes.LOAD: return load(state, action);

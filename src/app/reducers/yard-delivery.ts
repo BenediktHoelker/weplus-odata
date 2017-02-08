@@ -54,7 +54,7 @@ function loadSuccess(state: State, action) {
   }
 }
 
-export function reducer(state: State, action) {
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
     case yardDelivery.ActionTypes.LOAD: return load(state, action);

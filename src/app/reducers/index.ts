@@ -120,25 +120,38 @@ export const getSelectedDelivery = createSelector(getDeliveriesState, fromDelive
 export const getDeviationsState = (state: State) => state.deviations;
 
 export const getDeviationEntities = createSelector(getDeviationsState, fromDeviations.getEntities);
-export const getSelectedDeliveryDeviations = createSelector(getDeviationEntities, getSelectedDelivery, (deviationEntities, selectedDelivery) => {
-  return selectedDelivery.deviations.map(id => deviationEntities[id]);
-});
+export const getSelectedDeliveryDeviations = createSelector(getDeviationEntities, getSelectedDelivery,
+  (deviationEntities, selectedDelivery) => {
+    return selectedDelivery
+      ? selectedDelivery.deviations.map(id => deviationEntities[id])
+      : [];
+  });
 
 
 export const getYardDeliveriesState = (state: State) => state.yardDeliveries;
 
 export const getYardDeliveryEntities = createSelector(getYardDeliveriesState, fromYardDeliveries.getEntities);
-export const getSelectedDeliveryYardDeliveries = createSelector(getYardDeliveryEntities, getSelectedDelivery, (yardDeliveryEntities, selectedDelivery) => {
-  return selectedDelivery.yardDeliveries.map(id => yardDeliveryEntities[id]);
-});
+export const getSelectedDeliveryYardDeliveries = createSelector(getYardDeliveryEntities, getSelectedDelivery,
+  (yardDeliveryEntities, selectedDelivery) => {
+    return selectedDelivery
+      ? selectedDelivery.yardDeliveries.map(id => yardDeliveryEntities[id])
+      : [];
+  });
 
 
 export const getStatusState = (state: State) => state.status;
 
 export const getStatusEntities = createSelector(getStatusState, fromStatus.getEntities);
-export const getSelectedDeliveryStatus = createSelector(getStatusEntities, getSelectedDelivery, getSelectedDeliveryYardDeliveries, (statusEntities, selectedDelivery, selectedDeliveryYardDeliveries) => {
-  return [statusEntities[selectedDelivery.status], ...selectedDeliveryYardDeliveries.map(yardDelivery => statusEntities[yardDelivery.status])];
-});
+export const getSelectedDeliveryStatus = createSelector(getStatusEntities, getSelectedDelivery, getSelectedDeliveryYardDeliveries,
+  (statusEntities, selectedDelivery, selectedDeliveryYardDeliveries) => {
+    return selectedDelivery
+      ? [
+        statusEntities[selectedDelivery.status],
+        ...selectedDeliveryYardDeliveries.map(yardDelivery => {
+          return yardDelivery ? statusEntities[yardDelivery.status] : {}
+        })]
+      : [];
+  });
 
 
 export const getDeviationTypesState = (state: State) => state.deviationTypes;
