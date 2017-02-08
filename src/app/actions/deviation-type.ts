@@ -9,7 +9,7 @@ export const ActionTypes = {
 };
 
 /**
- * Load Deliveries Actions
+ * Load DeviationType Actions
  */
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;

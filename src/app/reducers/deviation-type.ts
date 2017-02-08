@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 
-import { Status } from '../models/status.model';
 import { DeviationType } from '../models/deviation-type.model';
 import * as deviationType from '../actions/deviation-type';
 

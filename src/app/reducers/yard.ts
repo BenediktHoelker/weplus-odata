@@ -5,28 +5,41 @@ import { Yard } from '../models/yard.model';
 import * as yard from '../actions/yard';
 
 export interface State {
+  loaded: boolean,
+  loading: boolean,
   ids: string[];
   entities: {};
 };
 
 const initialState: State = {
+  loaded: false,
+  loading: false,
   ids: [],
   entities: {}
 };
 
-function fetchYards(state: State, action) {
-  const yardIs = action.payload.result;
+function load(state: State, action) {
+  return Object.assign({}, state, {
+    loading: true
+  });
+}
+
+function loadSuccess(state: State, action) {
+  const yardIds = action.payload.result;
   const yardEntities = action.payload.entities.yards;
 
   return {
-    ids: [...state.ids, ...yardIs],
+    loaded: true,
+    loading: false,
+    ids: [...state.ids, ...yardIds],
     entities: Object.assign({}, yardEntities),
   }
 }
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
-    case yard.ActionTypes.FETCH_YARDS: return fetchYards(state, action);
+    case yard.ActionTypes.LOAD: return load(state, action);
+    case yard.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
 
     default: return state;
   }

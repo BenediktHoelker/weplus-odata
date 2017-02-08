@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { denormalize } from 'normalizr';
 import { deliverySchema } from '../models/schemas';
+import { of } from 'rxjs/observable/of';
 
 import { Delivery } from '../models/delivery.model';
 import { Deviation } from '../models/deviation.model';
@@ -74,18 +75,18 @@ export class DeliveryDetailComponent {
     private deliveryService: DeliveryService
   ) {
     //Timeout, so that selectors don't fire before state is set
-    setTimeout(() => {
+      setTimeout(() => {
       this.model = Observable.combineLatest(
-        this.store.select(fromRoot.getSelectedDeliveryDeviations),
         this.store.select(fromRoot.getDeviationTypeArray),
         this.store.select(fromRoot.getSelectedDelivery),
+        this.store.select(fromRoot.getSelectedDeliveryDeviations),
         this.store.select(fromRoot.getSelectedDeliveryStatus),
         this.store.select(fromRoot.getSelectedDeliveryYardDeliveries),
-        (deviations, deviationTypes, selectedDelivery, status, yardDeliveries) => {
+        (deviationTypes, selectedDelivery, deviations, status, yardDeliveries) => {
           return {
-            deviations: deviations,
             deviationTypes: deviationTypes,
             selectedDelivery: selectedDelivery,
+            deviations: deviations,
             status: status,
             yardDeliveries: yardDeliveries
           }
@@ -108,7 +109,7 @@ export class DeliveryDetailComponent {
             yards: yards
           }
         })
-    }, 1000);
+      }, 1000);
   }
 
   addDeviation(delivery: Delivery): void {

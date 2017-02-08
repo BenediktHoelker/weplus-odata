@@ -1,6 +1,5 @@
 import { Action, combineReducers } from '@ngrx/store';
 import { ADD_DEVIATION } from './actions';
-
 import * as deviation from '../actions/deviation';
 
 export interface State {
@@ -29,7 +28,6 @@ function addDeviation(state: State, action) {
     entities: Object.assign({}, state.entities, { [deviationId]: deviation })
   }
 }
-
 
 function removeDeviation(state: State, action) {
   const {payload} = action;

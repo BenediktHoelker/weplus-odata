@@ -51,30 +51,7 @@ export class AppComponent {
   constructor(
     private deliveryService: DeliveryService,
     private store: Store<fromRoot.State>
-  ) {
-    this.deliveryService.getDeliveries()
-      .map(payload => normalize(payload, [deliverySchema]))
-      .subscribe(normalizedPayload => {
-        console.log(normalizedPayload);
-        // this.store.dispatch(new delivery.FetchDeliveriesAction(normalizedPayload));
-        this.store.dispatch(new status.FetchStatusAction(normalizedPayload));
-        this.store.dispatch(new yardDelivery.FetchYardDeliveriesAction(normalizedPayload));
-      });
-
-    // this.deliveryService.getDeviationTypes()
-    //   .map(payload => normalize(payload, [deviationTypeSchema]))
-    //   .subscribe(normalizedPayload => {
-    //     console.log(normalizedPayload);
-    //     this.store.dispatch(new deviationTypes.FetchDeviationTypesAction(normalizedPayload));
-    //   });
-
-    this.deliveryService.getYards()
-      .map(payload => normalize(payload, [yardSchema]))
-      .subscribe(normalizedPayload => {
-        console.log(normalizedPayload);
-        this.store.dispatch(new yard.FetchYardsAction(normalizedPayload));
-      });
-  }
+  ) { }
 
   ngOnInit() {
     this.filtersVisible = true;

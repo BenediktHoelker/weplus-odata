@@ -6,23 +6,23 @@ import { Observable } from 'rxjs/Observable';
 import { normalize } from 'normalizr';
 import { of } from 'rxjs/observable/of';
 
-import * as deviationType from '../actions/deviation-type';
+import * as yard from '../actions/yard';
 import { DeliveryService } from '../shared/delivery.service';
-import { deviationTypeSchema } from '../models/schemas';
+import { yardSchema } from '../models/schemas';
 
 @Injectable()
-export class DeviationTypeEffects {
+export class YardEffects {
   constructor(private actions$: Actions, private deliveryService: DeliveryService,
   ) { }
 
   @Effect()
-  loadDeviationTypes$: Observable<Action> = this.actions$
-    .ofType(deviationType.ActionTypes.LOAD)
-    .startWith(new deviationType.LoadAction())
+  loadYards$: Observable<Action> = this.actions$
+    .ofType(yard.ActionTypes.LOAD)
+    .startWith(new yard.LoadAction())
     .switchMap(() =>
       this.deliveryService.getDeviationTypes()
-        .map(payload => normalize(payload, [deviationTypeSchema]))
-        .map(payload => new deviationType.LoadSuccessAction(payload))
-        .catch(error => of(new deviationType.LoadFailAction(error)))
+        .map(payload => normalize(payload, [yardSchema]))
+        .map(payload => new yard.LoadSuccessAction(payload))
+        .catch(error => of(new yard.LoadFailAction(error)))
     );
 }
