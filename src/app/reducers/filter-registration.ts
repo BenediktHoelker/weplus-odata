@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { SHOW_ALL_R, SHOW_NOT_REGISTERED, SHOW_REGISTERED } from './actions';
 
 //return appropriate function depending on selected filter
-export function filterRegistrationReducer(state = delivery => delivery, action: Action){
+export function reducer(state = delivery => delivery, action: Action){
   switch (action.type) {
     case SHOW_ALL_R:
       return delivery => delivery;

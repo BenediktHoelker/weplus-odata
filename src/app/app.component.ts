@@ -16,7 +16,7 @@ import { DeliveryService } from './shared/delivery.service';
 import {
   ADD_DEVIATION_TYPES, ADD_YARDS,
   CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY,
-  CREATE_YARD, FILTER_YARD, SELECT_YARD,
+  CREATE_YARD, FILTER_LOCATION, SELECT_YARD,
   ADD_FILTERS, ADD_FILTER_GROUPS, SELECT_FILTER,
   FILTER_DEVIATION_TYPE, SHOW_ALL_D, SHOW_WITH_DEVIATION, SHOW_WITHOUT_DEVIATION,
   SHOW_ALL_P, SHOW_PROCESSED, SHOW_NOT_PROCESSED,
@@ -53,7 +53,7 @@ export class AppComponent {
     private deliveryService: DeliveryService,
     private store: Store<fromRoot.State>
   ) {
-    let payload = {
+    const processingPayload = {
       result: [0, 1, 2],
       name: "Processing",
       filterEntities: [
@@ -62,9 +62,9 @@ export class AppComponent {
         { id: 2, friendly: "Not Processed", actionType: SHOW_NOT_PROCESSED }],
       selectedFilterId: 0
     };
-    this.store.dispatch(new filter.LoadSuccessAction(payload));
+    this.store.dispatch(new filter.LoadSuccessAction(processingPayload));
 
-    payload = {
+    const registrationPayload = {
       result: [0, 1, 2],
       name: "Registration",
       filterEntities: [
@@ -73,64 +73,88 @@ export class AppComponent {
         { id: 2, friendly: "Not Registered", actionType: SHOW_NOT_REGISTERED }],
       selectedFilterId: 0
     };
-    this.store.dispatch(new filter.LoadSuccessAction(payload));
+    this.store.dispatch(new filter.LoadSuccessAction(registrationPayload));
 
-    this.model$ = Observable.combineLatest(
-      this.store.select(fromRoot.getFilterGroups),
-      (filterGroups) => {
-        return {
-          filterGroups
-        }
-      });
-  }
+    const deviationPayload = {
+      result: [0, 1, 2],
+      name: "Deviation",
+      filterEntities: [
+        { id: 0, friendly: "All", actionType: SHOW_ALL_D },
+        { id: 1, friendly: "Deviation", actionType: SHOW_WITH_DEVIATION },
+        { id: 2, friendly: "No Deviation", actionType: SHOW_WITHOUT_DEVIATION }],
+      selectedFilterId: 0
+    };
+    this.store.dispatch(new filter.LoadSuccessAction(deviationPayload));
 
-  ngOnInit() {
-    this.filtersVisible = true;
-  }
+    const locationPayload = {
+      result: [0, 1, 2],
+      name: "Location",
+      filterEntities: [
+        { id: 0, friendly: "All", actionType: FILTER_LOCATION, payload: "All" },
+        { id: 1, friendly: "Yard 1", actionType: FILTER_LOCATION, payload: "Yard 1" },
+        { id: 2, friendly: "Yard 2", actionType: FILTER_LOCATION, payload: "Yard 2" },
+        { id: 3, friendly: "Yard 3", actionType: FILTER_LOCATION, payload: "Yard 3" }],
+    selectedFilterId: 0
+  };
+    this.store.dispatch(new filter.LoadSuccessAction(locationPayload));
 
-  createDelivery(): void {
-    this.selectDelivery();
-    this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
-    this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
-  }
-
-  openSidenav(): void {
-    this.sidenav.open();
-  }
-
-  toggleFilters(): void {
-    this.filtersVisible = !this.filtersVisible;
-  }
-
-  removeDelivery(delivery: Delivery) {
-    this.selectDelivery();
-    if (delivery.id) {
-      this.deliveryService.removeDelivery(delivery)
-        .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
+this.model$ = Observable.combineLatest(
+  this.store.select(fromRoot.getFilterGroups),
+  (filterGroups) => {
+    return {
+      filterGroups
     }
-    else {
-      this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
-    }
+  });
   }
 
-  /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
-  selectDelivery(delivery?: Delivery) {
-    this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
+ngOnInit() {
+  this.filtersVisible = true;
+}
+
+createDelivery(): void {
+  this.selectDelivery();
+  this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
+  this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
+}
+
+openSidenav(): void {
+  this.sidenav.open();
+}
+
+toggleFilters(): void {
+  this.filtersVisible = !this.filtersVisible;
+}
+
+removeDelivery(delivery: Delivery) {
+  this.selectDelivery();
+  if (delivery.id) {
+    this.deliveryService.removeDelivery(delivery)
+      .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
   }
+  else {
+    this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
+  }
+}
+
+/*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
+selectDelivery(delivery ?: Delivery) {
+  this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
+}
 
 
-  updateFilter(filterGroup) {
-    this.selectDelivery();
-    this.store.dispatch({
-      type: SELECT_FILTER,
-      payload: { type: filterGroup.type, selectedFilterId: filterGroup.selectedFilterId }
-    });
-    this.store.dispatch({ type: filterGroup.filters.find(filter => filter._id === filterGroup.selectedFilterId).type });
-  }
+updateFilter(filterGroup) {
+  // this.selectDelivery();
+  // this.store.dispatch({
+  //   type: SELECT_FILTER,
+  //   payload: { type: filterGroup.type, selectedFilterId: filterGroup.selectedFilterId }
+  // });
+  const filter = filterGroup.filterEntities[filterGroup.selectedFilterId];
+  this.store.dispatch({ type: filter.actionType, payload: filter.payload });
+}
 
-  updateYardFilter(yard: Yard) {
-    this.selectDelivery();
-    this.store.dispatch({ type: SELECT_YARD, payload: yard });
-    this.store.dispatch({ type: FILTER_YARD, payload: yard });
-  }
+updateYardFilter(yard: Yard) {
+  this.selectDelivery();
+  this.store.dispatch({ type: SELECT_YARD, payload: yard });
+  this.store.dispatch({ type: FILTER_LOCATION, payload: yard });
+}
 }

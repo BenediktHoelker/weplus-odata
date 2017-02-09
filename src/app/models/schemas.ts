@@ -10,8 +10,7 @@ export const deviationSchema = new schema.Entity('deviations', {
 });
 
 export const yardDeliverySchema = new schema.Entity('yardDeliveries', {
-  status: statusSchema,
-  yard: yardSchema
+  status: statusSchema
 });
 
 export const deliverySchema = new schema.Entity('deliveries', {

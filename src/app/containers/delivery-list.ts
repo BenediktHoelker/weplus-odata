@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { denormalize } from 'normalizr';
+import { deliverySchema } from '../models/schemas';
 
 import * as fromRoot from '../reducers';
 import * as delivery from '../actions/delivery';
@@ -22,13 +24,21 @@ export class DeliveryListComponent {
   constructor(private store: Store<fromRoot.State>) {
     this.model$ = Observable.combineLatest(
       this.store.select(fromRoot.getDeliveryArray),
-      (deliveries) => {
+      this.store.select(fromRoot.getDeviationEntities),
+      this.store.select(fromRoot.getDeviationTypeEntities),
+      this.store.select(fromRoot.getStatusEntities),
+      this.store.select(fromRoot.getYardDeliveryEntities),
+      this.store.select(fromRoot.getYardEntities),
+      this.store.select(s => s.appliedFilters),
+      (deliveries, deviations, deviationTypes, status, yardDeliveries, yards, appliedFilters) => {
+        const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], { 
+            deliveries, deviations, deviationTypes, status, yardDeliveries, yards });
         return {
-          deliveries: deliveries
-            // .filter(deviationFilter.expression)
-            // .filter(processingFilter.expression)
-            // .filter(registrationFilter.expression)
-            // .filter(yardFilter.expression)
+          deliveries: denormalizedDeliveries
+          .filter(appliedFilters.processing)
+          .filter(appliedFilters.registration)
+          .filter(appliedFilters.deviation)
+          .filter(appliedFilters.location)
         }
       });
   }

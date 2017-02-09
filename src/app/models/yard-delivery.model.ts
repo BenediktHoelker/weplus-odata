@@ -3,7 +3,7 @@ import { Status } from './status.model';
 
 export class YardDelivery {
     id: number;
-    yard: Yard;
+    yardName: string;
     quantity: number;
     status: Status;
 

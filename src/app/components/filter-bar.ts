@@ -14,13 +14,9 @@ import { Yard } from '../models/yard.model';
   template: `
     <md-card class="flex-container" fxLayout="row"
       fxLayoutWrap="wrap" fxLayoutAlign="space-around center">
-      <md-select placeholder="Filter Location"
-        [(ngModel)]="selectedYard" (ngModelChange)="updateYardFilter.emit(selectedYard)">
-        <md-option *ngFor="let yard of yards" [value]="yard">{{yard.name}}</md-option>
-      </md-select>
       <md-select *ngFor="let filterGroup of filterGroups" placeholder={{filterGroup.name}}
         [(ngModel)]="filterGroup.selectedFilterId"
-        (ngModelChange)="updateFilter.emit(filter)">
+        (ngModelChange)="updateFilter.emit(filterGroup)">
         <md-option *ngFor="let filter of filterGroup.filterEntities"
           [value]="filter.id">{{filter.friendly}}</md-option>
       </md-select>
@@ -34,8 +30,4 @@ export class FilterBarComponent {
 
   @Output() updateFilter: EventEmitter<any> = new EventEmitter();
   @Output() updateYardFilter: EventEmitter<any> = new EventEmitter();
-
-  ngOnChanges(){
-    console.log(this.filterGroups);
-  }
 }

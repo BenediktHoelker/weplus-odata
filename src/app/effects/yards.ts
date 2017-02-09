@@ -20,7 +20,7 @@ export class YardEffects {
     .ofType(yard.ActionTypes.LOAD)
     .startWith(new yard.LoadAction())
     .switchMap(() =>
-      this.deliveryService.getDeviationTypes()
+      this.deliveryService.getYards()
         .map(payload => normalize(payload, [yardSchema]))
         .map(payload => new yard.LoadSuccessAction(payload))
         .catch(error => of(new yard.LoadFailAction(error)))

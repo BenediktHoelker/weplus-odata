@@ -61,14 +61,32 @@ export const getFilterIds = (state: State) => state.filterGroups.map(filterGroup
   return filterGroup.ids;
 });
 
-export const getFilterEntities = (state: State) => state.filterGroups.map(filterGroup => {
-  return filterGroup.filters;
-});
+// export const getFilterEntities = (state: State) => state.filterGroups.map(filterGroup => {
+//   return filterGroup.filterEntities.reduce((previous, current) => {
+//     return previous.concat(current);
+//   }, []);
+// });
+
+// export const getFilterEntities = (state: State) => state.filterGroups.map(filterGroup => {
+//   let filterArray = [];
+//   filterGroup.filterEntities.map(filterEntity => {
+//     console.log(filterEntity);
+//     filterArray.push(filterEntity);
+//   });
+// console.log(filterArray);
+//   return filterArray;
+// });
+
+
+export const getFilterEntities = (state: State) => state.filterGroups.reduce((previous, current) => {
+  return previous.concat(current.filterEntities);
+}, []);
 
 export const getSelectedFilterIds = (state: State) => state.filterGroups.map(filterGroup => {
   return filterGroup.selectedFilterId;
 });
 
 export const getSelectedFilters = createSelector(getFilterEntities, getSelectedFilterIds, (entities, selectedIds) => {
+  console.log(getFilterEntities);
   return selectedIds.map(id => entities[id]);
 });

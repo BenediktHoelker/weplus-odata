@@ -23,7 +23,7 @@ export const SHOW_ALL_R = 'SHOW_ALL_R';
 //Yard Action Constants
 export const ADD_YARDS = 'ADD_YARDS';
 export const CREATE_YARD = 'CREATE_YARD';
-export const FILTER_YARD = 'FILTER_YARD';
+export const FILTER_LOCATION = 'FILTER_LOCATION';
 export const SELECT_YARD = 'SELECT_YARD';
 
 //DeviationType Action Constants

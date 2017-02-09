@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../util';
+import { Filter } from '../models/filter.model';
 
 export const ActionTypes = {
   LOAD: type('[Filters] Load'),
@@ -19,14 +20,15 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: { filterEntities: any, result: any }) { }
+  //TODO: specifiy payload types
+  constructor(public payload: {}) { }
 }
 
 export class LoadFailAction implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
-} 
+}
 
 
 export type Actions

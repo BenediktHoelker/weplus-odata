@@ -39,6 +39,10 @@ import * as fromStatus from './status';
 import * as fromYards from './yard';
 import * as fromYardDeliveries from './yard-delivery';
 
+import * as fromProcessingFilter from './filter-processing';
+import * as fromRegistrationFilter from './filter-registration';
+import * as fromDeviationFilter from './filter-deviation';
+import * as fromLocationFilter from './filter-location';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -52,6 +56,7 @@ export interface State {
   yardDeliveries: fromYardDeliveries.State;
   yards: fromYards.State;
   filters: fromFilters.State;
+  appliedFilters
 }
 
 
@@ -62,6 +67,14 @@ export interface State {
  * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
+
+const appliedFilterReducers = {
+  processing: fromProcessingFilter.reducer,
+  registration: fromRegistrationFilter.reducer,
+  deviation: fromDeviationFilter.reducer,
+  location: fromLocationFilter.reducer
+}
+
 const reducers = {
   deliveries: fromDeliveries.reducer,
   deviations: fromDeviations.reducer,
@@ -69,7 +82,8 @@ const reducers = {
   status: fromStatus.reducer,
   yardDeliveries: fromYardDeliveries.reducer,
   yards: fromYards.reducer,
-  filters: fromFilters.reducer
+  filters: fromFilters.reducer,
+  appliedFilters: combineReducers(appliedFilterReducers)
 };
 
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
