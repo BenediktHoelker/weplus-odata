@@ -121,7 +121,7 @@ openSidenav(): void {
   this.sidenav.open();
 }
 
-toggleFilters(): void {
+toggleFilterBar(): void {
   this.filtersVisible = !this.filtersVisible;
 }
 

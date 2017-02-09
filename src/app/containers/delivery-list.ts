@@ -33,6 +33,11 @@ export class DeliveryListComponent {
       (deliveries, deviations, deviationTypes, status, yardDeliveries, yards, appliedFilters) => {
         const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], { 
             deliveries, deviations, deviationTypes, status, yardDeliveries, yards });
+        console.log(deliveries);
+        console.log(yardDeliveries);
+        console.log(yards);
+        console.log(denormalizedDeliveries);
+        console.log(appliedFilters);
         return {
           deliveries: denormalizedDeliveries
           .filter(appliedFilters.processing)

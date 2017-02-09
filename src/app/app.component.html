@@ -1,5 +1,7 @@
 <md-sidenav-container class="my-container">
-  <wp-toolbar (openList)=openSidenav()></wp-toolbar>
+  <wp-toolbar 
+    (openList)=openSidenav()
+    (toggleFilterBar)=toggleFilterBar()></wp-toolbar>
   <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
   <wp-filter-bar *ngIf="filtersVisible"
     [filterGroups]="(model$ | async)?.filterGroups"

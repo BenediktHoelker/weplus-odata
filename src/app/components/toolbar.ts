@@ -7,7 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
       <span>
       <button md-button>{{title}}</button>
       <button md-button (click)="openList.emit()">Toggle List</button>
-      <button md-button (click)="toggleFilters.emit()">Toggle Filters</button>
+      <button md-button (click)="toggleFilterBar.emit()">Toggle Filters</button>
     </span>
       <span class="fill-remaining-space"></span>
       <span>
@@ -32,5 +32,5 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class ToolbarComponent {
   title = "WEPLUS"
   @Output() openList = new EventEmitter();
-  @Output() toggleFilters = new EventEmitter();
+  @Output() toggleFilterBar = new EventEmitter();
 }

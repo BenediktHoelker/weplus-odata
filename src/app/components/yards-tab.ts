@@ -11,8 +11,8 @@ import { YardDelivery } from '../models/yard-delivery.model';
             [min]="0" 
             [(ngModel)]="yardDelivery.quantity"
             (change)="updateQuantity.emit(yardDelivery)"
-            name="quantity {{yardDelivery?.yard.name}}"
-            placeholder="Quantity {{yardDelivery?.yard.name}}">
+            name="quantity {{yardDelivery?.yardName}}"
+            placeholder="Quantity {{yardDelivery?.yardName}}">
         </md-input-container>
       </div>
     </div>

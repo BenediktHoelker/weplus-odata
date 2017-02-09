@@ -9,7 +9,7 @@ export function reducer(state = delivery => delivery, action: Action) {
         return delivery => delivery
       }
       return delivery => delivery.yardDeliveries.find(yardDelivery =>
-        ((yardDelivery.yard.name === action.payload) && (yardDelivery.quantity >> 0)));
+        ((yardDelivery.yardName === action.payload) && (yardDelivery.quantity >> 0)));
 
     default:
       return state;
