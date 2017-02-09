@@ -9,7 +9,6 @@ import { Delivery } from '../models/delivery.model';
 import { Deviation } from '../models/deviation.model';
 import { DeviationType } from '../models/deviation-type.model';
 import { Status } from '../models/status.model';
-import { YardDelivery } from '../models/yard-delivery.model';
 
 import { DeliveryService } from '../shared/delivery.service';
 
@@ -28,11 +27,13 @@ import * as yardDelivery from '../actions/yard-delivery';
         <md-card-content>
           <md-tab-group [selectedIndex]="selectedTabIndex">
             <md-tab label="Status">
-              <wp-status-tab [status]="(model | async)?.status"></wp-status-tab>
+              <wp-status-tab 
+                [delivery]="(model | async)?.selectedDelivery"
+                [yardDeliveries]="(model | async)?.yardDeliveries"></wp-status-tab>
             </md-tab>
             <md-tab label="Yards">
               <wp-yards-tab [yardDeliveries]="(model | async)?.yardDeliveries"
-                (updateQuantity)="updateYardDelivery($event)"></wp-yards-tab>
+                (updateQuantity)="updateDelivery($event)"></wp-yards-tab>
             </md-tab>
             <md-tab label="Details">
               <wp-details-tab [delivery]="(model | async)?.selectedDelivery"
@@ -78,32 +79,29 @@ export class DeliveryDetailComponent {
       this.store.select(fromRoot.getDeviationTypeArray),
       this.store.select(fromRoot.getSelectedDelivery),
       this.store.select(fromRoot.getSelectedDeliveryDeviations),
-      this.store.select(fromRoot.getSelectedDeliveryStatus),
       this.store.select(fromRoot.getSelectedDeliveryYardDeliveries),
-      (deviationTypes, selectedDelivery, deviations, status, yardDeliveries) => {
+      (deviationTypes, selectedDelivery, deviations, yardDeliveries) => {
         return {
           deviationTypes: deviationTypes,
           selectedDelivery: selectedDelivery,
           deviations: deviations,
-          status: status,
           yardDeliveries: yardDeliveries
         }
       });
 
     this.updateModel = Observable.combineLatest(
+      this.store.select(fromRoot.getDeliveryEntities),
       this.store.select(fromRoot.getDeviationEntities),
       this.store.select(fromRoot.getDeviationTypeEntities),
       this.store.select(fromRoot.getSelectedDelivery),
       this.store.select(fromRoot.getStatusEntities),
-      this.store.select(fromRoot.getYardDeliveryEntities),
       this.store.select(fromRoot.getYardEntities),
-      (deviations, deviationTypes, selectedDelivery, status, yardDeliveries, yards) => {
+      (deliveries, deviations, deviationTypes, selectedDelivery, yards) => {
         return {
+          deliveries: deliveries,
           deviations: deviations,
           deviationTypes: deviationTypes,
           selectedDelivery: selectedDelivery,
-          status: status,
-          yardDeliveries: yardDeliveries,
           yards: yards
         }
       })
@@ -125,10 +123,6 @@ export class DeliveryDetailComponent {
       },
       (err) => console.log(err),
       () => {});
-  }
-
-  updateYardDelivery(payload: YardDelivery): void {
-    this.store.dispatch(new yardDelivery.UpdateYardDeliveryAction(payload));
   }
 
   updateDelivery(payload: Delivery): void {

@@ -16,15 +16,6 @@ import { DeviationFocusDirective } from './directives/deviation-focus.directive'
 import { FocusInputDirective } from './directives/focus-input.directive';
 
 import { reducer } from './reducers';
-import { deviationTypeReducer } from './reducers/deviation-type.reducer';
-import { filterDeviationReducer } from './reducers/filter-deviation.reducer';
-import { filterProcessingReducer } from './reducers/filter-processing.reducer';
-import { filterRegistrationReducer } from './reducers/filter-registration.reducer';
-import { filterYardReducer } from './reducers/filter-yard.reducer';
-import { selectedDeliveryReducer } from './reducers/selected-delivery.reducer';
-import { selectedFiltersReducer } from './reducers/selected-filters.reducer';
-import { selectedYardReducer } from './reducers/selected-yard.reducer';
-import { yardReducer } from './reducers/yard.reducer';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog';
 
 import { AppComponent } from './app.component';

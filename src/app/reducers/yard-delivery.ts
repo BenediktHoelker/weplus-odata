@@ -1,6 +1,4 @@
 import { Action } from '@ngrx/store';
-import { Status } from '../models/status.model';
-import { YardDelivery } from '../models/yard-delivery.model';
 import * as yardDelivery from '../actions/yard-delivery';
 
 export interface State {

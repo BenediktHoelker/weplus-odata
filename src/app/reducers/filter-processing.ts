@@ -8,10 +8,10 @@ export function reducer(state = delivery => delivery, action: Action) {
       return delivery => delivery;
 
     case SHOW_PROCESSED:
-      return delivery => delivery.status.isProcessed;
+      return delivery => delivery.isProcessed;
 
     case SHOW_NOT_PROCESSED:
-      return delivery => !delivery.status.isProcessed;
+      return delivery => !delivery.isProcessed;
 
     default:
       return state;

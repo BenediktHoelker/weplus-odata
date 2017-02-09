@@ -1,28 +1,32 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Status } from '../models/status.model';
+import { Delivery } from '../models/delivery.model';
 
 import * as fromRoot from '../reducers';
-import * as status from '../actions/status';
+import * as delivery from '../actions/delivery';
 
 @Component({
   selector: 'wp-status-tab',
   template: `
       <md-list>
-        <wp-status-line *ngFor="let singleStatus of status"
-          [status]="singleStatus"
+        <wp-status-line
+          [delivery]="delivery"
+          (toggleCheckbox)=updateStatus($event)></wp-status-line>
+        <wp-status-line *ngFor="let delivery of yardDeliveries"
+          [delivery]="delivery"
           (toggleCheckbox)=updateStatus($event)></wp-status-line>
       </md-list>
   `,
 })
 export class StatusTabComponent {
-  @Input() status: Status[];
+  @Input() delivery: Delivery;
+  @Input() yardDeliveries: Delivery[];
 
   constructor(
     private store: Store<fromRoot.State>
   ) { }
 
-  updateStatus(newStatus: Status) {
-    this.store.dispatch(new status.UpdateStatusAction(newStatus));
+  updateStatus(newStatus: Delivery) {
+    this.store.dispatch(new delivery.UpdateDeliveryAction(newStatus));
   }
 }

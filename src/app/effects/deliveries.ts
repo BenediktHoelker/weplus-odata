@@ -30,7 +30,11 @@ export class DeliveryEffects {
     .startWith(new delivery.LoadAction())
     .switchMap(() =>
       this.deliveryService.getDeliveries()
-        .map(payload => normalize(payload, [deliverySchema]))
+        .map(payload => {
+          console.log(payload);
+          console.log(normalize(payload, [deliverySchema]));
+          return normalize(payload, [deliverySchema]);
+        })
         .map(payload => new delivery.LoadSuccessAction(payload))
         .catch(error => of(new delivery.LoadFailAction(error)))
     );

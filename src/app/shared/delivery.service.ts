@@ -34,7 +34,7 @@ export class DeliveryService {
 
   createYardDelivery(yard: Yard): YardDelivery {
     let newYardDelivery = new YardDelivery();
-    newYardDelivery.yard = yard;
+    newYardDelivery.yardName = yard.name;
     return newYardDelivery;
   }
 

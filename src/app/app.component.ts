@@ -94,67 +94,67 @@ export class AppComponent {
         { id: 1, friendly: "Yard 1", actionType: FILTER_LOCATION, payload: "Yard 1" },
         { id: 2, friendly: "Yard 2", actionType: FILTER_LOCATION, payload: "Yard 2" },
         { id: 3, friendly: "Yard 3", actionType: FILTER_LOCATION, payload: "Yard 3" }],
-    selectedFilterId: 0
-  };
+      selectedFilterId: 0
+    };
     this.store.dispatch(new filter.LoadSuccessAction(locationPayload));
 
-this.model$ = Observable.combineLatest(
-  this.store.select(fromRoot.getFilterGroups),
-  (filterGroups) => {
-    return {
-      filterGroups
+    this.model$ = Observable.combineLatest(
+      this.store.select(fromRoot.getFilterGroups),
+      (filterGroups) => {
+        return {
+          filterGroups
+        }
+      });
+  }
+
+  ngOnInit() {
+    this.filtersVisible = true;
+  }
+
+  createDelivery(): void {
+    this.selectDelivery();
+    this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
+    this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
+  }
+
+  openSidenav(): void {
+    this.sidenav.open();
+  }
+
+  toggleFilterBar(): void {
+    this.filtersVisible = !this.filtersVisible;
+  }
+
+  removeDelivery(delivery: Delivery) {
+    this.selectDelivery();
+    if (delivery.id) {
+      this.deliveryService.removeDelivery(delivery)
+        .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
     }
-  });
+    else {
+      this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
+    }
   }
 
-ngOnInit() {
-  this.filtersVisible = true;
-}
-
-createDelivery(): void {
-  this.selectDelivery();
-  this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
-  this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
-}
-
-openSidenav(): void {
-  this.sidenav.open();
-}
-
-toggleFilterBar(): void {
-  this.filtersVisible = !this.filtersVisible;
-}
-
-removeDelivery(delivery: Delivery) {
-  this.selectDelivery();
-  if (delivery.id) {
-    this.deliveryService.removeDelivery(delivery)
-      .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
+  /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
+  selectDelivery(delivery?: Delivery) {
+    this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
   }
-  else {
-    this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
+
+
+  updateFilter(filterGroup) {
+    // this.selectDelivery();
+    // this.store.dispatch({
+    //   type: SELECT_FILTER,
+    //   payload: { type: filterGroup.type, selectedFilterId: filterGroup.selectedFilterId }
+    // });
+    const filter = filterGroup.filterEntities[filterGroup.selectedFilterId];
+    this.store.dispatch({ type: filter.actionType, payload: filter.payload });
   }
-}
 
-/*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
-selectDelivery(delivery ?: Delivery) {
-  this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
-}
-
-
-updateFilter(filterGroup) {
-  // this.selectDelivery();
-  // this.store.dispatch({
-  //   type: SELECT_FILTER,
-  //   payload: { type: filterGroup.type, selectedFilterId: filterGroup.selectedFilterId }
-  // });
-  const filter = filterGroup.filterEntities[filterGroup.selectedFilterId];
-  this.store.dispatch({ type: filter.actionType, payload: filter.payload });
-}
-
-updateYardFilter(yard: Yard) {
-  this.selectDelivery();
-  this.store.dispatch({ type: SELECT_YARD, payload: yard });
-  this.store.dispatch({ type: FILTER_LOCATION, payload: yard });
-}
+  updateYardFilter(yard: Yard) {
+    this.selectDelivery();
+    this.store.dispatch({ type: SELECT_YARD, payload: yard });
+    this.store.dispatch({ type: FILTER_LOCATION, payload: yard });
+  }
 }

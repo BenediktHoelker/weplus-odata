@@ -1,18 +1,18 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Status } from '../models/status.model';
+import { Delivery } from '../models/delivery.model';
 
 @Component({
   selector: 'wp-status-line',
   template: `
     <h3 md-subheader>Factory</h3>
-    <md-list-item *ngIf="status">
+    <md-list-item *ngIf="delivery">
       <div md-line class="flex-container" fxLayout="row">
-        <md-checkbox [(ngModel)]="status.isRegistered"
-          (change)="toggleCheckbox.emit(status)">
+        <md-checkbox [(ngModel)]="delivery.isRegistered"
+          (change)="toggleCheckbox.emit(delivery)">
           <span>Registered</span>
         </md-checkbox>
-        <md-checkbox [(ngModel)]="status.isProcessed"
-          (change)="toggleCheckbox.emit(status)">
+        <md-checkbox [(ngModel)]="delivery.isProcessed"
+          (change)="toggleCheckbox.emit(delivery)">
           <span>Processed</span>
         </md-checkbox>
       </div>
@@ -20,14 +20,6 @@ import { Status } from '../models/status.model';
   `,
 })
 export class StatusLineComponent {
-  @Input() status: Status;
-  @Output() toggleCheckbox = new EventEmitter<Status>();
-
-  get processingMessage(){
-    return this.status.processingMessage;
-  }
-
-  get registrationMessage(){
-    return this.status.registrationMessage;
-  }
+  @Input() delivery: Delivery;
+  @Output() toggleCheckbox = new EventEmitter<Delivery>();
 }

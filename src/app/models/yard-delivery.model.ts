@@ -4,10 +4,12 @@ import { Status } from './status.model';
 export class YardDelivery {
     id: number;
     yardName: string;
+    isProcessed: boolean;
+    isRegistered: boolean;
     quantity: number;
     status: Status;
 
-    constructor(){
+    constructor() {
         this.status = new Status();
         this.quantity = 0;
     }

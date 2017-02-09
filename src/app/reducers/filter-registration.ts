@@ -8,10 +8,10 @@ export function reducer(state = delivery => delivery, action: Action){
       return delivery => delivery;
 
     case SHOW_REGISTERED:
-      return delivery => delivery.status.isRegistered;
+      return delivery => delivery.isRegistered;
 
     case SHOW_NOT_REGISTERED:
-      return delivery => !delivery.status.isRegistered;
+      return delivery => !delivery.isRegistered;
 
     default:
       return state;
