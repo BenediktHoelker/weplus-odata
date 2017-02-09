@@ -2,7 +2,7 @@
   <wp-toolbar (openList)=openSidenav()></wp-toolbar>
   <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
   <wp-filter-bar *ngIf="filtersVisible"
-    [filterGroups]="(model | async)?.filterGroups"
+    [filterGroups]="(model$ | async)?.filterGroups"
     [selectedYard]="(model | async)?.selectedYard"
     [yards]="(model | async)?.yards" 
     (updateFilter)="updateFilter($event)"

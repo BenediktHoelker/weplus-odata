@@ -2,13 +2,13 @@ import { Action } from '@ngrx/store';
 import { type } from '../util';
 
 export const ActionTypes = {
-  LOAD: type('[DeviationTypes] Load'),
-  LOAD_SUCCESS: type('[DeviationTypes] Load Success'),
-  LOAD_FAIL: type('[DeviationTypes] Load Fail'),
+  LOAD: type('[Filters] Load'),
+  LOAD_SUCCESS: type('[Filters] Load Success'),
+  LOAD_FAIL: type('[Filters] Load Fail')
 };
 
 /**
- * Load DeviationType Actions
+ * Load Filter Actions
  */
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
@@ -19,7 +19,7 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: { entities: any, result: any }) { }
+  constructor(public payload: { filterEntities: any, result: any }) { }
 }
 
 export class LoadFailAction implements Action {

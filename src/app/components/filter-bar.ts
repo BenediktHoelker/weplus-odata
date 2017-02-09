@@ -18,11 +18,11 @@ import { Yard } from '../models/yard.model';
         [(ngModel)]="selectedYard" (ngModelChange)="updateYardFilter.emit(selectedYard)">
         <md-option *ngFor="let yard of yards" [value]="yard">{{yard.name}}</md-option>
       </md-select>
-      <md-select *ngFor="let filterGroup of filterGroups" placeholder={{filterGroup.type}}
+      <md-select *ngFor="let filterGroup of filterGroups" placeholder={{filterGroup.name}}
         [(ngModel)]="filterGroup.selectedFilterId"
-        (ngModelChange)="updateFilter.emit(filterGroup)">
-        <md-option *ngFor="let filter of filterGroup.filters"
-          [value]="filter._id">{{filter.friendly}}</md-option>
+        (ngModelChange)="updateFilter.emit(filter)">
+        <md-option *ngFor="let filter of filterGroup.filterEntities"
+          [value]="filter.id">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>  
   `
@@ -34,4 +34,8 @@ export class FilterBarComponent {
 
   @Output() updateFilter: EventEmitter<any> = new EventEmitter();
   @Output() updateYardFilter: EventEmitter<any> = new EventEmitter();
+
+  ngOnChanges(){
+    console.log(this.filterGroups);
+  }
 }

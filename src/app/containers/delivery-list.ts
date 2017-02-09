@@ -12,15 +12,25 @@ import { Delivery } from '../models/delivery.model';
   selector: 'wp-delivery-list',
   template: `
     <wp-sidenav-delivery-list 
-      [deliveries]="deliveries$ | async"
+      [deliveries]="(model$ | async)?.deliveries"
       (selectDelivery)="selectDelivery($event)"></wp-sidenav-delivery-list>
   `
 })
 export class DeliveryListComponent {
-  deliveries$: Observable<Delivery[]>;
+  private model$: Observable<any>;
 
   constructor(private store: Store<fromRoot.State>) {
-    this.deliveries$ = store.select(fromRoot.getDeliveryArray);
+    this.model$ = Observable.combineLatest(
+      this.store.select(fromRoot.getDeliveryArray),
+      (deliveries) => {
+        return {
+          deliveries: deliveries
+            // .filter(deviationFilter.expression)
+            // .filter(processingFilter.expression)
+            // .filter(registrationFilter.expression)
+            // .filter(yardFilter.expression)
+        }
+      });
   }
 
   selectDelivery(deliveryId: number): void {

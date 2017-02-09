@@ -1,5 +1,6 @@
 import { schema } from 'normalizr';
 
+export const filterSchema = new schema.Entity('filters');
 export const statusSchema = new schema.Entity('status');
 export const yardSchema = new schema.Entity('yards');
 export const deviationTypeSchema = new schema.Entity('deviationTypes');

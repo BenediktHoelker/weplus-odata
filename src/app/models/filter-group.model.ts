@@ -1,7 +1,8 @@
 import { Filter } from './filter.model';
 
 export class FilterGroup {
-  type: string;
-  filters: Filter[];
+  name: string;
+  ids: string[];
+  filterEntities: Filter[];
   selectedFilterId: number;
 }

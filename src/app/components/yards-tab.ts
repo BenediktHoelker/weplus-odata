@@ -4,8 +4,8 @@ import { YardDelivery } from '../models/yard-delivery.model';
 @Component({
   selector: 'wp-yards-tab',
   template: `
-    <div class="flex-container" fxLayout="column" *ngIf="yardDeliveries.length">
-      <div *ngFor="let yardDelivery of yardDeliveries">
+    <div *ngIf="yardDeliveries.length">
+      <div *ngFor="let yardDelivery of yardDeliveries" class="flex-container" fxLayout="column" >
         <md-input-container *ngIf="yardDelivery">
           <input mdInput class="form-control" type="number"
             [min]="0" 

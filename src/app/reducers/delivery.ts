@@ -67,19 +67,6 @@ function addYardDelivery(state: State, action) {
   }
 }
 
-function fetchDeliveries(state: State, action) {
-  const deliveryIds = action.payload.result;
-  const deliveryEntities = action.payload.entities.deliveries;
-
-  return {
-    loaded: state.loaded,
-    loading: state.loading,
-    ids: [...state.ids, ...deliveryIds],
-    entities: Object.assign({}, deliveryEntities),
-    selectedDeliveryId: state.selectedDeliveryId || deliveryIds[0]
-  }
-}
-
 function load(state: State, action) {
   return Object.assign({}, state, {
     loading: true

@@ -28,6 +28,7 @@ import * as fromRoot from './reducers';
 import * as delivery from './actions/delivery';
 import * as deviation from './actions/deviation';
 import * as deviationTypes from './actions/deviation-type';
+import * as filter from './actions/filter';
 import * as status from './actions/status';
 import * as yardDelivery from './actions/yard-delivery';
 import * as yard from './actions/yard';
@@ -42,16 +43,46 @@ export class AppComponent {
   @ViewChild(DeliveryDetailComponent) private detailComponent: DeliveryDetailComponent;
   @ViewChild('sidenav') sidenav: MdSidenav;
 
-  public model;
   private filtersVisible: boolean;
   private isLoading: boolean;
   private subscription;
   private yardDeliveries = [];
+  private model$: Observable<any>;
 
   constructor(
     private deliveryService: DeliveryService,
     private store: Store<fromRoot.State>
-  ) { }
+  ) {
+    let payload = {
+      result: [0, 1, 2],
+      name: "Processing",
+      filterEntities: [
+        { id: 0, friendly: "All", actionType: SHOW_ALL_P },
+        { id: 1, friendly: "Processed", actionType: SHOW_PROCESSED },
+        { id: 2, friendly: "Not Processed", actionType: SHOW_NOT_PROCESSED }],
+      selectedFilterId: 0
+    };
+    this.store.dispatch(new filter.LoadSuccessAction(payload));
+
+    payload = {
+      result: [0, 1, 2],
+      name: "Registration",
+      filterEntities: [
+        { id: 0, friendly: "All", actionType: SHOW_ALL_R },
+        { id: 1, friendly: "Registered", actionType: SHOW_REGISTERED },
+        { id: 2, friendly: "Not Registered", actionType: SHOW_NOT_REGISTERED }],
+      selectedFilterId: 0
+    };
+    this.store.dispatch(new filter.LoadSuccessAction(payload));
+
+    this.model$ = Observable.combineLatest(
+      this.store.select(fromRoot.getFilterGroups),
+      (filterGroups) => {
+        return {
+          filterGroups
+        }
+      });
+  }
 
   ngOnInit() {
     this.filtersVisible = true;
