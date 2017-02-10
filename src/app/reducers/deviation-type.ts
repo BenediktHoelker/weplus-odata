@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 
-import { DeviationType } from '../models/deviation-type.model';
+import { DeviationType } from '../models/deviation-type';
 import * as deviationType from '../actions/deviation-type';
 
 export interface State {

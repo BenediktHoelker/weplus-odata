@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { DeviationType } from '../models/deviation-type.model';
-import { FilterGroup } from '../models/filter-group.model';
-import { Yard } from '../models/yard.model';
+import { DeviationType } from '../models/deviation-type';
+import { FilterGroup } from '../models/filter-group';
+import { Yard } from '../models/yard';
 
 @Component({
   selector: 'wp-filter-bar',

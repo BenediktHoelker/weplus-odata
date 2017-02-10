@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Delivery } from '../models/delivery.model';
-import { Deviation } from '../models/deviation.model';
-import { DeviationType } from '../models/deviation-type.model';
+import { Delivery } from '../models/delivery';
+import { Deviation } from '../models/deviation';
+import { DeviationType } from '../models/deviation-type';
 
 import * as fromRoot from '../reducers';
 import * as deviation from '../actions/deviation';

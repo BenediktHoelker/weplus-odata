@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 
-import { Yard } from '../models/yard.model';
+import { Yard } from '../models/yard';
 import * as yard from '../actions/yard';
 
 export interface State {

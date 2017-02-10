@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Delivery } from '../models/delivery.model';
+import { Delivery } from '../models/delivery';
 import { type } from '../util';
 
 /**

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Deviation } from '../models/deviation.model';
+import { Deviation } from '../models/deviation';
 import { type } from '../util';
 
 export const ActionTypes = {

@@ -1,4 +1,4 @@
-import { Filter } from './filter.model';
+import { Filter } from './filter';
 
 export class FilterGroup {
   name: string;

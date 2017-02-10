@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Delivery } from '../models/delivery.model';
+import { Delivery } from '../models/delivery';
 
 import * as fromRoot from '../reducers';
 import * as delivery from '../actions/delivery';

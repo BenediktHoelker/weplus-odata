@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Delivery } from '../models/delivery.model';
+import { Delivery } from '../models/delivery';
 
 @Component({
   selector: 'wp-details-actions',

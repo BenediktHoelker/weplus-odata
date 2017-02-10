@@ -38,9 +38,7 @@ import { DeviationsTabComponent } from './containers/deviations-tab';
 import { DeliveryEffects } from './effects/deliveries';
 import { DeviationTypeEffects } from './effects/deviation-types';
 import { DeviationEffects } from './effects/deviations';
-import { StatusEffects } from './effects/status';
 import { YardEffects } from './effects/yards';
-import { YardDeliveryEffects } from './effects/yard-deliveries';
 
 
 @NgModule({
@@ -50,8 +48,6 @@ import { YardDeliveryEffects } from './effects/yard-deliveries';
     EffectsModule.run(DeliveryEffects),
     EffectsModule.run(DeviationTypeEffects),
     EffectsModule.run(DeviationEffects),
-    EffectsModule.run(StatusEffects),
-    EffectsModule.run(YardDeliveryEffects),
     EffectsModule.run(YardEffects),
     FlexLayoutModule.forRoot(),
     FormsModule,

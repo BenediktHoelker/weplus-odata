@@ -6,8 +6,6 @@ import { deliverySchema } from '../models/schemas';
 
 import * as fromRoot from '../reducers';
 import * as delivery from '../actions/delivery';
-import { YardDelivery } from '../models/yard-delivery.model';
-import { Delivery } from '../models/delivery.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,12 +24,11 @@ export class DeliveryListComponent {
       this.store.select(fromRoot.getDeliveryArray),
       this.store.select(fromRoot.getDeviationEntities),
       this.store.select(fromRoot.getDeviationTypeEntities),
-      this.store.select(fromRoot.getYardDeliveryEntities),
       this.store.select(fromRoot.getYardEntities),
       this.store.select(s => s.appliedFilters),
-      (deliveries, deviations, deviationTypes, yardDeliveries, yards, appliedFilters) => {
+      (deliveries, deviations, deviationTypes, yards, appliedFilters) => {
         const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], { 
-            deliveries, deviations, deviationTypes, yardDeliveries, yards });
+            deliveries, deviations, deviationTypes, yards });
         return {
           deliveries: denormalizedDeliveries
           .filter(appliedFilters.processing)

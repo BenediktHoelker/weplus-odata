@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { type } from '../util';
-import { Filter } from '../models/filter.model';
 
 export const ActionTypes = {
   LOAD: type('[Filters] Load'),

@@ -1,18 +1,14 @@
 import { Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 
-import { Filter } from '../models/filter.model';
-import { FilterGroup } from '../models/filter-group.model';
+import { Filter } from '../models/filter';
+import { FilterGroup } from '../models/filter-group';
 import * as filter from '../actions/filter';
 
 export interface State {
   loaded: boolean,
   loading: boolean,
   filterGroups: FilterGroup[];
-  // ids: string[],
-  // filterEntities: {},
-  // name: string,
-  // selectedFilterId: number | null;
 };
 
 const initialState: State = {
@@ -43,9 +39,6 @@ function loadSuccess(state: State, action) {
   }
 }
 
-// Object.assign({}, state.filterGroups, {
-//       
-
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case filter.ActionTypes.LOAD: return load(state, action);
@@ -61,23 +54,6 @@ export const getFilterIds = (state: State) => state.filterGroups.map(filterGroup
   return filterGroup.ids;
 });
 
-// export const getFilterEntities = (state: State) => state.filterGroups.map(filterGroup => {
-//   return filterGroup.filterEntities.reduce((previous, current) => {
-//     return previous.concat(current);
-//   }, []);
-// });
-
-// export const getFilterEntities = (state: State) => state.filterGroups.map(filterGroup => {
-//   let filterArray = [];
-//   filterGroup.filterEntities.map(filterEntity => {
-//     console.log(filterEntity);
-//     filterArray.push(filterEntity);
-//   });
-// console.log(filterArray);
-//   return filterArray;
-// });
-
-
 export const getFilterEntities = (state: State) => state.filterGroups.reduce((previous, current) => {
   return previous.concat(current.filterEntities);
 }, []);
@@ -87,6 +63,5 @@ export const getSelectedFilterIds = (state: State) => state.filterGroups.map(fil
 });
 
 export const getSelectedFilters = createSelector(getFilterEntities, getSelectedFilterIds, (entities, selectedIds) => {
-  console.log(getFilterEntities);
   return selectedIds.map(id => entities[id]);
 });

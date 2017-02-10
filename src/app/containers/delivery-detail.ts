@@ -5,17 +5,13 @@ import { denormalize } from 'normalizr';
 import { deliverySchema } from '../models/schemas';
 import { of } from 'rxjs/observable/of';
 
-import { Delivery } from '../models/delivery.model';
-import { Deviation } from '../models/deviation.model';
-import { DeviationType } from '../models/deviation-type.model';
-import { Status } from '../models/status.model';
+import { Delivery } from '../models/delivery';
 
 import { DeliveryService } from '../shared/delivery.service';
 
 import * as fromRoot from '../reducers';
 import * as delivery from '../actions/delivery';
 import * as deviation from '../actions/deviation';
-import * as yardDelivery from '../actions/yard-delivery';
 
 @Component({
   selector: 'wp-delivery-detail',
@@ -29,7 +25,7 @@ import * as yardDelivery from '../actions/yard-delivery';
             <md-tab label="Status">
               <wp-status-tab 
                 [delivery]="(model | async)?.selectedDelivery"
-                [yardDeliveries]="(model | async)?.yardDeliveries"></wp-status-tab>
+                [yardDeliveries]="(model | async)?.activeYardDeliveries"></wp-status-tab>
             </md-tab>
             <md-tab label="Yards">
               <wp-yards-tab [yardDeliveries]="(model | async)?.yardDeliveries"
@@ -80,12 +76,14 @@ export class DeliveryDetailComponent {
       this.store.select(fromRoot.getSelectedDelivery),
       this.store.select(fromRoot.getSelectedDeliveryDeviations),
       this.store.select(fromRoot.getSelectedDeliveryYardDeliveries),
-      (deviationTypes, selectedDelivery, deviations, yardDeliveries) => {
+      this.store.select(fromRoot.getSelectedDeliveryActiveYardDeliveries),
+      (deviationTypes, selectedDelivery, deviations, yardDeliveries, activeYardDeliveries) => {
         return {
           deviationTypes: deviationTypes,
           selectedDelivery: selectedDelivery,
           deviations: deviations,
-          yardDeliveries: yardDeliveries
+          yardDeliveries: yardDeliveries,
+          activeYardDeliveries: activeYardDeliveries
         }
       });
 
@@ -94,7 +92,6 @@ export class DeliveryDetailComponent {
       this.store.select(fromRoot.getDeviationEntities),
       this.store.select(fromRoot.getDeviationTypeEntities),
       this.store.select(fromRoot.getSelectedDelivery),
-      this.store.select(fromRoot.getStatusEntities),
       this.store.select(fromRoot.getYardEntities),
       (deliveries, deviations, deviationTypes, selectedDelivery, yards) => {
         return {
@@ -115,9 +112,14 @@ export class DeliveryDetailComponent {
     this.store.dispatch(new deviation.AddDeviationAction(payload));
   }
 
+  createDelivery(payload: Delivery): void {
+    this.store.dispatch(new delivery.CreateDeliveryAction(payload));
+  }
+
   submitDelivery() {
     this.updateModel.subscribe(
       (entities) => {
+        // console.log(entities);
         const delivery = denormalize(entities.selectedDelivery, deliverySchema, entities);
         this.deliveryService.submitDelivery(delivery).subscribe(delivery => console.log(delivery));
       },

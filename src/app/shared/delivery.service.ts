@@ -3,19 +3,16 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { Delivery } from '../models/delivery.model';
-import { deliverySchema, statusSchema } from '../models/schemas';
+import { deliverySchema } from '../models/schemas';
 
-import { Deviation } from '../models/deviation.model';
-import { DeviationType } from '../models/deviation-type.model';
-import { Status } from '../models/status.model';
-import { Yard } from '../models/yard.model';
-import { YardDelivery } from '../models/yard-delivery.model';
+import { Delivery } from '../models/delivery';
+import { Deviation } from '../models/deviation';
+import { DeviationType } from '../models/deviation-type';
+import { Yard } from '../models/yard';
 
 const deliveriesUrl = 'http://localhost:3000/api/deliveries';
 const deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
 const yardsUrl = 'http://localhost:3000/api/yards';
-const statusUrl = 'http://localhost:3000/api/statusses';
 
 // const deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
 // const deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
@@ -32,8 +29,8 @@ export class DeliveryService {
     return new Headers({ 'Content-Type': contentType });
   }
 
-  createYardDelivery(yard: Yard): YardDelivery {
-    let newYardDelivery = new YardDelivery();
+  createYardDelivery(yard: Yard): Delivery {
+    let newYardDelivery = new Delivery();
     newYardDelivery.yardName = yard.name;
     return newYardDelivery;
   }
@@ -55,12 +52,6 @@ export class DeliveryService {
   getDeviationTypes(): Observable<DeviationType[]> {
     return this.http.get(deviationTypesUrl)
       .map(res => res.json() as DeviationType[])
-      .catch(this.handleError);
-  }
-
-  getStatusses(): Observable<Status[]> {
-    return this.http.get(statusUrl)
-      .map(res => res.json())
       .catch(this.handleError);
   }
 

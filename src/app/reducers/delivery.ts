@@ -2,9 +2,8 @@ import { Action } from '@ngrx/store';
 import { createSelector } from 'reselect';
 
 import { deliverySchema } from '../models/schemas';
-import { Delivery } from '../models/delivery.model';
+import { Delivery } from '../models/delivery';
 import * as delivery from '../actions/delivery';
-import * as yardDelivery from '../actions/yard-delivery';
 import * as deviation from '../actions/deviation';
 
 import {
@@ -137,7 +136,6 @@ function updateDelivery(state: State, action) {
 export function reducer(state = initialState, action): State {
   switch (action.type) {
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
-    case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
     case delivery.ActionTypes.LOAD: return load(state, action);
     case delivery.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
     case deviation.ActionTypes.REMOVE_DEVIATION: return removeDeviation(state, action);

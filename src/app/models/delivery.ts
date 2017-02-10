@@ -1,6 +1,4 @@
-import { Deviation } from './deviation.model';
-import { Status } from './status.model';
-import { YardDelivery } from './yard-delivery.model';
+import { Deviation } from './deviation';
 import * as moment from 'moment';
 
 export class Delivery {
@@ -17,6 +15,8 @@ export class Delivery {
   isRegistered: boolean;
   timestampProcessing: moment.Moment;
   timestampRegistration: moment.Moment;
+
+  yardName: string;
 
   get activeYardDeliveries(): Delivery[] {
     return this.yardDeliveries.filter(yardDelivery => yardDelivery.quantity >> 0);

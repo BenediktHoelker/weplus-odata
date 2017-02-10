@@ -5,8 +5,6 @@
   <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
   <wp-filter-bar *ngIf="filtersVisible"
     [filterGroups]="(model$ | async)?.filterGroups"
-    [selectedYard]="(model | async)?.selectedYard"
-    [yards]="(model | async)?.yards" 
     (updateFilter)="updateFilter($event)"
     (updateYardFilter)="updateYardFilter($event)"></wp-filter-bar>
   <md-sidenav #sidenav mode="push">

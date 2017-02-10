@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../reducers';
-import { YardDelivery } from '../models/yard-delivery.model';
-import { Delivery } from '../models/delivery.model';
+import { Delivery } from '../models/delivery';
 
 @Component({
   selector: 'wp-sidenav-delivery-list',

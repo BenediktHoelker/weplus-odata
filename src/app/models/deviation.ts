@@ -1,4 +1,4 @@
-import { DeviationType } from './deviation-type.model';
+import { DeviationType } from './deviation-type';
 
 export class Deviation {
     id: number;

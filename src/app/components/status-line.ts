@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Delivery } from '../models/delivery.model';
+import { Delivery } from '../models/delivery';
 
 @Component({
   selector: 'wp-status-line',
   template: `
-    <h3 md-subheader>Factory</h3>
+    <h3 md-subheader>{{delivery.yardName || "Factory"}} </h3>
     <md-list-item *ngIf="delivery">
       <div md-line class="flex-container" fxLayout="row">
         <md-checkbox [(ngModel)]="delivery.isRegistered"
