@@ -40,6 +40,7 @@ import { DeviationsTabComponent } from './containers/deviations-tab';
 import { DeliveryEffects } from './effects/deliveries';
 import { DeviationTypeEffects } from './effects/deviation-types';
 import { DeviationEffects } from './effects/deviations';
+import { YardDeliveryEffects } from './effects/yard-deliveries';
 import { YardEffects } from './effects/yards';
 
 
@@ -50,6 +51,7 @@ import { YardEffects } from './effects/yards';
     EffectsModule.run(DeliveryEffects),
     EffectsModule.run(DeviationTypeEffects),
     EffectsModule.run(DeviationEffects),
+    EffectsModule.run(YardDeliveryEffects),
     EffectsModule.run(YardEffects),
     FlexLayoutModule.forRoot(),
     FormsModule,

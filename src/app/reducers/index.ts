@@ -36,6 +36,7 @@ import * as fromDeviations from './deviation';
 import * as fromDeviationTypes from './deviation-type';
 import * as fromFilters from './filter';
 import * as fromYards from './yard';
+import * as fromYardDeliveries from './yard-delivery';
 
 import * as fromProcessingFilter from './filter-processing';
 import * as fromRegistrationFilter from './filter-registration';
@@ -53,6 +54,7 @@ export interface State {
   deviations: fromDeviations.State;
   deviationTypes: fromDeviationTypes.State;
   yards: fromYards.State;
+  yardDeliveries: fromYardDeliveries.State;
   filters: fromFilters.State;
   appliedFilters: any;
   layout: fromLayout.State;
@@ -79,6 +81,7 @@ const reducers = {
   deviations: fromDeviations.reducer,
   deviationTypes: fromDeviationTypes.reducer,
   yards: fromYards.reducer,
+  yardDeliveries: fromYardDeliveries.reducer,
   filters: fromFilters.reducer,
   appliedFilters: combineReducers(appliedFilterReducers),
   layout: fromLayout.reducer
@@ -146,7 +149,9 @@ export const getSelectedDeliveryDeviations = createSelector(getDeviationEntities
 /**
  * YardDelivery Selectors
 */
-export const getSelectedDeliveryYardDeliveries = createSelector(getDeliveryEntities, getSelectedDelivery,
+export const getYardDeliveriesState = (state: State) => state.yardDeliveries;
+export const getYardDeliveryEntities = createSelector(getYardDeliveriesState, fromYardDeliveries.getEntities);
+export const getSelectedDeliveryYardDeliveries = createSelector(getYardDeliveryEntities, getSelectedDelivery,
   (yardDeliveryEntities, selectedDelivery) => {
     return selectedDelivery
       ? selectedDelivery.yardDeliveries.map(id => yardDeliveryEntities[id])
