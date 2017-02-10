@@ -91,17 +91,17 @@ export class DeliveryDetailComponent {
       });
 
     this.updateModel = Observable.combineLatest(
-      this.store.select(fromRoot.getDeliveryEntities),
       this.store.select(fromRoot.getDeviationEntities),
       this.store.select(fromRoot.getDeviationTypeEntities),
       this.store.select(fromRoot.getSelectedDelivery),
+      this.store.select(fromRoot.getYardDeliveryEntities),
       this.store.select(fromRoot.getYardEntities),
-      (deliveries, deviations, deviationTypes, selectedDelivery, yards) => {
+      (deviations, deviationTypes, selectedDelivery, yardDeliveries, yards) => {
         return {
-          deliveries: deliveries,
           deviations: deviations,
           deviationTypes: deviationTypes,
           selectedDelivery: selectedDelivery,
+          yardDeliveries: yardDeliveries,
           yards: yards
         }
       })

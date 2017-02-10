@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import * as delivery from '../actions/delivery';
 import * as yardDelivery from '../actions/yard-delivery';
 
 export interface State {
@@ -23,6 +24,17 @@ function addYardDelivery(state: State, action) {
     loaded: state.loaded,
     loading: state.loading,
     entities: Object.assign({}, state.entities, { [yardDeliveryId]: yardDelivery })
+  }
+}
+
+function createDeliverySuccess(state: State, action) {
+  const deliveryId = action.payload.result;
+  const yardDeliveryEntities = action.payload.entities.yardDeliveries;
+  
+  return {
+    loaded: true,
+    loading: false,
+    entities: Object.assign({}, state.entities, yardDeliveryEntities)
   }
 }
 
@@ -55,6 +67,7 @@ function loadSuccess(state: State, action) {
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
+    case delivery.ActionTypes.CREATE_DELIVERY_SUCCESS: return createDeliverySuccess(state, action);
     case yardDelivery.ActionTypes.LOAD: return load(state, action);
     case yardDelivery.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
 
