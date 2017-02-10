@@ -1,25 +1,20 @@
-<md-sidenav-container class="my-container">
-  <wp-toolbar 
-    (openList)=openSidenav()
-    (toggleFilterBar)=toggleFilterBar()></wp-toolbar>
-  <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
-  <wp-filter-bar *ngIf="filtersVisible"
-    [filterGroups]="(model$ | async)?.filterGroups"
-    (updateFilter)="updateFilter($event)"
-    (updateYardFilter)="updateYardFilter($event)"></wp-filter-bar>
-  <md-sidenav #sidenav mode="push">
-    <wp-delivery-list 
-      (selected)="selectDelivery($event)"></wp-delivery-list>
-  </md-sidenav>
-  <div class="app-content">
-    <wp-delivery-detail></wp-delivery-detail>
+<wp-toolbar (openList)=toggleSidenav() (toggleFilterBar)=toggleFilterBar()></wp-toolbar>
+<md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
+<wp-filter-bar *ngIf="filtersVisible" [filterGroups]="(model$ | async)?.filterGroups"
+  (updateFilter)="updateFilter($event)" (updateYardFilter)="updateYardFilter($event)"></wp-filter-bar>
+  <md-sidenav-container class="my-container">
+    <md-sidenav #sidenav mode="side">
+      <wp-delivery-list (selected)="selectDelivery($event)"></wp-delivery-list>
+    </md-sidenav>
+    <div class="app-content">
+      <wp-delivery-detail></wp-delivery-detail>
       <!--[delivery]="(model | async)?.selectedDelivery"
       [deliveries]="(model | async)?.deliveries"
       [deviationTypes]="(model | async)?.deviationTypes"
       (updateDelivery)="updateDelivery($event)"
       (removeDelivery)="removeDelivery($event)"></wp-delivery-detail>-->
-  </div>
-</md-sidenav-container>
-<span class="app-action" (click)="createDelivery()">
+    </div>
+  </md-sidenav-container>
+  <span class="app-action" (click)="createDelivery()">
   <button md-fab><md-icon>add circle</md-icon></button>
 </span>

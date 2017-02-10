@@ -23,7 +23,6 @@ import * as deviation from './actions/deviation';
 import * as deviationTypes from './actions/deviation-type';
 import * as filter from './actions/filter';
 import * as filterSeeds from './filter-seeds';
-import * as yardDelivery from './actions/yard-delivery';
 import * as yard from './actions/yard';
 
 @Component({
@@ -68,8 +67,8 @@ export class AppComponent {
   //   this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
   // }
 
-  openSidenav(): void {
-    this.sidenav.open();
+  toggleSidenav(): void {
+    this.sidenav.toggle();
   }
 
   toggleFilterBar(): void {
