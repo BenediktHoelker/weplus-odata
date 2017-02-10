@@ -68,10 +68,11 @@ export class DeliveryService {
       .catch(this.handleError);
   }
 
-  removeDelivery(deliveryToBeRemoved: Delivery): Observable<Delivery> {
+  removeDelivery(deliveryId: number): Observable<Delivery> {
+    console.log(deliveryId);
     let params = new URLSearchParams();
     let headers = new Headers();
-    params.set('_id', deliveryToBeRemoved.id.toString());
+    params.set('_id', deliveryId.toString());
     headers.append('Content-Type', 'x-www-form-encoded');
 
     let options = this.createRequestOptions(headers, params)

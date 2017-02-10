@@ -18,7 +18,7 @@ import * as deviation from '../actions/deviation';
   template: `
     <md-card *ngIf="(model | async)?.selectedDelivery">
       <md-card-title>{{(model | async)?.selectedDelivery.carrier || "New Delivery"}}</md-card-title>
-      <form (ngSubmit)="submitDelivery()"
+      <form (ngSubmit)="submitDelivery(updateModel)"
         #deliveryDetailForm="ngForm">
         <md-card-content>
           <md-tab-group [selectedIndex]="selectedTabIndex">
@@ -115,18 +115,17 @@ export class DeliveryDetailComponent {
     this.store.dispatch(new deviation.AddDeviationAction(payload));
   }
 
-  submitDelivery() {
-    this.updateModel.subscribe(
-      (entities) => {
-        // console.log(entities);
-        const delivery = denormalize(entities.selectedDelivery, deliverySchema, entities);
-        this.deliveryService.submitDelivery(delivery).subscribe(delivery => console.log(delivery));
-      },
-      (err) => console.log(err),
-      () => {});
+  removeDelivery(deliveryId: number) {
+    this.store.dispatch(new delivery.RemoveAction(deliveryId));
+  }
+
+  submitDelivery(obs: Observable<any>): void {
+    obs.take(1).subscribe(value => {
+      this.store.dispatch(new delivery.SubmitAction(value));
+    });
   }
 
   updateDelivery(payload: Delivery): void {
-    this.store.dispatch(new delivery.UpdateDeliveryAction(payload));
+    this.store.dispatch(new delivery.UpdateAction(payload));
   }
 }

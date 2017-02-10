@@ -50,51 +50,52 @@ export class AppComponent {
 
     this.model$ = Observable.combineLatest(
       this.store.select(fromRoot.getFilterGroups),
-      this.store.select(fromRoot.getDeliveryArray),
+      this.store.select(fromRoot.getDeliveryEntities),
       this.store.select(fromRoot.getDeviationEntities),
       this.store.select(fromRoot.getDeviationTypeEntities),
+      this.store.select(fromRoot.getYardEntities),
+      this.store.select(fromRoot.getDeliveryArray),
       this.store.select(fromRoot.getShowSidenav),
       this.store.select(fromRoot.getShowFilterbar),
-      this.store.select(fromRoot.getYardEntities),
       this.store.select(s => s.appliedFilters),
-      (filterGroups, deliveries, deviations, deviationTypes, yards, showSidenav, showFilterbar, appliedFilters) => {
-        const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], {
-          deliveries, deviations, deviationTypes, yards
-        });
-        return {
-          filterGroups: filterGroups,
-          deliveries: denormalizedDeliveries
-            .filter(appliedFilters.processing)
-            .filter(appliedFilters.registration)
-            .filter(appliedFilters.deviation)
-            .filter(appliedFilters.location),
-          showSidenav: showSidenav,
-          showFilterbar: showFilterbar
+      (filterGroups, deliveryEntities, deviations, deviationTypes, yards, deliveries, showSidenav, showFilterbar, appliedFilters) => {
+        console.log(deliveryEntities);
+        console.log(deliveries);
+        console.log(deviations);
+        console.log(deviationTypes);
+        console.log(yards);
+        try {
+          const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], {
+             deliveries, deliveryEntities, deviations, deviationTypes, yards
+          });
+        console.log(denormalizedDeliveries);
+          
+          return {
+            filterGroups: filterGroups,
+            deliveries: denormalizedDeliveries
+              .filter(appliedFilters.processing)
+              .filter(appliedFilters.registration)
+              .filter(appliedFilters.deviation)
+              .filter(appliedFilters.location),
+            showSidenav: showSidenav,
+            showFilterbar: showFilterbar
+          }
+        }
+        catch(err){
+          console.log(err);
         }
       });
   }
 
   createDelivery(): void {
     this.store.dispatch(new delivery.CreateAction());
-    // this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
   }
 
   toggleFilterbar(): void {
     this.store.dispatch(new layout.ToggleFilterbarAction());
   }
 
-  removeDelivery(delivery: Delivery) {
-    if (delivery.id) {
-      this.deliveryService.removeDelivery(delivery)
-        .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
-    }
-    else {
-      this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery });
-    }
-  }
-
   selectDelivery(deliveryId: number): void {
-    console.log(deliveryId);
     this.store.dispatch(new delivery.SelectDeliveryAction(deliveryId));
   }
 

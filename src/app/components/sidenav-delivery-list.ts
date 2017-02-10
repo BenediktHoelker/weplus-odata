@@ -26,7 +26,7 @@ import { Delivery } from '../models/delivery';
   `,
   styles: [`
     md-nav-list {
-      width: 300px;
+      width: 250px;
     }
   `]
 })

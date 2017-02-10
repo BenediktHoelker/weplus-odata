@@ -15,12 +15,21 @@ export const ActionTypes = {
   CREATE_DELIVERY: type('[Delivery] Create'),
   CREATE_DELIVERY_SUCCESS: type('[Delivery] Create Success'),
   CREATE_DELIVERY_FAIL: type('[Delivery] Create Fail'),
-  REMOVE_DELIVERY: type('[Delivery] Remove'),
-  SELECT_DELIVERY: type('[Delivery] Select'),
-  UPDATE_DELIVERY: type('[Delivery] Update'),
+
   LOAD: type('[Deliveries] Load'),
   LOAD_SUCCESS: type('[Deliveries] Load Success'),
   LOAD_FAIL: type('[Deliveries] Load Fail'),
+
+  REMOVE_DELIVERY: type('[Delivery] Remove'),
+  REMOVE_DELIVERY_SUCCESS: type('[Delivery] Remove Success'),
+  REMOVE_DELIVERY_FAIL: type('[Delivery] Remove Fail'),
+
+  SELECT_DELIVERY: type('[Delivery] Select'),
+  UPDATE_DELIVERY: type('[Delivery] Update'),
+
+  SUBMIT_DELIVERY: type('[Delivery] Submit'),
+  SUBMIT_DELIVERY_SUCCESS: type('[Delivery] Submit Success'),
+  SUBMIT_DELIVERY_FAIL: type('[Delivery] Submit Fail')
 };
 
 
@@ -51,25 +60,6 @@ export class CreateFailAction implements Action {
   constructor(public payload: any) { }
 }
 
-
-export class RemoveDeliveryAction implements Action {
-  type = ActionTypes.REMOVE_DELIVERY;
-
-  constructor(public payload: Delivery) { }
-}
-
-export class SelectDeliveryAction implements Action {
-  type = ActionTypes.SELECT_DELIVERY;
-
-  constructor(public payload: number) { }
-}
-
-export class UpdateDeliveryAction implements Action {
-  type = ActionTypes.UPDATE_DELIVERY;
-
-  constructor(public payload: Delivery) { }
-}
-
 /**
  * Load Deliveries Actions
  */
@@ -91,6 +81,61 @@ export class LoadFailAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class UpdateAction implements Action {
+  type = ActionTypes.UPDATE_DELIVERY;
+
+  constructor(public payload: Delivery) { }
+}
+
+/**
+ * Submit Delivery Actions
+*/
+export class SubmitAction implements Action {
+  type = ActionTypes.SUBMIT_DELIVERY;
+
+  constructor(public payload: any) { }
+}
+
+export class SubmitSuccessAction implements Action {
+  type = ActionTypes.SUBMIT_DELIVERY_SUCCESS;
+
+  constructor(public payload: { entities: any, result: any }) { }
+}
+
+export class SubmitFailAction implements Action {
+  type = ActionTypes.SUBMIT_DELIVERY_FAIL;
+
+  constructor(public payload: any) { }
+}
+
+/**
+ * Remove Delivery Actions
+ */
+export class RemoveAction implements Action {
+  type = ActionTypes.REMOVE_DELIVERY;
+
+  constructor(public payload: number) { }
+}
+
+export class RemoveSuccessAction implements Action {
+  type = ActionTypes.REMOVE_DELIVERY_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class RemoveFailAction implements Action {
+  type = ActionTypes.REMOVE_DELIVERY_FAIL;
+
+  constructor(public payload: any) { }
+}
+
+export class SelectDeliveryAction implements Action {
+  type = ActionTypes.SELECT_DELIVERY;
+
+  constructor(public payload: number) { }
+}
+
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -99,9 +144,14 @@ export type Actions
   = CreateAction
   | CreateSuccessAction
   | CreateFailAction
-  | RemoveDeliveryAction
+  | RemoveAction
+  | RemoveSuccessAction
+  | RemoveFailAction
   | SelectDeliveryAction
-  | UpdateDeliveryAction
+  | UpdateAction
+  | SubmitAction
+  | SubmitSuccessAction
+  | SubmitFailAction
   | LoadAction
   | LoadSuccessAction
   | LoadFailAction;

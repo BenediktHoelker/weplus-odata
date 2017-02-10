@@ -39,14 +39,16 @@ export class DeliveryListComponent {
       this.store.select(fromRoot.getYardEntities),
       this.store.select(s => s.appliedFilters),
       (deliveries, deviations, deviationTypes, yards, appliedFilters) => {
-        const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], { 
-            deliveries, deviations, deviationTypes, yards });
+        const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], {
+          deliveries, deviations, deviationTypes, yards
+        });
+        console.log(denormalizedDeliveries);
         return {
           deliveries: denormalizedDeliveries
-          .filter(appliedFilters.processing)
-          .filter(appliedFilters.registration)
-          .filter(appliedFilters.deviation)
-          .filter(appliedFilters.location)
+            .filter(appliedFilters.processing)
+            .filter(appliedFilters.registration)
+            .filter(appliedFilters.deviation)
+            .filter(appliedFilters.location)
         }
       });
   }

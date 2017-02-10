@@ -27,6 +27,6 @@ export class StatusTabComponent {
   ) { }
 
   updateStatus(newStatus: Delivery) {
-    this.store.dispatch(new delivery.UpdateDeliveryAction(newStatus));
+    this.store.dispatch(new delivery.UpdateAction(newStatus));
   }
 }

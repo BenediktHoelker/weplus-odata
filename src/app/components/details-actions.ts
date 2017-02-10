@@ -6,7 +6,7 @@ import { Delivery } from '../models/delivery';
   template: `
     <button type="button" (click)="addDeviation.emit(delivery)"
       md-button>Add Deviation</button>
-    <button type="button" (click)="removeDelivery(delivery)"
+    <button type="button" (click)="removeDelivery.emit(delivery.id)"
       md-button><md-icon>delete</md-icon></button>
   `,
 })
