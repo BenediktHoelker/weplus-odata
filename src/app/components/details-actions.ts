@@ -4,8 +4,7 @@ import { Delivery } from '../models/delivery';
 @Component({
   selector: 'wp-details-actions',
   template: `
-    <button *ngIf="!delivery.deviations.length"
-      type="button" (click)="addDeviation.emit(delivery)"
+    <button type="button" (click)="addDeviation.emit(delivery)"
       md-button>Add Deviation</button>
     <button type="button" (click)="removeDelivery(delivery)"
       md-button><md-icon>delete</md-icon></button>

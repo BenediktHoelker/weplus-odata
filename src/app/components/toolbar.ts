@@ -6,7 +6,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
     <md-toolbar color="primary">
       <span>
       <button md-button>{{title}}</button>
-      <button md-button (click)="openList.emit()">Toggle List</button>
+      <button md-button (click)="openList.emit()">Open List</button>
+      <button md-button (click)="closeList.emit()">Close List</button>
       <button md-button (click)="toggleFilterBar.emit()">Toggle Filters</button>
     </span>
       <span class="fill-remaining-space"></span>
@@ -15,9 +16,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
         <md-icon>more_vert</md-icon>
       </button>
       <md-menu #menu="mdMenu">
-        <button md-menu-item> Refresh </button>
-        <button md-menu-item> Preferences </button>
-        <button md-menu-item> About </button>
+        <button md-menu-item (click)="openList.emit()">Open List</button>
+        <button md-menu-item (click)="closeList.emit()">Close List</button>
+        <button md-menu-item (click)="toggleFilterBar.emit()">Toggle Filters</button>
         <button md-menu-item disabled> Sign Out </button>
       </md-menu>
     </span>
@@ -32,5 +33,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class ToolbarComponent {
   title = "WEPLUS"
   @Output() openList = new EventEmitter();
+  @Output() closeList = new EventEmitter();
   @Output() toggleFilterBar = new EventEmitter();
 }

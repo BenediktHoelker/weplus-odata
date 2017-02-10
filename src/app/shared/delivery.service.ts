@@ -10,6 +10,7 @@ import { Deviation } from '../models/deviation';
 import { DeviationType } from '../models/deviation-type';
 import { Yard } from '../models/yard';
 
+const createDeliveryUrl = 'http://localhost:3000/api/delivery';
 const deliveriesUrl = 'http://localhost:3000/api/deliveries';
 const deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
 const yardsUrl = 'http://localhost:3000/api/yards';
@@ -27,6 +28,12 @@ export class DeliveryService {
 
   createHeaders(contentType: string): Headers {
     return new Headers({ 'Content-Type': contentType });
+  }
+
+  createDelivery(): Observable<Delivery> {
+    return this.http.get(createDeliveryUrl)
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 
   createYardDelivery(yard: Yard): Delivery {
@@ -81,7 +88,7 @@ export class DeliveryService {
     return deviations;
   }
 
-  submitDelivery(deliveryToBeSubmitted: Delivery): Observable<Delivery> {
+  submitDelivery(deliveryToBeSubmitted?: Delivery): Observable<Delivery> {
     return this.http.post(deliveriesUrl, deliveryToBeSubmitted, this.options)
       .map(res => res.json())
       .catch(this.handleError);

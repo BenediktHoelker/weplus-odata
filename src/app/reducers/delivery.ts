@@ -27,8 +27,8 @@ const initialState: State = {
 };
 
 function addDeviation(state: State, action) {
-  const {payload} = action;
-  const {deliveryId, deviationId} = payload;
+  const { payload } = action;
+  const { deliveryId, deviationId } = payload;
 
   //Look up the correct delivery, to simplify the rest of the code
   const delivery = state.entities[deliveryId];
@@ -47,8 +47,8 @@ function addDeviation(state: State, action) {
 }
 
 function addYardDelivery(state: State, action) {
-  const {payload} = action;
-  const {deliveryId, yardDeliveryId} = payload;
+  const { payload } = action;
+  const { deliveryId, yardDeliveryId } = payload;
 
   //Look up the correct delivery, to simplify the rest of the code
   const delivery = state.entities[deliveryId];
@@ -63,6 +63,19 @@ function addYardDelivery(state: State, action) {
       })
     }),
     selectedDeliveryId: state.selectedDeliveryId
+  }
+}
+
+function createSuccess(state: State, action) {
+  const deliveryId = action.payload.result;
+  const deliveryEntities = action.payload.entities.deliveries;
+  
+  return {
+    loaded: true,
+    loading: false,
+    ids: [...state.ids, deliveryId],
+    entities: Object.assign({}, state.entities, deliveryEntities),
+    selectedDeliveryId: deliveryId
   }
 }
 
@@ -86,8 +99,8 @@ function loadSuccess(state: State, action) {
 }
 
 function removeDeviation(state: State, action) {
-  const {payload} = action;
-  const {deliveryId, deviationId} = payload;
+  const { payload } = action;
+  const { deliveryId, deviationId } = payload;
 
   //Look up the correct delivery, to simplify the rest of the code
   const delivery = state.entities[deliveryId];
@@ -106,7 +119,8 @@ function removeDeviation(state: State, action) {
 }
 
 function selectDelivery(state: State, action) {
-  const {payload} = action;
+  const { payload } = action;
+  console.log(payload);
   const deliveryId = payload;
 
   return {
@@ -119,7 +133,7 @@ function selectDelivery(state: State, action) {
 }
 
 function updateDelivery(state: State, action) {
-  const {payload} = action;
+  const { payload } = action;
   const deliveryId = payload.id;
 
   return {
@@ -135,6 +149,7 @@ function updateDelivery(state: State, action) {
 
 export function reducer(state = initialState, action): State {
   switch (action.type) {
+    case delivery.ActionTypes.CREATE_DELIVERY_SUCCESS: return createSuccess(state, action);
     case deviation.ActionTypes.ADD_DEVIATION: return addDeviation(state, action);
     case delivery.ActionTypes.LOAD: return load(state, action);
     case delivery.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);

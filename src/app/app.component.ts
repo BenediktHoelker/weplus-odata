@@ -2,6 +2,7 @@ import { Component, EventEmitter, ViewChild } from '@angular/core';
 import { MdSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { denormalize } from 'normalizr';
 
 import { Delivery } from './models/delivery';
 import { DeviationType } from './models/deviation-type';
@@ -24,6 +25,7 @@ import * as deviationTypes from './actions/deviation-type';
 import * as filter from './actions/filter';
 import * as filterSeeds from './filter-seeds';
 import * as yard from './actions/yard';
+import * as layout from './actions/layout';
 
 @Component({
   selector: 'app-root',
@@ -33,9 +35,7 @@ import * as yard from './actions/yard';
 export class AppComponent {
   title = "WEPLUS";
   @ViewChild(DeliveryDetailComponent) private detailComponent: DeliveryDetailComponent;
-  @ViewChild('sidenav') sidenav: MdSidenav;
 
-  private filtersVisible: boolean;
   private isLoading: boolean;
   private model$: Observable<any>;
 
@@ -50,33 +50,40 @@ export class AppComponent {
 
     this.model$ = Observable.combineLatest(
       this.store.select(fromRoot.getFilterGroups),
-      (filterGroups) => {
+      this.store.select(fromRoot.getDeliveryArray),
+      this.store.select(fromRoot.getDeviationEntities),
+      this.store.select(fromRoot.getDeviationTypeEntities),
+      this.store.select(fromRoot.getShowSidenav),
+      this.store.select(fromRoot.getShowFilterbar),
+      this.store.select(fromRoot.getYardEntities),
+      this.store.select(s => s.appliedFilters),
+      (filterGroups, deliveries, deviations, deviationTypes, yards, showSidenav, showFilterbar, appliedFilters) => {
+        const denormalizedDeliveries = denormalize(deliveries, [deliverySchema], {
+          deliveries, deviations, deviationTypes, yards
+        });
         return {
-          filterGroups
+          filterGroups: filterGroups,
+          deliveries: denormalizedDeliveries
+            .filter(appliedFilters.processing)
+            .filter(appliedFilters.registration)
+            .filter(appliedFilters.deviation)
+            .filter(appliedFilters.location),
+          showSidenav: showSidenav,
+          showFilterbar: showFilterbar
         }
       });
   }
 
-  ngOnInit() {
-    this.filtersVisible = true;
+  createDelivery(): void {
+    this.store.dispatch(new delivery.CreateAction());
+    // this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
   }
 
-  // createDelivery(): void {
-  //   this.selectDelivery();
-  //   this.store.dispatch({ type: CREATE_DELIVERY, payload: { yardDeliveries: this.yardDeliveries } });
-  //   this.detailComponent.newDeliveryFocusEventEmitter.emit(true);
-  // }
-
-  toggleSidenav(): void {
-    this.sidenav.toggle();
-  }
-
-  toggleFilterBar(): void {
-    this.filtersVisible = !this.filtersVisible;
+  toggleFilterbar(): void {
+    this.store.dispatch(new layout.ToggleFilterbarAction());
   }
 
   removeDelivery(delivery: Delivery) {
-    this.selectDelivery();
     if (delivery.id) {
       this.deliveryService.removeDelivery(delivery)
         .subscribe(response => { this.store.dispatch({ type: REMOVE_DELIVERY, payload: delivery }); });
@@ -86,14 +93,21 @@ export class AppComponent {
     }
   }
 
-  /*If no delivery is passed, the first delivery in the store is selected (c.f. constructor of AppComponent)*/
-  selectDelivery(delivery?: Delivery) {
-    this.store.dispatch({ type: SELECT_DELIVERY, payload: delivery });
+  selectDelivery(deliveryId: number): void {
+    console.log(deliveryId);
+    this.store.dispatch(new delivery.SelectDeliveryAction(deliveryId));
   }
-
 
   updateFilter(filterGroup) {
     const filter = filterGroup.filterEntities[filterGroup.selectedFilterId];
     this.store.dispatch({ type: filter.actionType, payload: filter.payload });
+  }
+
+  closeSidenav() {
+    this.store.dispatch(new layout.CloseSidenavAction());
+  }
+
+  openSidenav() {
+    this.store.dispatch(new layout.OpenSidenavAction());
   }
 }

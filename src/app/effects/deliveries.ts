@@ -30,4 +30,14 @@ export class DeliveryEffects {
         .map(payload => new delivery.LoadSuccessAction(payload))
         .catch(error => of(new delivery.LoadFailAction(error)))
     );
+
+  @Effect()
+  createDelivery$: Observable<Action> = this.actions$
+    .ofType(delivery.ActionTypes.CREATE_DELIVERY)
+    .mergeMap(() =>
+      this.deliveryService.createDelivery()
+        .map(payload => normalize(payload, deliverySchema))
+        .map((payload) => new delivery.CreateSuccessAction(payload))
+        .catch((payload) => of(new delivery.CreateFailAction(payload)))
+    );
 }

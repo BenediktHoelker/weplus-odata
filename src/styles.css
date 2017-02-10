@@ -11,10 +11,6 @@ md-sidenav-layout.m2app-dark {
   background: black;
 }
 
-md-input-container {
-  margin-top: 20px;
-}
-
 .app-content {
   /*padding-left: 20px;*/
   padding-right: 60px;

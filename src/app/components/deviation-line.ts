@@ -5,7 +5,7 @@ import { DeviationType } from '../models/deviation-type';
 @Component({
   selector: 'wp-deviation-line',
   template: `
-    <div *ngIf="deviation" class="flex-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <div *ngIf="deviation" class="flex-container" fxLayout="row" fxLayoutAlign="space-around center">
       <md-select placeholder="Type" required 
         [(ngModel)]="deviation.type"
         (change)="updateDeviation.emit(deviation)">
@@ -25,6 +25,14 @@ import { DeviationType } from '../models/deviation-type';
         md-button><md-icon>delete</md-icon></button>
     </div>
   `,
+  styles: [`
+    md-input-container {
+      margin: 20px;
+    },
+    md-select {
+      margin: 20px;
+    }
+  `]
 })
 export class DeviationLineComponent {
   @Input() deviation: Deviation;

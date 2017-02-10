@@ -42,6 +42,8 @@ import * as fromRegistrationFilter from './filter-registration';
 import * as fromDeviationFilter from './filter-deviation';
 import * as fromLocationFilter from './filter-location';
 
+import * as fromLayout from './layout';
+
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
@@ -52,7 +54,8 @@ export interface State {
   deviationTypes: fromDeviationTypes.State;
   yards: fromYards.State;
   filters: fromFilters.State;
-  appliedFilters
+  appliedFilters: any;
+  layout: fromLayout.State;
 }
 
 
@@ -77,7 +80,8 @@ const reducers = {
   deviationTypes: fromDeviationTypes.reducer,
   yards: fromYards.reducer,
   filters: fromFilters.reducer,
-  appliedFilters: combineReducers(appliedFilterReducers)
+  appliedFilters: combineReducers(appliedFilterReducers),
+  layout: fromLayout.reducer
 };
 
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -179,3 +183,11 @@ export const getYardsArray = createSelector(getYardsState, fromYards.getArray);
 export const getFiltersState = (state: State) => state.filters;
 export const getFilterGroups = createSelector(getFiltersState, fromFilters.getFilterGroups);
 export const getSelectedFilters = createSelector(getFiltersState, fromFilters.getSelectedFilters);
+
+/**
+ * Layout Reducers
+ */
+export const getLayoutState = (state: State) => state.layout;
+
+export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
+export const getShowFilterbar = createSelector(getLayoutState, fromLayout.getShowFilterbar);

@@ -17,6 +17,11 @@ import { Delivery } from '../models/delivery';
       </div>
     </div>
   `,
+  styles: [`
+    md-input-container {
+      margin-top: 20px;
+    }
+  `]
 })
 export class YardsTabComponent {
   @Input() yardDeliveries: Delivery[];

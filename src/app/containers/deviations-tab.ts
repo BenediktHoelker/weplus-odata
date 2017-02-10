@@ -16,10 +16,10 @@ import * as deviation from '../actions/deviation';
         [optionValues]="deviationTypes"
         (removeDeviation)="removeDeviation($event)"
         (updateDeviation)="updateDeviation($event)"></wp-deviation-line>
-      <div class="flex-container" fxLayout="row" fxLayoutAlign="end">
+      <!--<div class="flex-container" fxLayout="row" fxLayoutAlign="end">
         <button type="button" (click)="addDeviation.emit(delivery)"
           md-button><md-icon>add</md-icon></button>
-      </div>
+      </div>-->
     </md-list-item>
   `,
 })

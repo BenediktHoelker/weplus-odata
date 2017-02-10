@@ -22,10 +22,12 @@ import { AppComponent } from './app.component';
 import { DeliveryService } from './shared/delivery.service';
 import { DeliveryDetailComponent } from './containers/delivery-detail';
 
-import { FilterBarComponent } from './components/filter-bar';
+import { AddDeliveryComponent } from './components/add-delivery';
 import { DetailsActionsComponent } from './components/details-actions';
 import { DetailsTabComponent } from './components/details-tab';
 import { DeviationLineComponent } from './components/deviation-line';
+import { FilterBarComponent } from './components/filter-bar';
+import { LayoutComponent } from './components/layout';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
 import { StatusLineComponent } from './components/status-line';
 import { ToolbarComponent } from './components/toolbar';
@@ -57,6 +59,7 @@ import { YardEffects } from './effects/yards';
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
   ],
   declarations: [
+    AddDeliveryComponent,
     AppComponent,
     DetailsActionsComponent,
     DetailsTabComponent,
@@ -67,6 +70,7 @@ import { YardEffects } from './effects/yards';
     DeviationFocusDirective,
     FilterBarComponent,
     FocusInputDirective,
+    LayoutComponent,
     RegistrationDialogComponent,
     SidenavDeliveryListComponent,
     StatusLineComponent,

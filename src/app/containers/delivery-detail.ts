@@ -16,7 +16,7 @@ import * as deviation from '../actions/deviation';
 @Component({
   selector: 'wp-delivery-detail',
   template: `
-    <md-card *ngIf="(model | async)?.selectedDelivery" class="app-input-section">
+    <md-card *ngIf="(model | async)?.selectedDelivery">
       <md-card-title>{{(model | async)?.selectedDelivery.carrier || "New Delivery"}}</md-card-title>
       <form (ngSubmit)="submitDelivery()"
         #deliveryDetailForm="ngForm">
@@ -58,6 +58,9 @@ import * as deviation from '../actions/deviation';
   styles: [`
     md-slide-toggle {
       margin-left: 30px;
+    },
+    md-card {
+      margin-right: 50px;
     }
   `]
 })
@@ -110,10 +113,6 @@ export class DeliveryDetailComponent {
       deviationId: Math.random(),
     }
     this.store.dispatch(new deviation.AddDeviationAction(payload));
-  }
-
-  createDelivery(payload: Delivery): void {
-    this.store.dispatch(new delivery.CreateDeliveryAction(payload));
   }
 
   submitDelivery() {
