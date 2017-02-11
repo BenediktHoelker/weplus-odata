@@ -10,14 +10,15 @@ import { Deviation } from '../models/deviation';
 import { DeviationType } from '../models/deviation-type';
 import { Yard } from '../models/yard';
 
-const createDeliveryUrl = 'http://localhost:3000/api/delivery';
-const deliveriesUrl = 'http://localhost:3000/api/deliveries';
-const deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
-const yardsUrl = 'http://localhost:3000/api/yards';
+// const createDeliveryUrl = 'http://localhost:3000/api/delivery';
+// const deliveriesUrl = 'http://localhost:3000/api/deliveries';
+// const deviationTypesUrl = 'http://localhost:3000/api/deviationTypes';
+// const yardsUrl = 'http://localhost:3000/api/yards';
 
-// const deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
-// const deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
-// const yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
+const createDeliveryUrl = 'https://weplus-api.herokuapp.com/api/delivery';
+const deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
+const deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
+const yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
 
 @Injectable()
 export class DeliveryService {
