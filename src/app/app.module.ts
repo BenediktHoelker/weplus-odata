@@ -29,11 +29,11 @@ import { DeviationLineComponent } from './components/deviation-line';
 import { FilterBarComponent } from './components/filter-bar';
 import { LayoutComponent } from './components/layout';
 import { SidenavDeliveryListComponent } from './components/sidenav-delivery-list';
-import { StatusLineComponent } from './components/status-line';
+import { DeliveryStatusLineComponent } from './components/delivery-status-line';
+import { YardDeliveryStatusLineComponent } from './components/yard-delivery-status-line';
 import { ToolbarComponent } from './components/toolbar';
 import { YardsTabComponent } from './components/yards-tab';
 
-import { DeliveryListComponent } from './containers/delivery-list';
 import { StatusTabComponent } from './containers/status-tab';
 import { DeviationsTabComponent } from './containers/deviations-tab';
 
@@ -66,19 +66,19 @@ import { YardEffects } from './effects/yards';
     DetailsActionsComponent,
     DetailsTabComponent,
     DeliveryDetailComponent,
+    DeliveryStatusLineComponent,
     DeviationLineComponent,
     DeviationsTabComponent,
-    DeliveryListComponent,
     DeviationFocusDirective,
     FilterBarComponent,
     FocusInputDirective,
     LayoutComponent,
     RegistrationDialogComponent,
     SidenavDeliveryListComponent,
-    StatusLineComponent,
     StatusTabComponent,
     ToolbarComponent,
-    YardsTabComponent
+    YardsTabComponent,
+    YardDeliveryStatusLineComponent,
   ],
   entryComponents: [
     RegistrationDialogComponent

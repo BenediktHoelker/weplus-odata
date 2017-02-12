@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Delivery } from '../models/delivery';
+import { YardDelivery } from '../models/yard-delivery';
 
 @Component({
   selector: 'wp-yards-tab',
@@ -24,6 +24,6 @@ import { Delivery } from '../models/delivery';
   `]
 })
 export class YardsTabComponent {
-  @Input() yardDeliveries: Delivery[];
-  @Output() updateQuantity = new EventEmitter<Delivery>();
+  @Input() yardDeliveries: YardDelivery[];
+  @Output() updateQuantity = new EventEmitter<YardDelivery>();
 }

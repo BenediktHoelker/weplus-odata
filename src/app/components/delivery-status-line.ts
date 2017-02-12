@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Delivery } from '../models/delivery';
 
 @Component({
-  selector: 'wp-status-line',
+  selector: 'wp-delivery-status-line',
   template: `
     <h3 md-subheader>{{delivery.yardName || "Factory"}} </h3>
     <md-list-item *ngIf="delivery">
@@ -19,7 +19,7 @@ import { Delivery } from '../models/delivery';
     </md-list-item>
   `,
 })
-export class StatusLineComponent {
+export class DeliveryStatusLineComponent {
   @Input() delivery: Delivery;
   @Output() toggleCheckbox = new EventEmitter<Delivery>();
 }

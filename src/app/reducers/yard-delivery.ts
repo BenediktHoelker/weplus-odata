@@ -38,16 +38,6 @@ function createDeliverySuccess(state: State, action) {
   }
 }
 
-function updateYardDeliveries(state: State, action) {
-  const {payload} = action;
-
-  return {
-    loaded: state.loaded,
-    loading: state.loading,
-    entities: Object.assign({}, state.entities, { [payload.id]: payload})
-  }
-}
-
 function load(state: State, action) {
   return Object.assign({}, state, {
     loading: true
@@ -64,12 +54,23 @@ function loadSuccess(state: State, action) {
   }
 }
 
+function updateYardDelivery(state: State, action) {
+  const {payload} = action;
+
+  return {
+    loaded: state.loaded,
+    loading: state.loading,
+    entities: Object.assign({}, state.entities, { [payload.id]: payload})
+  }
+}
+
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case yardDelivery.ActionTypes.ADD_YARD_DELIVERY: return addYardDelivery(state, action);
     case delivery.ActionTypes.CREATE_DELIVERY_SUCCESS: return createDeliverySuccess(state, action);
     case yardDelivery.ActionTypes.LOAD: return load(state, action);
     case yardDelivery.ActionTypes.LOAD_SUCCESS: return loadSuccess(state, action);
+    case yardDelivery.ActionTypes.UPDATE_YARD_DELIVERY: return updateYardDelivery (state, action);
 
     default: return state;
   }

@@ -16,7 +16,12 @@ import { Yard } from '../models/yard';
           [value]="filter.id">{{filter.friendly}}</md-option>
       </md-select>
     </md-card>  
-  `
+  `,
+  styles: [`
+    md-select {
+      padding: 10px;
+    }
+  `]
 })
 export class FilterBarComponent {
   @Input() filterGroups: FilterGroup[];

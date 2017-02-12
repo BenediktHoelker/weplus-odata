@@ -6,12 +6,14 @@ import { deliverySchema } from '../models/schemas';
 import { of } from 'rxjs/observable/of';
 
 import { Delivery } from '../models/delivery';
+import { YardDelivery } from '../models/yard-delivery';
 
 import { DeliveryService } from '../shared/delivery.service';
 
 import * as fromRoot from '../reducers';
 import * as delivery from '../actions/delivery';
 import * as deviation from '../actions/deviation';
+import * as yardDelivery from '../actions/yard-delivery';
 
 @Component({
   selector: 'wp-delivery-detail',
@@ -29,7 +31,7 @@ import * as deviation from '../actions/deviation';
             </md-tab>
             <md-tab label="Yards">
               <wp-yards-tab [yardDeliveries]="(model | async)?.yardDeliveries"
-                (updateQuantity)="updateDelivery($event)"></wp-yards-tab>
+                (updateQuantity)="updateYardDelivery($event)"></wp-yards-tab>
             </md-tab>
             <md-tab label="Details">
               <wp-details-tab [delivery]="(model | async)?.selectedDelivery"
@@ -124,8 +126,12 @@ export class DeliveryDetailComponent {
       this.store.dispatch(new delivery.SubmitAction(value));
     });
   }
+  
+  updateDelivery(newStatus: Delivery) {
+    this.store.dispatch(new delivery.UpdateAction(newStatus));
+  }
 
-  updateDelivery(payload: Delivery): void {
-    this.store.dispatch(new delivery.UpdateAction(payload));
+  updateYardDelivery(newStatus: YardDelivery) {
+    this.store.dispatch(new yardDelivery.UpdateYardDeliveryAction(newStatus));
   }
 }

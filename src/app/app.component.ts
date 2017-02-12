@@ -14,9 +14,6 @@ import { normalize } from 'normalizr';
 import { deliverySchema, deviationTypeSchema, yardSchema } from './models/schemas';
 import { DeliveryDetailComponent } from './containers/delivery-detail';
 import { DeliveryService } from './shared/delivery.service';
-import {
-  CREATE_DELIVERY, REMOVE_DELIVERY, SELECT_DELIVERY, UPDATE_DELIVERY,
-} from './reducers/actions';
 
 import * as fromRoot from './reducers';
 import * as delivery from './actions/delivery';
