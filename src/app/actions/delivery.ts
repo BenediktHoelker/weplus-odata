@@ -73,6 +73,7 @@ export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: { entities: any, result: any }) { }
+  // constructor(public payload: any) { }
 }
 
 export class LoadFailAction implements Action {

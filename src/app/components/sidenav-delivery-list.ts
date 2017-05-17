@@ -13,7 +13,7 @@ import { Delivery } from '../models/delivery';
         (click)="selectDelivery.emit(delivery.id)">
         <h3 md-line fxLayout="row" fxLayoutAlign="space-between center">
           <span>
-            <span>{{delivery.carrier}}</span>
+            <span>{{delivery.Zzrestxt}} {{delivery.Xblnr}}</span>
             <span class="sidenav-supplier" *ngIf="delivery.carrier && delivery.supplier"> ({{delivery.supplier}})</span>
           </span>
           <span style="margin-left:0.5em"*ngIf="delivery.quantity"> [{{delivery.quantity}}]</span>

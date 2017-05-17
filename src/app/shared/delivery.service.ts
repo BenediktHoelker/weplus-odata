@@ -16,25 +16,57 @@ import { Yard } from '../models/yard';
 // const yardsUrl = 'http://localhost:3000/api/yards';
 
 const createDeliveryUrl = 'https://weplus-api.herokuapp.com/api/delivery';
-const deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
+const deliveriesUrl = 'http://localhost:4200/proxy';
+// const deliveriesUrl = 'https://weplus-api.herokuapp.com/api/deliveries';
 const deviationTypesUrl = 'https://weplus-api.herokuapp.com/api/deviationTypes';
 const yardsUrl = 'https://weplus-api.herokuapp.com/api/yards';
+declare var Auth0Lock;
 
 @Injectable()
 export class DeliveryService {
   private headers = this.createHeaders('application/json');
   private options = this.createRequestOptions(this.headers);
 
+  lock = new Auth0Lock('hoelker', 'nw740.w-hs.de');
+
+  login() {
+    var hash = this.lock.parseHash();
+    if (hash) {
+      if (hash.error)
+        console.log('There was an error logging in', hash.error);
+      else
+        this.lock.getProfile(hash.id_token, function (err, profile) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          localStorage.setItem('profile', JSON.stringify(profile));
+          localStorage.setItem('id_token', hash.id_token);
+        });
+    }
+  }
+
   constructor(private http: Http) { }
 
   createHeaders(contentType: string): Headers {
-    return new Headers({ 'Content-Type': contentType });
+    return new Headers({
+      'Content-Type': contentType,
+      'x-csrf-token': 'Fetch',
+      'Authorization': 'Basic hoelker:aa58b5'
+    });
   }
 
   createDelivery(): Observable<Delivery> {
-    return this.http.get(createDeliveryUrl)
+    return this.http.get(createDeliveryUrl, {
+      headers: new Headers({ 'Authorization': 'Basic hoelker:aa58b5' })
+    })
       .map(res => res.json())
       .catch(this.handleError);
+  }
+
+  createAuthorizationHeader(headers: Headers) {
+    headers.append('Authorization', 'Basic ' +
+      btoa('hoelker:aa58b5'));
   }
 
   createYardDelivery(yard: Yard): Delivery {
@@ -52,8 +84,12 @@ export class DeliveryService {
   }
 
   getDeliveries(): Observable<Delivery[]> {
-    return this.http.get(deliveriesUrl)
-      .map(res => res.json())
+    let headers = new Headers();
+    //this.createAuthorizationHeader(headers);
+    return this.http.get(deliveriesUrl, {
+      headers: new Headers()
+    })
+      .map(res => res.json().d.results)
       .catch(this.handleError);
   }
 

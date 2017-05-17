@@ -141,9 +141,10 @@ export const getDeviationsState = (state: State) => state.deviations;
 export const getDeviationEntities = createSelector(getDeviationsState, fromDeviations.getEntities);
 export const getSelectedDeliveryDeviations = createSelector(getDeviationEntities, getSelectedDelivery,
   (deviationEntities, selectedDelivery) => {
-    return selectedDelivery
-      ? selectedDelivery.deviations.map(id => deviationEntities[id])
-      : [];
+    // return selectedDelivery
+    //   ? selectedDelivery.deviations.map(id => deviationEntities[id])
+    //   : [];
+    return []
   });
 
 /**
@@ -153,19 +154,21 @@ export const getYardDeliveriesState = (state: State) => state.yardDeliveries;
 export const getYardDeliveryEntities = createSelector(getYardDeliveriesState, fromYardDeliveries.getEntities);
 export const getSelectedDeliveryYardDeliveries = createSelector(getYardDeliveryEntities, getSelectedDelivery,
   (yardDeliveryEntities, selectedDelivery) => {
-    return selectedDelivery
-      ? selectedDelivery.yardDeliveries.map(id => yardDeliveryEntities[id])
-      : [];
+    // return selectedDelivery
+    //   ? selectedDelivery.yardDeliveries.map(id => yardDeliveryEntities[id])
+    //   : [];
+    return [];
   });
 export const getSelectedDeliveryActiveYardDeliveries = createSelector(getSelectedDeliveryYardDeliveries,
   (yardDeliveryEntities) => {
-    return (yardDeliveryEntities && yardDeliveryEntities.length)
-      ? yardDeliveryEntities.filter(yardDelivery => {
-        return yardDelivery
-          ? yardDelivery.quantity >> 0
-          : false;
-      })
-      : [];
+    // return (yardDeliveryEntities && yardDeliveryEntities.length)
+    //   ? yardDeliveryEntities.filter(yardDelivery => {
+    //     return yardDelivery
+    //       ? yardDelivery.quantity >> 0
+    //       : false;
+    //   })
+    //   : [];
+    return [];
   });
 
 /**

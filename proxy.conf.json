@@ -1,0 +1,9 @@
+ {
+  "/proxy": {
+    "target": "http://nw740.w-hs.de:8000/sap/opu/odata/sap/Z_RESERVATIONS_FIORI_SRV/ReservationSet?sap-client=200",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
+
